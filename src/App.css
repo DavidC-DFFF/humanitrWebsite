@@ -1,33 +1,19 @@
 .App {
   text-align: center;
+  background-color: #282c34;
 }
-
 .App-logo {
-  height: 40vmin;
+  height: 100%;
   pointer-events: none;
 }
-
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .App-logo, .picfoot {
+    animation: App-logo-spin infinite 10s linear;
+  }
+  .goerli-button {
+    animation: goerli-blinking infinite 4s linear;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +21,274 @@
   to {
     transform: rotate(360deg);
   }
+}
+@keyframes goerli-blinking {
+    0.00% {
+      background-color: darkred;
+      color: white;
+    }
+   50.00% {
+    background-color: lightcoral;
+    color: black}
+  100.00% {
+    background-color: darkred;
+    color: white;
+  }
+}
+.App-header, .App-footer {
+  background-color: #282c34;
+  height: 8vh;
+  display: flex;
+  flex-direction: row nowrap;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-header-logo {
+  height: 100%;
+  width: 20vw;
+  padding: 0 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.App-header-logo img {
+  padding: 0 10px 0 ;
+}
+.App-header-menu {
+  width: 60vw;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.App-header-wallet {
+  font-size: calc(10px + 1.2vmin);
+  height: 100%;
+  width: 20vw;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.App-footer {
+  justify-content: space-around;
+  font-size: calc(10px + 1vmin);
+  height: 8vh;
+}
+.App-body {
+  border-top: #54fc76 solid 1px;
+  border-bottom: #54fc76 solid 1px;
+  margin: 0 30px;
+  background-color: #282c34;
+  min-height: 85vh;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-body-dark {
+  border-top: #54fc76 solid 1px;
+  border-bottom: #54fc76 solid 1px;
+  margin: 0 30px;
+  background-color: hsl(220, 13%, 80%);
+  min-height: 85vh;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-link {
+  color: #61dafb;
+}
+.item a {
+  transition: color 0.5s;
+  color: #55fc77;
+  text-decoration: none;
+}
+.item a:hover {
+  color: #cdfed7;
+  transition: color 0.5s;
+}
+.App-header-menu button {
+  border: solid #54fc76 1px;
+  font-size: calc(9px + 1vmin);
+  background-color: #282c34;
+  padding: 5px 10px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #54fc76;
+}
+.App-header-wallet button {  
+  border: solid lightcoral 1px;
+  font-size: calc(9px + 1vmin);
+  background-color: #282c34;
+  padding: 5px 10px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: lightcoral;
+}
+.App-header-wallet button:hover {  
+  border: solid white 1px;
+  font-size: calc(9px + 1vmin);
+  background-color: darkred;
+  padding: 5px 10px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: white;
+}
+button:hover {
+  border: solid white 1px;
+  background-color: hsl(132, 97%, 15%);
+  color: white;
+}
+.page5-button {
+  border: solid #54fc76 1px;
+  font-size: calc(9px + 1vmin);
+  background-color: #282c34;
+  padding: 5px 10px;
+  margin: 0 10px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #54fc76;
+  width: 8em;
+}
+.box {
+  background-color: #282c34;
+  color: #54fc76;
+  padding: 10px 10px 20px 10px;
+  margin : 20px;
+  border: 1px solid #54fc76;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.goerli-button {
+  border: 10px;
+  font-size: calc(10px + 2vmin);
+  transition: background-color 0.5s;
+  background-color: lightcoral;
+  padding: 5px 10px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-style: inset;
+  width: 30ch;
+  height: 4em;  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.video-container {
+  min-width: 90vw;
+  min-height: 75vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.iframe#odysee-iframe {
+  width: 100%;
+  height: 75vh;
+}
+.line {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.line .item {
+  margin: 5px 20px;
+  padding: 5px 20px;
+}
+.line .item a {
+  transition: color 0.8s;
+  color: #54fc76;
+}
+.line .item a:hover {
+  color: hsl(132, 97%, 90%);
+  transition: color 0.2s;
+}
+input, button {
+  font-size: calc(9px + 1vmin);
+  background-color: #282c34;
+  color: #54fc76;
+}
+input {
+  padding: 5px
+}
+.picfoot {
+  height: 4vh;
+  filter: invert(73%) sepia(95%) saturate(334%) hue-rotate(69deg) brightness(100%) contrast(98%);
+}
+footer a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  color: #54fc76;
+  text-decoration: none;
+  /*filter: blur(1px);
+}
+footer a:hover {
+  filter: blur(0);  */
+}
+footer a img {
+  margin: 0 5px 0 0;
+}
+
+.rpc-popup {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 50%;
+  align-items: center;
+}
+
+.double-column {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 20em;
+}
+
+.popup {
+  border: 10px;
+  font-size: calc(10px + 2vmin);
+  transition: background-color 0.5s;
+  background-color: lightcoral;
+  color: darkred;
+  padding: 5px 10px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-style: inset;
+  width: 30ch;
+  height: 4em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.fullBlur {
+  /*background-color: white;*/
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }

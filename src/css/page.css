@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.App-body {
+  box-sizing: border-box;
+  height: 100vh;
+}

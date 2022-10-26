@@ -1,0 +1,105 @@
+.faucet-management-box {
+  align-content: center;
+  background-color: #282c34;
+  background-color: hsl(220, 13%, 23%);
+  color: #54fc77;
+  padding: 10px 10px 20px 10px;
+  margin : 20px;
+  border: 1px solid #54fc77;
+  border-style: inset;
+  border-bottom-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
+.Faucet-title-line-bottom {
+    border-bottom: #54fc77 solid 1px;
+    margin: 0 20px;
+}
+.Faucet-title-line-top {
+    border-top: #54fc77 solid 1px;
+    margin: 0 20px;
+}
+.faucet-asset-button-not-selected {
+    border: solid #54fc77 1px;
+    border-style: inset;
+    font-size: calc(9px + 1vmin);
+    background-color: #282c34;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: #54fc77;
+    width: 8em;
+    height: 2em;
+}
+.faucet-asset-button-selected, .faucet-asset-button-not-selected:hover, .faucet-asset-button-selected:hover {
+    border: solid white 1px;
+    border-style: inset;
+    background-color: hsl(132, 97%, 15%);
+    font-size: calc(9px + 1vmin);
+    color: white;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    border-bottom-left-radius: 1em;
+    width: 8em;
+    border-top-right-radius: 1em;
+    height: 2em;
+}
+.faucet-default-button {
+    border: solid #54fc77 1px;
+    border-style: inset;
+    font-size: calc(9px + 1vmin);
+    background-color: #282c34;
+    padding: 0.2em 0.5em;
+    margin: 0.2em 0.5em;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: #54fc77;
+    width: 8em;
+    height: 2em;
+}
+.faucet-default-button:hover {
+    border: solid white 1px;
+    border-style: inset;
+    background-color: darkgreen;
+    color: white;
+}
+.faucet-management-input {
+    box-sizing: border-box;
+    border: solid lightcoral 1px;
+    border-style: inset;
+    font-size: calc(9px + 1vmin);
+    padding: 0.2em 0.5em;
+    margin: 0.2em 0.5em;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: white;
+    background-color: hsl(0, 100%, 20%);
+    text-align: center;
+    height: 2em;
+    width: 8em;
+}
+.faucet-management-input::placeholder {
+    color: lightcoral;
+    text-align: center;
+}
+.faucet-management-input:focus {
+    background-color: hsl(0, 100%, 20%);
+}
+.faucet-management-input:focus::placeholder {
+    color: transparent;
+}
+.faucet-restriction {
+    z-index: 1;
+    position: absolute;
+    height: 4.5em;
+    width: 44vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    color: transparent;
+}
+.faucet-restriction:hover {
+    backdrop-filter: blur(2px);
+    color: white;
+}
