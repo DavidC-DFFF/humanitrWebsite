@@ -15,28 +15,14 @@ import './css/page3.css';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Page1 } from './appPages/Page1';
-import { Page2 } from './appPages/Page2';/*
-import { Page3 } from './composantsJSX/Pages/Page3';
+import { Page2 } from './appPages/Page2';
+import { Page3 } from './appPages/Page3';/*
 import { Page4 } from './composantsJSX/Pages/Page4';
 import { Page5 } from './composantsJSX/Pages/Page5';*/
 
-/*
-
-import JEUR from './artifacts/contracts/jeur.sol/JEUR.json';
-import EURS from './artifacts/contracts/eurs.sol/EURS.json';
-import AssetERC20 from './artifacts/contracts/assetERC20.sol/AssetERC20.json';*/
-
-//Adresses sur le testnet Goerli
-let jeurAddress = "0x150d9A8b8b5DCf72CFabE303DAD915BD72B31D00";
-let eursAddress = "0xC1B34a591C935156C7AAE685Eb68C6d7980a98FD";
-/*let stablePoolFactory = "0x44afeb87c871D8fEA9398a026DeA2BD3A13F5769";
-let eurPool = "0xEd0c343856a2746C3F9013d04614491eeeC7AAea";
-let vault = "0x5072E57E604f685726816a9DcA3226A7dF7c1842";
-let faucetAddress = "0xd7E83ea1f38f174639A8e58Df139cE89fDBE9B07";
-let tokenListAddress = "0x5B2bE2Ed116DcC4Cb20b7c84BA028F8fAa8DA008";*/
-
 //Décimales d'affichage du wallet
 let decimales = 5;
+const usdcAddress = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 
 function App() {
   const [ error, setError ] = useState('');
@@ -47,7 +33,7 @@ function App() {
   const [ rpc, setRpc ] = useState();
   //const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
   //const [ eursOnWallet, setEursOnWallet ] = useState(0);
-  const [ asset, setAsset ] = useState(eursAddress);
+  const [ asset, setAsset ] = useState(usdcAddress);
   const [ connectedWallet, setConnectedWallet ] = useState();
 
 /*---- Rafraîchit au changement d'asset--- ---------------------*/
@@ -171,9 +157,9 @@ async function getJeurOnWallet() {
                {(page != "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
                {(page != "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
-{/*               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Tests</button>}
-               {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Tests</button>}
-               {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
+               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
+               {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
+{/*               {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
                {(page != "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
                {(page === "5") && <button className='Header-menu-button-selected' onClick={() => pageBody("5")}>Faucets</button>}
                {(page != "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}*/}
@@ -209,7 +195,7 @@ async function getJeurOnWallet() {
             </div>)} 
 {/*------------------------------------------------------------------*/}
         {(page === "1") && (<Page1 />)}       {/*--------- Concept --*/}
-        {(page === "2") && (<Page2 />)}       {/*-------- Deposits --*/}{/*
+        {(page === "2") && (<Page2 />)}       {/*-------- Deposits --*/}
         {(page === "3") && (<Page3 />)}       {/*------ Page Tests --*/}{/*
         {(page === "4") && (<Page4 />)}       {/*-- Page Contracts --*/}{/*
         {(page === "5") && (<Page5 />)}       {/*---- Page Faucets --*/}{/*
