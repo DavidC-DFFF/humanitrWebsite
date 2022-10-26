@@ -33,6 +33,10 @@
   justify-content: space-between;
 }
 
+.box-header-arrow:hover {
+   color: white;
+}
+
 .box-footer {
   border-top: 1px solid #54fc77;
   width: 100%;
