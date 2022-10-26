@@ -14,8 +14,8 @@ import './css/dot-elastic.css';
 import './css/page3.css';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { Page1 } from './composantsJSX/Pages/Page1';/*
-import { Page2 } from './composantsJSX/Pages/Page2';
+import { Page1 } from './appPages/Page1';
+import { Page2 } from './appPages/Page2';/*
 import { Page3 } from './composantsJSX/Pages/Page3';
 import { Page4 } from './composantsJSX/Pages/Page4';
 import { Page5 } from './composantsJSX/Pages/Page5';*/
@@ -42,7 +42,7 @@ function App() {
   const [ error, setError ] = useState('');
   const [ success, setSuccess ] = useState('');
   const [ waiting, setWaiting ] = useState('');
-  const [ page, setPage ] = useState("1");
+  const [ page, setPage ] = useState("2");
   const [ state, setState ] = useState();
   const [ rpc, setRpc ] = useState();
   //const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
@@ -169,9 +169,9 @@ async function getJeurOnWallet() {
             <div className="App-header-menu">
                {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page != "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
-{/*            {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
+               {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
                {(page != "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
-               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Tests</button>}
+{/*               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Tests</button>}
                {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Tests</button>}
                {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
                {(page != "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
@@ -208,7 +208,7 @@ async function getJeurOnWallet() {
                </button>
             </div>)} 
 {/*------------------------------------------------------------------*/}
-        {(page === "1") && (<Page1 />)}       {/*--------- Concept --*/}{/*
+        {(page === "1") && (<Page1 />)}       {/*--------- Concept --*/}
         {(page === "2") && (<Page2 />)}       {/*-------- Deposits --*/}{/*
         {(page === "3") && (<Page3 />)}       {/*------ Page Tests --*/}{/*
         {(page === "4") && (<Page4 />)}       {/*-- Page Contracts --*/}{/*

@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
+import { ManageVault } from '../appModules/manageVault';
+
 export function Page2 () {
    const [ success, setSuccess ] = useState();
    const [ error, setError ] = useState();
    const [ waiting, setWaiting ] = useState();
 
    useEffect(() => {
-      refresh();
+      //refresh();
       // eslint-disable-next-line react-hooks/exhaustive-deps
    },[]);
 
@@ -31,9 +33,7 @@ export function Page2 () {
             <div className="dot-elastic"></div>
             {waiting}
          </button>
-      </div>)} 
-      <div className='box'>
-      </div>
-      {/*<Whitelisting />*/}
+      </div>)}
+      <ManageVault />
    </div>)
 }
