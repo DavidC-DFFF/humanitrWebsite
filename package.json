@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aave/core-v3": "^1.16.2",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.3",
     "@nomiclabs/hardhat-ethers": "^2.1.1",
     "@openzeppelin/contracts": "^4.7.3",

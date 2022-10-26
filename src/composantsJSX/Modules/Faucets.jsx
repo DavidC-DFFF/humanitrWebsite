@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import downArrow from '../../img/downArrow.png';
-
+/*
 import JEUR from '../../artifacts/contracts/jeur.sol/JEUR.json';
 import EURS from '../../artifacts/contracts/eurs.sol/EURS.json';
 import Faucet from '../../artifacts/contracts/faucet.sol/Faucet.json';
@@ -9,17 +9,18 @@ import Faucet from '../../artifacts/contracts/faucet.sol/Faucet.json';
 //Adresses sur le testnet Goerli
 let jeurAddress = "0x150d9A8b8b5DCf72CFabE303DAD915BD72B31D00";
 let eursAddress = "0xC1B34a591C935156C7AAE685Eb68C6d7980a98FD";
-let faucetAddress = "0xd7E83ea1f38f174639A8e58Df139cE89fDBE9B07";
+let faucetAddress = "0xd7E83ea1f38f174639A8e58Df139cE89fDBE9B07";*/
 
 export function Faucets () {
+   const [ error, setError ] = useState('');
+   const [ success, setSuccess ] = useState('');
+   const [ waiting, setWaiting ] = useState('');
+   /*
 
   const [ claimSwitch, setClaimSwitch ] = useState(false);
   const [ faucetSwitch, setFaucetSwitch ] = useState(false);
   
     const [ value, setValue ] = useState();
-    const [ error, setError ] = useState('');
-    const [ success, setSuccess ] = useState('');
-    const [ waiting, setWaiting ] = useState('');
     const [ state, setState ] = useState();
     const [ rpc, setRpc ] = useState();
     const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
@@ -32,7 +33,7 @@ export function Faucets () {
 
 
 /*---- Rafraîchit si changement de wallet ou de RPC ------------*/
-  useEffect(() => {
+/*  useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on("chainChanged", () => {
         window.location.reload();
@@ -45,7 +46,7 @@ export function Faucets () {
     getConnectStatus();
   }, [])
 /*---- Vérifie le statut de connexion --------------------------*/
-  async function getConnectStatus() {
+/*  async function getConnectStatus() {
     let accounts = await window.ethereum.request({method: 'eth_accounts'});
     accounts = ethers.utils.getAddress(accounts[0]);
     if(accounts[0] && accounts[0].length > 0) {
@@ -56,7 +57,7 @@ export function Faucets () {
     }
   }
 /*---- Vérifie le RPC (ici Goerli) -----------------------------*/
-  async function getRPC() {
+/*  async function getRPC() {
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
     if (chainId !== '0x5') {
       setRpc(1);
@@ -64,14 +65,14 @@ export function Faucets () {
   }
 /*-----------------------------------------------------*/
 /*----- Rafraîchir les wallets et le faucet -----------*/
-  function refresh() {
+/*  function refresh() {
     getFaucetAmount(asset);
     getJeurOnWallet();
     getEursOnWallet();
   }
 /*-----------------------------------------------------*/
 /*----- Faucet ----------------------------------------*/
-  async function claimFaucet(_tokenAddress) {
+/*  async function claimFaucet(_tokenAddress) {
     if (typeof window.ethereum == 'undefined') {
       return;
     }
@@ -172,7 +173,7 @@ export function Faucets () {
   }
 /*-----------------------------------------------------*/
 /*----- Lire les wallets et le faucet -----------------*/
-async function getEursOnWallet() {
+/*async function getEursOnWallet() {
   if (typeof window.ethereum == 'undefined') {
     return;
   }
@@ -202,19 +203,19 @@ async function getJeurOnWallet() {
 }
 /*-----------------------------------------------------*/
 /*----- Effacer les erreurs ---------------------------*/
-  function clearError() {
-    setError('');
-  }
-  function clearSuccess() {
-    setSuccess('');
-  }
-  function clearWaiting() {
-    setWaiting('');
-  }
+   function clearError() {
+      //setError('');
+   }
+   function clearSuccess() {
+      //setSuccess('');
+   }
+   function clearWaiting() {
+      //setWaiting('');
+   }
 
   return (
     <div>       
-      <div>         {/*---- Claim faucet ---------------------------------*/}
+      <div>         {/*---- Claim faucet ---------------------------------*/}{/*}
         {!claimSwitch && (<div className='box'>
               <div className='box-header-arrow'>
                 <div>Claim !</div>
@@ -238,7 +239,7 @@ async function getJeurOnWallet() {
           </div>
         )}
       </div>
-      <div>         {/*---- Owner deposits faucet ------------------------*/}
+      <div>         {/*---- Owner deposits faucet ------------------------*/}{/*
         {!faucetSwitch && (
           <div className='box'>
             <div className='box-header-arrow'>
@@ -285,7 +286,7 @@ async function getJeurOnWallet() {
               </div>
             </div>
           </div>
-        </div>)}
+        </div>)}*/}
       </div>
     </div>)
 }

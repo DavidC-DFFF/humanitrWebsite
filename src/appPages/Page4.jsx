@@ -1,9 +1,9 @@
-import { ContractsList } from '../Modules/ContractsList.jsx';
+/*import { ContractsList } from '../Modules/ContractsList.jsx';*/
 
 export function Page4() {
   return (
-    <div>
-      <ContractsList />
+    <div>{/*}
+  <ContractsList />*/}
     </div>
   );
 }

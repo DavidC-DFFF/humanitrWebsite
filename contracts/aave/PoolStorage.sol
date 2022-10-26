@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {UserConfiguration} from '../libraries/configuration/UserConfiguration.sol';
-import {ReserveConfiguration} from '../libraries/configuration/ReserveConfiguration.sol';
-import {ReserveLogic} from '../libraries/logic/ReserveLogic.sol';
-import {DataTypes} from '../libraries/types/DataTypes.sol';
+import {UserConfiguration} from '@aave/core-v3/contracts/protocol/libraries/configuration/UserConfiguration.sol';
+import {ReserveConfiguration} from '@aave/core-v3/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+import {ReserveLogic} from '@aave/core-v3/contracts/protocol/libraries/logic/ReserveLogic.sol';
+import {DataTypes} from '@aave/core-v3/contracts/protocol/libraries/types/DataTypes.sol';
 
 /**
  * @title PoolStorage

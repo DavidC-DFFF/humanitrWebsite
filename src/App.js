@@ -14,15 +14,17 @@ import './css/dot-elastic.css';
 import './css/page3.css';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { Page1 } from './composantsJSX/Pages/Page1';
+import { Page1 } from './composantsJSX/Pages/Page1';/*
 import { Page2 } from './composantsJSX/Pages/Page2';
 import { Page3 } from './composantsJSX/Pages/Page3';
 import { Page4 } from './composantsJSX/Pages/Page4';
-import { Page5 } from './composantsJSX/Pages/Page5';
+import { Page5 } from './composantsJSX/Pages/Page5';*/
+
+/*
 
 import JEUR from './artifacts/contracts/jeur.sol/JEUR.json';
 import EURS from './artifacts/contracts/eurs.sol/EURS.json';
-import AssetERC20 from './artifacts/contracts/assetERC20.sol/AssetERC20.json';
+import AssetERC20 from './artifacts/contracts/assetERC20.sol/AssetERC20.json';*/
 
 //Adresses sur le testnet Goerli
 let jeurAddress = "0x150d9A8b8b5DCf72CFabE303DAD915BD72B31D00";
@@ -40,27 +42,27 @@ function App() {
   const [ error, setError ] = useState('');
   const [ success, setSuccess ] = useState('');
   const [ waiting, setWaiting ] = useState('');
-  const [ page, setPage ] = useState("3");
+  const [ page, setPage ] = useState("1");
   const [ state, setState ] = useState();
   const [ rpc, setRpc ] = useState();
-  const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
-  const [ eursOnWallet, setEursOnWallet ] = useState(0);
+  //const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
+  //const [ eursOnWallet, setEursOnWallet ] = useState(0);
   const [ asset, setAsset ] = useState(eursAddress);
   const [ connectedWallet, setConnectedWallet ] = useState();
 
 /*---- Rafraîchit au changement d'asset--- ---------------------*/
 useEffect(() => {
   getRPC();
-  getConnectStatus();
+  getConnectStatus();/*
   getEursOnWallet();
-  getJeurOnWallet();
+  getJeurOnWallet();*/
 }, [asset]);
 /*---- Rafraîchit au chargement de la page ---------------------*/
   useEffect(() => {
     getRPC();
-    getConnectStatus();
+    getConnectStatus();/*
     getEursOnWallet();
-    getJeurOnWallet();
+    getJeurOnWallet();*/
   }, []);
 /*---- Rafraîchit si changement de wallet ou de RPC ------------*/
   useEffect(() => {
@@ -115,7 +117,7 @@ useEffect(() => {
     });
   }
 /*-----------------------------------------------------*/
-/*----- Lire les wallets et le faucet -----------------*/
+/*----- Lire les wallets et le faucet -----------------*//*
 async function getEursOnWallet() {
   if (typeof window.ethereum == 'undefined') {
     return;
@@ -143,7 +145,7 @@ async function getJeurOnWallet() {
   } catch(err) {
     console.log(err);
   }
-}
+}*/
 /*-----------------------------------------------------*/
 /*----- Effacer les erreurs ---------------------------*/
   function clearError() {
@@ -157,60 +159,60 @@ async function getJeurOnWallet() {
   }
 
   return (
-    <div className="App">
+      <div className="App">
 {/*------------------------------------------------------------------*/}
-      <header className="App-header">         {/*---------- Header --*/}
-        <div className="App-header-logo">
-          <img src={logorond} className="picfoot"/>
-          <div>HumanitR</div>
-        </div>
-        <div className="App-header-menu">
-          {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
-          {(page != "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
-          {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
-          {(page != "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
-          {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Tests</button>}
-          {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Tests</button>}
-          {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
-          {(page != "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
-          {(page === "5") && <button className='Header-menu-button-selected' onClick={() => pageBody("5")}>Faucets</button>}
-          {(page != "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}
-        </div>
-        <div className="App-header-wallet">
-          {(state !== undefined) && <div>{state.slice(0,(decimales+2))}...{state.slice(-decimales)}</div>}
-          {(state === undefined) && (
-              <button onClick={connect}>
-                Connect wallet
-              </button>)}
-        </div>
-      </header>
+         <header className="App-header">         {/*---------- Header --*/}
+            <div className="App-header-logo">
+               <img src={logorond} className="picfoot"/>
+               <div>HumanitR</div>
+            </div>
+            <div className="App-header-menu">
+               {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
+               {(page != "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
+{/*            {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
+               {(page != "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
+               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Tests</button>}
+               {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Tests</button>}
+               {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
+               {(page != "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
+               {(page === "5") && <button className='Header-menu-button-selected' onClick={() => pageBody("5")}>Faucets</button>}
+               {(page != "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}*/}
+            </div>
+            <div className="App-header-wallet">
+               {(state !== undefined) && <div>{state.slice(0,(decimales+2))}...{state.slice(-decimales)}</div>}
+               {(state === undefined) && (
+                  <button onClick={connect}>
+                     Connect wallet
+                  </button>)}
+            </div>
+         </header>
 {/*------------------------------------------------------------------*/}
-      <div className="App-body">              {/*------------ Body --*/}
+         <div className="App-body">              {/*------------ Body --*/}
 {/*------------------------------------------------------------------*/}
-        {rpc && (<div>                        {/*---------- Popups --*/}
-          <div className='fullBlur'/>
-          <button onClick={switchToGoerli} className='popup-goerli'/*'goerli-button'*/>Click to switch to Goerli Testnet</button>
-          </div>)}
-        {error && (<div>
-          <div className='fullBlur'/>
-          <button onClick={clearError} className='popup-error'>{error}</button>
-        </div>)}
-        {success && (<div>
-          <div className='fullBlur'/>
-          <button onClick={clearSuccess} className='popup-success'>{success}</button>
-        </div>)}
-        {waiting && (<div>
-          <button className='popup-waiting'>
-            <div className="dot-elastic"></div>
-              {waiting}
-          </button>
-        </div>)} 
+            {rpc && (<div>                        {/*---------- Popups --*/}
+               <div className='fullBlur'/>
+               <button onClick={switchToGoerli} className='popup-goerli'/*'goerli-button'*/>Click to switch to Goerli Testnet</button>
+            </div>)}
+            {error && (<div>
+               <div className='fullBlur'/>
+               <button onClick={clearError} className='popup-error'>{error}</button>
+            </div>)}
+            {success && (<div>
+               <div className='fullBlur'/>
+               <button onClick={clearSuccess} className='popup-success'>{success}</button>
+            </div>)}
+            {waiting && (<div>
+               <button className='popup-waiting'>
+                  <div className="dot-elastic"></div>
+                  {waiting}
+               </button>
+            </div>)} 
 {/*------------------------------------------------------------------*/}
-        {(page === "1") && (<Page1 />)}       {/*--------- Concept --*/}
-        {(page === "2") && (<Page2 />)}       {/*-------- Deposits --*/}
-        {(page === "3") && (<Page3 />)}       {/*------ Page Tests --*/}
-        {(page === "4") && (<Page4 />)}       {/*-- Page Contracts --*/}
-        {(page === "5") && (<Page5 />)}       {/*---- Page Faucets --*/}
+        {(page === "1") && (<Page1 />)}       {/*--------- Concept --*/}{/*
+        {(page === "2") && (<Page2 />)}       {/*-------- Deposits --*/}{/*
+        {(page === "3") && (<Page3 />)}       {/*------ Page Tests --*/}{/*
+        {(page === "4") && (<Page4 />)}       {/*-- Page Contracts --*/}{/*
+        {(page === "5") && (<Page5 />)}       {/*---- Page Faucets --*/}{/*
 {/*------------------------------------------------------------------*/}
       </div>
 {/*------------------------------------------------------------------*/}

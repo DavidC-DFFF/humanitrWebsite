@@ -6,8 +6,12 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@aave/core-v3/contracts/protocol/pool/Pool.sol";
+import "@aave/core-v3/contracts/protocol/tokenization/AToken.sol";
+/*
 import "https://github.com/aave/aave-v3-core/blob/master/contracts/protocol/pool/Pool.sol";
 import "https://github.com/aave/aave-v3-core/blob/master/contracts/protocol/tokenization/AToken.sol";
+*/
 
 // Goerli address : 0xF57C4cc042ae0E1A9A134899d1151Cb6C8C0342A
 

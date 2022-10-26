@@ -1,12 +1,12 @@
-import { Faucets } from '../Modules/Faucets.jsx';
+/*import { Faucets } from '../Modules/Faucets.jsx';
 import { ContractsList } from '../Modules/ContractsList.jsx';
-import { BigNumCalculators } from '../Modules/BigNumCalculators.jsx';
+import { BigNumCalculators } from '../Modules/BigNumCalculators.jsx';*/
 
 export function Page5 () {
-  return(<div>
+  return(<div>{/*}
     <BigNumCalculators />
     <Faucets />
-    <ContractsList />
+<ContractsList />*/}
   </div>
   )
 }

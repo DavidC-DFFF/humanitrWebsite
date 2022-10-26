@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+/*
 import AssetERC20 from '../../artifacts/contracts/assetERC20.sol/AssetERC20.json';
-import Vault from '../../artifacts/contracts/vault.sol/Vault.json';
-import { ClearPopups } from '../../ComposantsJS/popups.js';
+import Vault from '../../artifacts/contracts/vault.sol/Vault.json';*/
+import { ClearPopups } from '../../ComposantsJS/popups.js';/*
 import { Uniswap } from '../Modules/Uniswap';
-import { Sushiswap } from '../Modules/Sushiswap';
+import { Sushiswap } from '../Modules/Sushiswap';*/
 
 let vaultAddress = "0x67799416315248E0d99420D0F34F0e84f8f429e2";
 let poolAddress = "0xdC3666bfa3fA213decde368c040d96232f0734d2";
@@ -18,6 +19,7 @@ export function Page3 () {
 {/*------------------------------------------------------------------*/}
   let listSymbol = new Map();
 {/*------------------------------------------------------------------*/}
+/*
   useEffect(() => {
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +27,8 @@ export function Page3 () {
   function refresh () {
     getWhiteList();
   }
-{/*------------------------------------------------------------------*/}
+{/*------------------------------------------------------------------*/
+/*
   async function addToWhiteList () {
     if (typeof window.ethereum == 'undefined') {
       return;
@@ -82,7 +85,7 @@ export function Page3 () {
       console.log(err);
     }
   }
-{/*------------------------------------------------------------------*/}
+{/*------------------------------------------------------------------*//*
   async function getAssetSymbol (_address) {
     if (typeof window.ethereum == 'undefined') {
       return;
@@ -96,7 +99,7 @@ export function Page3 () {
       console.log(err);
     }
   }
-{/*------------------------------------------------------------------*/}
+{/*------------------------------------------------------------------*/
   return (<div>
 {/*------------------------------------------------------------------*/}
       {error && (<div>                        {/*---------- Popups --*/}
@@ -115,5 +118,6 @@ export function Page3 () {
       </div>)}
 
       {/*<Uniswap />*/}
-      <Sushiswap />
-  </div>)}
+      {/*<Sushiswap />*/}
+  </div>)
+}
