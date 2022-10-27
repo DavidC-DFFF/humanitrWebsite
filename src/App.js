@@ -19,10 +19,11 @@ import { Page2 } from './appPages/Page2';
 import { Page3 } from './appPages/Page3';/*
 import { Page4 } from './composantsJSX/Pages/Page4';
 import { Page5 } from './composantsJSX/Pages/Page5';*/
+import { displayAddress } from './appModules/commonFunctions';
 
 //Décimales d'affichage du wallet
-let decimales = 5;
-const usdcAddress = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
+let decimales = 3;
+//const usdcAddress = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 
 function App() {
   const [ error, setError ] = useState('');
@@ -31,27 +32,13 @@ function App() {
   const [ page, setPage ] = useState("2");
   const [ state, setState ] = useState();
   const [ rpc, setRpc ] = useState();
-  //const [ jeurOnWallet, setJeurOnWallet ] = useState(0);
-  //const [ eursOnWallet, setEursOnWallet ] = useState(0);
-  const [ asset, setAsset ] = useState(usdcAddress);
   const [ connectedWallet, setConnectedWallet ] = useState();
 
-/*---- Rafraîchit au changement d'asset--- ---------------------*/
-useEffect(() => {
-  getRPC();
-  getConnectStatus();/*
-  getEursOnWallet();
-  getJeurOnWallet();*/
-}, [asset]);
-/*---- Rafraîchit au chargement de la page ---------------------*/
-  useEffect(() => {
+  useEffect(() => {                             /*------------- Rafraîchit au chargement de la page -*/
     getRPC();
-    getConnectStatus();/*
-    getEursOnWallet();
-    getJeurOnWallet();*/
+    getConnectStatus();
   }, []);
-/*---- Rafraîchit si changement de wallet ou de RPC ------------*/
-  useEffect(() => {
+  useEffect(() => {                             /*---- Rafraîchit si changement de wallet ou de RPC -*/
     if (window.ethereum) {
       window.ethereum.on("chainChanged", () => {
         window.location.reload();
@@ -73,6 +60,7 @@ useEffect(() => {
     accounts = ethers.utils.getAddress(accounts[0]);
     if(accounts[0] && accounts[0].length > 0) {
       setConnectedWallet(accounts);
+      //setState(accounts.slice(0, 6) + "..." + accounts.slice(-5));
       setState(accounts.slice(0, 6) + "..." + accounts.slice(-5));
     } else {
       setState();
@@ -82,7 +70,7 @@ useEffect(() => {
   async function connect() {
     setWaiting('Waiting for wallet');
     const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-    clearWaiting();
+    clearpopups();
     setState(accounts[0]);
   }
 /*---- Vérifie le RPC (ici Goerli) -----------------------------*/
@@ -102,46 +90,11 @@ useEffect(() => {
       params: [{ chainId: '0x5' }], 
     });
   }
-/*-----------------------------------------------------*/
-/*----- Lire les wallets et le faucet -----------------*//*
-async function getEursOnWallet() {
-  if (typeof window.ethereum == 'undefined') {
-    return;
-  }
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(eursAddress, EURS.abi, provider);
-  const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
-  try {
-    let data = await contract.balanceOf(accounts[0]);
-    setEursOnWallet(ethers.utils.formatUnits(data, 18));
-  } catch(err) {
-    console.log(err);
-  }
-}
-async function getJeurOnWallet() {
-  if (typeof window.ethereum == 'undefined') {
-    return;
-  }
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(jeurAddress, JEUR.abi, provider);
-  const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
-  try {
-    let data = await contract.balanceOf(accounts[0]);
-    setJeurOnWallet(ethers.utils.formatUnits(data, 18));
-  } catch(err) {
-    console.log(err);
-  }
-}*/
-/*-----------------------------------------------------*/
-/*----- Effacer les erreurs ---------------------------*/
-  function clearError() {
-    setError('');
-  }
-  function clearSuccess() {
-    setSuccess('');
-  }
-  function clearWaiting() {
-    setWaiting('');
+
+  function clearpopups() {
+   setError('');
+   setSuccess('');
+   setWaiting('');
   }
 
   return (
@@ -149,23 +102,23 @@ async function getJeurOnWallet() {
 {/*------------------------------------------------------------------*/}
          <header className="App-header">         {/*---------- Header --*/}
             <div className="App-header-logo">
-               <img src={logorond} className="picfoot"/>
+               <img src={logorond} alt="rotating humanitr logo" className="picfoot"/>
                <div>HumanitR</div>
             </div>
             <div className="App-header-menu">
                {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
-               {(page != "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
+               {(page !== "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
-               {(page != "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
+               {(page !== "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
                {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
-               {(page != "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
-{/*               {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
-               {(page != "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
+               {(page !== "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}{/*
+               {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
+               {(page !== "4") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("4")}>Contracts</button>}
                {(page === "5") && <button className='Header-menu-button-selected' onClick={() => pageBody("5")}>Faucets</button>}
-               {(page != "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}*/}
+               {(page !== "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}*/}
             </div>
             <div className="App-header-wallet">
-               {(state !== undefined) && <div>{state.slice(0,(decimales+2))}...{state.slice(-decimales)}</div>}
+               {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
                {(state === undefined) && (
                   <button onClick={connect}>
                      Connect wallet
@@ -177,15 +130,15 @@ async function getJeurOnWallet() {
 {/*------------------------------------------------------------------*/}
             {rpc && (<div>                        {/*---------- Popups --*/}
                <div className='fullBlur'/>
-               <button onClick={switchToGoerli} className='popup-goerli'/*'goerli-button'*/>Click to switch to Goerli Testnet</button>
+               <button onClick={switchToGoerli} className='popup-goerli'>Click to switch to Goerli Testnet</button>
             </div>)}
             {error && (<div>
                <div className='fullBlur'/>
-               <button onClick={clearError} className='popup-error'>{error}</button>
+               <button onClick={clearpopups} className='popup-error'>{error}</button>
             </div>)}
             {success && (<div>
                <div className='fullBlur'/>
-               <button onClick={clearSuccess} className='popup-success'>{success}</button>
+               <button onClick={clearpopups} className='popup-success'>{success}</button>
             </div>)}
             {waiting && (<div>
                <button className='popup-waiting'>
@@ -203,20 +156,20 @@ async function getJeurOnWallet() {
       </div>
 {/*------------------------------------------------------------------*/}
       <footer className="App-footer">         {/*---------- Footer --*/}
-        <a href="#">
-          <img src={discord} className='picfoot'/>
+        <a href="https://discord.com/">
+          <img src={discord} alt="Discord logo" className='picfoot'/>
           <div className='footer-link-text'>Discord</div>
         </a>
-        <a href="#">
-          <img src={twitter} className='picfoot'/>
+        <a href="https://twitter.com/home">
+          <img src={twitter} alt="Twitter logo" className='picfoot'/>
           <div className='footer-link-text'>Twitter</div>
         </a>
-        <a href="#">
-          <img src={youtube} className='picfoot'/>
+        <a href="https://www.youtube.com/">
+          <img src={youtube} alt="Youtube logo" className='picfoot'/>
           <div className='footer-link-text'>Youtube</div>
         </a>
-        <a href="#">
-          <img src={email} className='picfoot'/>
+        <a href="https://mail.google.com/">
+          <img src={email} alt="Gmail logo" className='picfoot'/>
           <div className='footer-link-text'>Email</div>
         </a>
       </footer>

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { useState/*, useEffect*/ } from 'react';
+//import { ethers } from 'ethers';
 
 
 export function Page3 () {

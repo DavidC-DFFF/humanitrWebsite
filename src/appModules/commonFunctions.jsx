@@ -10,6 +10,12 @@ export function displayPool(_address) {
    )
 }
 
+export function displayAddress(_address, _decimals) {
+   return (<div>
+      {(_address).slice(0, (_decimals + 2))} ... {(_address).slice(-_decimals)}
+   </div>)
+}
+
 export function bigNumToStr(_num) {
    const _amountRes = ethers.utils.formatEther(_num);
    return ((+_amountRes).toFixed(4));

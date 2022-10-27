@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState/*, useEffect*/ } from "react";
 import { ethers } from 'ethers';
 
 import "./commonFunctions";
@@ -6,16 +6,16 @@ import downArrow from '../img/downArrow.png';
 
 import AssetABI from '../artifacts/contracts/tools/usdc.sol/USDC.json';
 import VaultABI from '../artifacts/contracts/humanitr/vault.sol/Vault.json';
-import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
-import YieldMaker from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
-import Associations from "../artifacts/contracts/humanitr/associations.sol/Associations.json";
+//import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
+//import YieldMaker from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
+//import Associations from "../artifacts/contracts/humanitr/associations.sol/Associations.json";
 
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
-const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
+//const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 const vaultAddr = "0xfEfBE6428e002a034f40C57E60fb2F915620BD04";
-const yieldMaker = "0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189";
-const associations = "0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752";
+//const yieldMaker = "0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189";
+//const associations = "0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752";
 
 export function ManageVault () {
    const [ success, setSuccess ] = useState();
