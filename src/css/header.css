@@ -1,97 +1,106 @@
-.App-header {
-    background-color: #282c34;
-    border-bottom: #54fc77 solid 1px;
-    position: fixed;
-    top: 0;
-    left: 30px;
-    right: 30px;
-    margin: 0;
-    height: 8vh;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-.App-header-wallet button {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  border: solid lightcoral 1px;
-  border-style: inset;
-  font-size: calc(9px + 1vmin);
-  background-color: #282c34;
-  padding: 5px 10px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  height: 2em;
-  color: lightcoral;
+.Header {
+   background-color: #282c34;
+   border-bottom: #54fc77 solid 1px;
+   position: fixed;
+   top: 0;
+   left: 30px;
+   right: 30px;
+   margin: 0;
+   height: 8vh;
+   font-size: calc(10px + 2vmin);
+   color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
-.App-header-wallet button:hover {  
-  border: solid white 1px;
-  background-color: darkred;
-  color: white;
+
+.Header-wallet button {
+   display: flex;
+   flex-flow: row nowrap;
+   align-items: center;
+   border: solid lightcoral 1px;
+   border-style: inset;
+   font-size: calc(9px + 1vmin);
+   background-color: #282c34;
+   padding: 5px 10px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   height: 2em;
+   color: lightcoral;
 }
-.App-header-wallet {
-  font-size: calc(10px + 1.2vmin);
-  height: 100%;
-  width: 20vw;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
+
+.Header-wallet button:hover {
+   border: solid white 1px;
+   background-color: darkred;
+   color: white;
 }
-.App-header-menu {
-  width: 60vw;
-  height: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-around;
+
+.Header-wallet {
+   font-size: calc(10px + 1.2vmin);
+   height: 100%;
+   width: 20vw;
+   display: flex;
+   flex-flow: row nowrap;
+   align-items: center;
+   justify-content: center;
 }
-.App-header-logo {
-  height: 100%;
-  width: 20vw;
-  padding: 0 20px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+
+.Header-menu {
+   width: 60vw;
+   height: 100%;
+   display: flex;
+   flex-flow: row nowrap;
+   align-items: center;
+   justify-content: space-around;
 }
-.App-header-logo img {
-  padding: 0 10px 0 ;
+
+.Header-logo {
+   height: 100%;
+   width: 20vw;
+   padding: 0 20px;
+   display: flex;
+   flex-flow: row nowrap;
+   align-items: center;
+}
+
+.Header-logo img {
+   padding: 0 10px 0;
 }
 
 .Header-menu-button-selected {
-  display: flex;
-  flex-flow: row nowrap;
-  border: solid white 1px;
-  align-items: center;
-  border-style: inset;
-  font-size: calc(9px + 1vmin);
-  background-color: darkgreen;
-  padding: 5px 10px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  height: 2em;
-  color: white;
+   display: flex;
+   flex-flow: row nowrap;
+   border: solid white 1px;
+   align-items: center;
+   border-style: inset;
+   font-size: calc(9px + 1vmin);
+   background-color: darkgreen;
+   padding: 5px 10px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   height: 2em;
+   color: white;
 }
-.Header-menu-button-selected:hover, .Header-menu-button-not-selected:hover {
-  border-style: inset;
-  background-color: darkgreen;
+
+.Header-menu-button-selected:hover,
+.Header-menu-button-not-selected:hover {
+   border-style: inset;
+   background-color: darkgreen;
 }
+
 .Header-menu-button-not-selected {
-  height: 2em;
-  border: solid #54fc77 1px;
-  border-style: inset;
-  font-size: calc(9px + 1vmin);
-  background-color: #282c34;
-  background-color: #333842;
-  padding: 5px 10px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  color: #54fc77;
-  display: flex;
-  flex-flow: row nowrap;
-  border: solid #54fc77 1px;
-  align-items: center;
+   height: 2em;
+   border: solid #54fc77 1px;
+   border-style: inset;
+   font-size: calc(9px + 1vmin);
+   background-color: #282c34;
+   background-color: #333842;
+   padding: 5px 10px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   color: #54fc77;
+   display: flex;
+   flex-flow: row nowrap;
+   border: solid #54fc77 1px;
+   align-items: center;
 }
