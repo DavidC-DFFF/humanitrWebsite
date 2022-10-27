@@ -98,10 +98,10 @@ export function ManageVault () {
          </div>)}
       </div>
       {!manageSwitch && (<div className='box'>
-      <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>
-         <div>Manage your funds</div>
-         <img src={downArrow} style={{height: '4vh'}} alt="down Arrow"/>
-      </div>
+         <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>
+            <div>Manage your funds</div>
+            <img src={downArrow} style={{height: '4vh'}} alt="down Arrow"/>
+         </div>
       </div>)}
       {manageSwitch && (<div className='box'>
          <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>

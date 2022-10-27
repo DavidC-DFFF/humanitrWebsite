@@ -1,6 +1,7 @@
 import { useState/*, useEffect*/ } from 'react';
 //import { ethers } from 'ethers';
 
+import { Faucets } from '../appModules/faucets';
 
 export function Page3 () {
    const [ success, setSuccess ] = useState();
@@ -29,6 +30,8 @@ export function Page3 () {
             {waiting}
         </button>
       </div>)}
+
+      <Faucets />
 
   </div>)
 }
