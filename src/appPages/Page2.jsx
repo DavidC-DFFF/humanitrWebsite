@@ -1,16 +1,12 @@
-import { useState, useEffect } from 'react';
-//import { ethers } from 'ethers';
-import { SoulViewer } from '../appModules/soulViewer';
-
+//import { useState, useEffect } from 'react';
 import { ManageVault } from '../appModules/manageVault';
 
-export function Page2 () {
+export function Page2 () {/*
    const [ success, setSuccess ] = useState();
    const [ error, setError ] = useState();
-   const [ waiting, setWaiting ] = useState();
+   const [ waiting, setWaiting ] = useState();*/
 
-   useEffect(() => {
-      //refresh();
+   /*useEffect(() => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    },[]);
 
@@ -18,9 +14,9 @@ export function Page2 () {
       setError('');
       setSuccess('');
       setWaiting('');
-   }
+   }*/
 
-   return (<div>
+   return (<div>{/*
       {error && (<div>
          <div className='fullBlur'/>
          <button onClick={ClearPopups} className='popup-error'>{error}</button>
@@ -34,8 +30,7 @@ export function Page2 () {
             <div className="dot-elastic"></div>
             {waiting}
          </button>
-      </div>)}
+      </div>)}*/}
       <ManageVault />
-      <SoulViewer />
    </div>)
 }

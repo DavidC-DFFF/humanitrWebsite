@@ -108,8 +108,8 @@ function App() {
             <div className="App-header-menu">
                {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page !== "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
-               {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Deposits</button>}
-               {(page !== "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Deposits</button>}
+               {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Transcend</button>}
+               {(page !== "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Transcend</button>}
                {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
                {(page !== "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}{/*
                {(page === "4") && <button className='Header-menu-button-selected' onClick={() => pageBody("4")}>Contracts</button>}
