@@ -21,9 +21,13 @@ export function Faucets() {
                <div>Get some test funds</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
-            <div className="column" >
-               <div className="item"><a href="https://faucets.chain.link/" className="item1">Get gETH</a></div>
-               <div className="item"><a href="https://app.aave.com/faucet/">Get some USDC</a></div>
+            <div className="line">
+               <a href="https://faucets.chain.link/" className="item1">Get gETH</a>
+               <div>from Chainlink</div>
+            </div>
+            <div className="line">
+               <a href="https://app.aave.com/faucet/">Get some USDC</a>
+               <div>from AAVE</div>
             </div>
          </div>)}
       </div>)

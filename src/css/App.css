@@ -80,6 +80,19 @@ button:hover {
    transition: color 0.2s;
 }
 
+
+.line a {
+   transition: color 0.8s;
+   text-decoration: none;
+   transition: color 0.2s;
+   color: #54fc77;
+}
+
+.line a:hover {
+   color: hsl(132, 97%, 90%);
+   transition: color 0.2s;
+}
+
 input,
 button {
    font-size: calc(9px + 1vmin);

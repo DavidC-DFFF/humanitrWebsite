@@ -127,3 +127,21 @@
    color: #54fc77;
    text-decoration: none;
 }
+
+
+.restriction {
+   z-index: 1;
+   position: absolute;
+   height: 3.1em;
+   width: 44vw;
+   display: flex;
+   align-items: center;
+   justify-items: center;
+   justify-content: center;
+   color: transparent;
+   
+}
+.restriction:hover {
+   backdrop-filter: blur(2px);
+   color: white;
+}

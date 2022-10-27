@@ -242,19 +242,28 @@ export function ManageVault() {
                <div>Cleanse your Karma</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
-            <label htmlFor="asset-choice">Choose your asset :</label>
-            <input list="Asset" id="asset-choice" name="asset-choice" />
-            <datalist id="Asset">
-               {/*<option value="EURs" />*/}
-               <option value="USDC" />
-               {/*<option value="USDT" />*/}
-            </datalist>
-            <label htmlFor="asso-choice">Choose your asso :</label>
-            <input list="Asso" id="asso-choice" name="asso-choice" />
-            <datalist id="Asso">
-               <option value="Creator" />
-               <option value="Asso1" />
-            </datalist>
+            <div style={{width: '100%'}}>
+               <div className='restriction'>Not implemented for now</div>
+               <div className="line">
+                  <label htmlFor="asset-choice">Choose your asset :</label>
+                  <input list="Asset" id="asset-choice" name="asset-choice" />
+                  <datalist id="Asset">
+                     {/*<option value="EURs" />*/}
+                     <option value="USDC" />
+                     {/*<option value="USDT" />*/}
+                  </datalist>
+               </div>
+               <div className="line">
+                  <label htmlFor="asso-choice">Choose your asso :</label>
+                  <input list="Asso" id="asso-choice" name="asso-choice" />
+                  <datalist id="Asso">
+                     <option value="Creator" />
+                     <option value="Asso1" />
+                  </datalist>
+               </div>
+            </div>
+
+            
             <div className="box-footer">
                <input className='input-default' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
                <div className="line">
