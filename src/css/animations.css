@@ -1,0 +1,42 @@
+@media (prefers-reduced-motion: no-preference) {
+   .App-logo, .picfoot {
+     animation: App-logo-spin infinite 10s linear;
+   }
+   .goerli-button {
+     animation: goerli-blinking infinite 4s linear;
+   }
+ }
+ @keyframes App-logo-spin {
+   from {
+     transform: rotate(0deg);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @keyframes goerli-blinking {
+     0.00% {
+       background-color: darkred;
+       color: white;
+     }
+    50.00% {
+     background-color: lightcoral;
+     color: black}
+   100.00% {
+     background-color: darkred;
+     color: white;
+   }
+ }
+ .video-container {
+   min-width: 90vw;
+   min-height: 75vh;
+   display: flex;
+   flex-flow: column nowrap;
+   justify-content: center;
+   align-content: center;
+   align-items: center;
+ }
+ .iframe#odysee-iframe {
+   width: 100%;
+   height: 75vh;
+ }

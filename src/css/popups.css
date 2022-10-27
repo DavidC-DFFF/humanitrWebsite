@@ -1,180 +1,129 @@
 .fullBlur {
-  backdrop-filter: blur(2px);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
+   backdrop-filter: blur(2px);
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   z-index: 1;
 }
-/*.rpc-popup {
-  position: relative;
-  text-align: center;
-  width: 100%;
-}*/
+
 .popup-goerli {
-  border: 1px solid hsl(35, 100%, 56%)/*#54fc77*/;
-  border-style: inset;
-  font-size: calc(10px + 1vmin);
-  background-color: #282c34;
-  color: hsl(35, 100%, 56%)/*#54fc77*/;
-  padding: 2px 5px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  width: 30ch;
-  height: 2em;
-  position: fixed;
-  top: 12vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
+   border: 1px solid hsl(35, 100%, 56%);
+   border-style: inset;
+   font-size: calc(10px + 1vmin);
+   background-color: #282c34;
+   color: hsl(35, 100%, 56%);
+   padding: 2px 5px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   width: 30ch;
+   height: 2em;
+   position: fixed;
+   top: 12vh;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 3;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   align-items: center;
 }
+
 .popup-goerli:hover {
-  border: 1px solid white;
-  color: white;
-  background-color: darkgoldenrod;
+   border: 1px solid white;
+   color: white;
+   background-color: darkgoldenrod;
 }
-/*.goerli-button {
-  border: 6px;
-  font-size: calc(10px + 2vmin);
-  transition: background-color 0.5s;
-  background-color: lightcoral;
-  padding: 5px 10px;
-  border-bottom-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border-style: inset;
-  width: 30ch;
-  height: 4em;  
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}*/
-/*.popup-success {
-  border: 6px solid #54fc77;
-  font-size: calc(10px + 2vmin);
-  background-color: #282c34;
-  color: #54fc77;
-  padding: 5px 10px;
-  border-bottom-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
-  border-style: inset;
-  width: 30ch;
-  height: 3em;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  / bring your own prefixes /
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}*/
+
 .popup-success {
-  border: 1px solid #54fc77;
-  border-style: inset;
-  font-size: calc(10px + 1vmin);
-  background-color: #282c34;
-  color: #54fc77;
-  padding: 2px 5px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  width: 30ch;
-  height: 2em;
-  position: fixed;
-  top: 12vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+   border: 1px solid #54fc77;
+   border-style: inset;
+   font-size: calc(10px + 1vmin);
+   background-color: #282c34;
+   color: #54fc77;
+   padding: 2px 5px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   width: 30ch;
+   height: 2em;
+   position: fixed;
+   top: 12vh;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 2;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   align-items: center;
 }
+
 .popup-success:hover {
-  border: 1px solid white;
-  color: white;
-  background-color: darkgreen;
+   border: 1px solid white;
+   color: white;
+   background-color: darkgreen;
 }
-/*.popup-error {
-  border: 6px solid hsl(0, 79%, 40%);
-  font-size: calc(10px + 2vmin);
-  background-color: #282c34;
-  color: hsl(0, 79%, 40%);;
-  padding: 5px 10px;
-  border-bottom-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border-style: inset;
-  width: 30ch;
-  height: 4em;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  / bring your own prefixes /
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}*/
+
 .popup-error {
-  border: 1px solid hsl(0, 79%, 40%)/*#54fc77*/;
-  border-style: inset;
-  font-size: calc(10px + 1vmin);
-  background-color: #282c34;
-  color: hsl(0, 79%, 40%)/*#54fc77*/;
-  padding: 2px 5px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  width: 30ch;
-  height: 2em;
-  position: fixed;
-  top: 12vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+   border: 1px solid hsl(0, 79%, 40%);
+   border-style: inset;
+   font-size: calc(10px + 1vmin);
+   background-color: #282c34;
+   color: hsl(0, 79%, 40%);
+   padding: 2px 5px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   width: 30ch;
+   height: 2em;
+   position: fixed;
+   top: 12vh;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 2;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   align-items: center;
 }
+
 .popup-error:hover {
-  border: 1px solid white;
-  color: white;
-  background-color: darkred;
+   border: 1px solid white;
+   color: white;
+   background-color: darkred;
 }
-.popup-waiting {
-  border: 1px solid #54fc77;
-  border-style: inset;
-  font-size: calc(10px + 1vmin);
-  background-color: #282c34;
-  color: #54fc77;
-  padding: 2px 5px;
-  border-bottom-left-radius: 1em;
-  border-top-right-radius: 1em;
-  width: 30ch;
-  height: 2em;
-  position: fixed;
-  top: 12vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
+.popup-waiting {
+   border: 1px solid #54fc77;
+   border-style: inset;
+   font-size: calc(10px + 1vmin);
+   background-color: #282c34;
+   color: #54fc77;
+   padding: 2px 5px;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   width: 30ch;
+   height: 2em;
+   position: fixed;
+   top: 12vh;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 2;
+
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   align-items: center;
 }
 
 .pop-waiting-link {
-  color: #54fc77;
-  text-decoration: none;
+   color: #54fc77;
+   text-decoration: none;
 }
 
 .pop-success-link {
-  color: #54fc77;
-  text-decoration: none;
+   color: #54fc77;
+   text-decoration: none;
 }

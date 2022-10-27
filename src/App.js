@@ -5,14 +5,15 @@ import twitter from './img/twitter.png';
 import email from './img/email.png';
 import './css/App.css';
 import './css/popups.css';
-import './css/page.css';
-import './css/header.css';
-import './css/body.css';
-import './css/footer.css';
-//import './css/faucet.css';
-import './css/dot-elastic.css';
-//import './css/page3.css';
 import './css/buttons-inputs.css';
+import './css/animations.css';
+import './css/boxes.css';
+import './css/page.css';
+
+import './css/header.css';
+import './css/footer.css';
+import './css/dot-elastic.css';
+
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Page1 } from './appPages/Page1';
@@ -101,12 +102,12 @@ function App() {
   return (
       <div className="App">
 {/*------------------------------------------------------------------*/}
-         <header className="App-header">         {/*---------- Header --*/}
-            <div className="App-header-logo">
+         <header className="Header">         {/*---------- Header --*/}
+            <div className="Header-logo">
                <img src={logorond} alt="rotating humanitr logo" className="picfoot"/>
                <div>HumanitR</div>
             </div>
-            <div className="App-header-menu">
+            <div className="Header-menu">
                {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page !== "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
                {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Transcend</button>}
@@ -118,7 +119,7 @@ function App() {
                {(page === "5") && <button className='Header-menu-button-selected' onClick={() => pageBody("5")}>Faucets</button>}
                {(page !== "5") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("5")}>Faucets</button>}*/}
             </div>
-            <div className="App-header-wallet">
+            <div className="Header-wallet">
                {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
                {(state === undefined) && (
                   <button onClick={connect}>
