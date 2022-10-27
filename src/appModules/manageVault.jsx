@@ -96,7 +96,7 @@ export function ManageVault() {
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await associationsContract.getUserDonation(accounts[0], assoTest);
+         let _donations = await associationsContract.getUserFullDonation(accounts[0]);
          _donations = bigNumToStr(_donations, 6, 6);
          setDonations(_donations);
       } catch (err) {
@@ -156,12 +156,14 @@ export function ManageVault() {
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         const _signature = await assetContract.approve(vaultAddr, ethers.utils.parseUnits(amount, 6));
+         const _onWallet = await assetContract.balanceOf(accounts[0]);
+         const _signature = await assetContract.approve(vaultAddr, _onWallet);
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(asset, ethers.utils.parseUnits(amount, 6), asso);
+         const _deposit = await vaultContract.O1_deposit(asset, _onWallet, asso);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
@@ -177,12 +179,12 @@ export function ManageVault() {
          return;
       }
       setAsset(USDCAddr);
+      setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
-      console.log("before try");
       try {
-         const _withdraw = await vaultContract.O3_withdrall(asset, asso);
+         const _withdraw = await vaultContract.O2_withdraw(asset, ethers.utils.parseUnits(amount, 6), asso);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
@@ -200,7 +202,6 @@ export function ManageVault() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
-      console.log("before try");
       try {
          const _withdraw = await vaultContract.O3_withdrall(asset, asso);
          setWaiting('waiting for withdraw');
@@ -255,10 +256,15 @@ export function ManageVault() {
                <option value="Asso1" />
             </datalist>
             <div className="box-footer">
-               <input className='faucet-management-input' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
-               <button className='faucet-default-button' onClick={e => { deposit() }}>Deposit</button>
-               <button className='faucet-default-button' onClick={e => { withdrawAll() }}>Withdraw All</button>
-               <button className='faucet-default-button' onClick={e => { withdrawAll() }}>Withdraw All</button>
+               <input className='input-default' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
+               <div className="line">
+                  <button className='button-default' onClick={e => { deposit() }}>Deposit</button>
+                  <button className='button-default' onClick={e => { depositAll() }}>DepositAll</button>
+               </div>
+               <div className="line">
+                  <button className='button-default' onClick={e => { withdraw() }}>Withdraw</button>
+                  <button className='button-default' onClick={e => { withdrawAll() }}>Withdraw All</button>
+               </div>
             </div>
          </div>)}
       </div>

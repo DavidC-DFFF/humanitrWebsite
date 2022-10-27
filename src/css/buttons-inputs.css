@@ -1,0 +1,46 @@
+
+.input-default {
+   box-sizing: border-box;
+   border: solid lightcoral 1px;
+   border-style: inset;
+   font-size: calc(9px + 1vmin);
+   padding: 0.2em 0.5em;
+   margin: 0.2em 0.5em;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   color: white;
+   background-color: hsl(0, 100%, 20%);
+   text-align: center;
+   height: 2em;
+   width: 18em;
+}
+.input-default::placeholder {
+    color: lightcoral;
+    text-align: center;
+}
+.input-default:focus {
+    background-color: hsl(0, 100%, 20%);
+}
+.input-default:focus::placeholder {
+    color: transparent;
+}
+
+.button-default {
+   border: solid #54fc77 1px;
+   border-style: inset;
+   font-size: calc(9px + 1vmin);
+   background-color: #282c34;
+   padding: 0.2em 0.5em;
+   margin: 0.2em 0.5em;
+   border-bottom-left-radius: 1em;
+   border-top-right-radius: 1em;
+   color: #54fc77;
+   width: 8em;
+   height: 2em;
+}
+.button-default:hover {
+   border: solid white 1px;
+   border-style: inset;
+   background-color: darkgreen;
+   color: white;
+}
