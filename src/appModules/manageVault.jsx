@@ -11,14 +11,14 @@ import Associations from "../artifacts/contracts/humanitr/associations.sol/Assoc
 //import    YieldMaker     from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
 
 import AssetABI from '../artifacts/contracts/tools/usdc.sol/USDC.json';
-//import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
+import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
+const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 const vaultAddr = "0xfEfBE6428e002a034f40C57E60fb2F915620BD04";
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const associationsAddr = "0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA";
 //const associationsAddr = "0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752"; // old address
-//const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 //const yieldMaker = "0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189";
 
 export function ManageVault() {
@@ -36,6 +36,7 @@ export function ManageVault() {
    const [balanceBN, setBalanceBN] = useState();
    const [donations, setDonations] = useState();
    const [fullDonations, setFullDonations] = useState();
+   const [fullDeposits, setFullDeposits] = useState();
 
    useEffect(() => {
       refresh();
@@ -55,10 +56,19 @@ export function ManageVault() {
          });
       }
    }, [])
+
+   useEffect(() => {
+      const interval = setInterval(() => {
+         getTotalDonations();
+      },60*1000);
+      return () => clearInterval(interval);
+   }, []);
+   
    function refresh() {
       getBalance();
       getDonations();
-      getTotalDonations()
+      getTotalDonations();
+      getTotalDeposits();
    }
    function ClearPopups() {
       setError('');
@@ -110,7 +120,7 @@ export function ManageVault() {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      //const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, provider);
+      const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       try {
          let _donations = await associationsContract.getFullDonation();
@@ -120,6 +130,26 @@ export function ManageVault() {
          console.log(err);
          ClearPopups();
          setError('erreur de getTotalDonations');
+      }
+   }
+   async function getTotalDeposits() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      let overrides = {
+         from: accounts[0]
+      }
+      try {
+         let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, assoTest, overrides);
+         _totalDeposit = bigNumToStr(_totalDeposit, 6, 6);
+         setFullDeposits(_totalDeposit);
+      } catch (err) {
+         console.log(err);
+         ClearPopups();
+         setError('erreur de getTotalDeposits');
       }
    }
    async function deposit() {
@@ -290,16 +320,20 @@ export function ManageVault() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div className="line">
-               <div>Deposits :</div>
+               <div>Your deposits :</div>
                <div>{balance} USDC</div>
             </div>
             <div className="line">
-               <div>Donated :</div>
+               <div>Your donations :</div>
                <div>{donations} USDC</div>
             </div>
             <div className="box-footer">
                <div className="line">
-                  <div>Total Donations :</div>
+                  <div>Total deposits :</div>
+                  <div>{fullDeposits} USDC</div>
+               </div>
+               <div className="line">
+                  <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>
                </div>
             </div>
