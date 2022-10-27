@@ -1,12 +1,12 @@
 import { useEffect, useState/*, useEffect*/ } from "react";
 import { ethers } from 'ethers';
 
-import "./commonFunctions";
-import "./manageVault";
+import "../appModules/commonFunctions";
+import "../appModules/manageVault";
 import downArrow from '../img/downArrow.png';
 
 import      VaultABI       from '../artifacts/contracts/humanitr/vault.sol/Vault.json';
-import   { bigNumToStr }   from "./commonFunctions";
+import   { bigNumToStr }   from "../appModules/commonFunctions";
 import      Associations   from "../artifacts/contracts/humanitr/associations.sol/Associations.json";
 //import    YieldMaker     from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
 //import    AssetABI       from '../artifacts/contracts/tools/usdc.sol/USDC.json';
