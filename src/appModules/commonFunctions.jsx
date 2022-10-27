@@ -16,7 +16,7 @@ export function displayAddress(_address, _decimals) {
    </div>)
 }
 
-export function bigNumToStr(_num) {
-   const _amountRes = ethers.utils.formatEther(_num);
-   return ((+_amountRes).toFixed(4));
+export function bigNumToStr(_num, _decimals, _decimalsDisplayed) {
+   const _amountRes = ethers.utils.formatUnits(_num, _decimals);
+   return ((+_amountRes).toFixed(_decimalsDisplayed));
 }

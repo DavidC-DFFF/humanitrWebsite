@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 //import { ethers } from 'ethers';
+import { SoulViewer } from '../appModules/soulViewer';
 
 import { ManageVault } from '../appModules/manageVault';
 
@@ -35,5 +36,6 @@ export function Page2 () {
          </button>
       </div>)}
       <ManageVault />
+      <SoulViewer />
    </div>)
 }

@@ -16,6 +16,7 @@ const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const vaultAddr = "0xfEfBE6428e002a034f40C57E60fb2F915620BD04";
 //const yieldMaker = "0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189";
 //const associations = "0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752";
+const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8"
 
 export function ManageVault () {
    const [ success, setSuccess ] = useState();
@@ -24,8 +25,8 @@ export function ManageVault () {
 
    const [ manageSwitch, setManageSwitch ] = useState(true);
    const [ amount, setAmount] = useState();
-   const [ asset, setAsset ] = useState("0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43");
-   const [ asso, setAsso ] = useState("0x54C470f15f3f34043BB58d3FBB85685B39E33ed8");
+   const [ asset, setAsset ] = useState(USDCAddr);
+   const [ asso, setAsso ] = useState(assoTest);
    const [ transactionHash, setTransactionHash ] = useState();
 
 
@@ -39,6 +40,7 @@ export function ManageVault () {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
+      setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
@@ -64,6 +66,7 @@ export function ManageVault () {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
+      setAsset(USDCAddr);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
@@ -99,13 +102,13 @@ export function ManageVault () {
       </div>
       {!manageSwitch && (<div className='box'>
          <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>
-            <div>Manage your funds</div>
+            <div>Cleanse your Karma</div>
             <img src={downArrow} style={{height: '4vh'}} alt="down Arrow"/>
          </div>
       </div>)}
       {manageSwitch && (<div className='box'>
          <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>
-            <div>Manage your funds</div>
+            <div>Cleanse your Karma</div>
             <img src={downArrow} style={{height: '4vh', transform: 'rotate(180deg)'}} alt="down Arrow"/>
          </div>
          <input className='faucet-management-input' placeholder='enter amount' onChange={e => setAmount(e.target.value)}/>
