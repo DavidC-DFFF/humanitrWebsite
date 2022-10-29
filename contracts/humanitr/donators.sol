@@ -11,7 +11,7 @@ contract Donators is Ownable {
         mapping(address => mapping(address => uint256)) balancesByAssoByAsset;
         bool exists;
     }
-    mapping(address => profile) DonatorProfile;
+    mapping(address => profile) public DonatorProfile;
 
     constructor(address _vault) {
         vault = _vault;

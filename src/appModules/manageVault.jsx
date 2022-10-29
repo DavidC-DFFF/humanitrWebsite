@@ -1,25 +1,31 @@
 import { useState, useEffect } from "react";
 import { ethers } from 'ethers';
 
-import "./commonFunctions";
+//import "./commonFunctions";
 import downArrow from '../img/downArrow.png';
 
 import { bigNumToStr } from "./commonFunctions";
 
 import VaultABI from '../artifacts/contracts/humanitr/vault.sol/Vault.json';
 import Associations from "../artifacts/contracts/humanitr/associations.sol/Associations.json";
-//import    YieldMaker     from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
+//import YieldMaker from '../artifacts/contracts/humanitr/yieldMaker-aave.sol/YieldMaker.dbg.json';
 
 import AssetABI from '../artifacts/contracts/tools/usdc.sol/USDC.json';
 import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
 
+// Vault          0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d
+// Vault          0xfEfBE6428e002a034f40C57E60fb2F915620BD04 *** Old
+// YieldMaker     0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189
+// Donators       0x954ffAe355a46975f95FfbC9d54Be0F384052eB4
+// Associations   0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA *** Verified
+// Associations   0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752 *** Old
+// Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf *** Verified
+
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
-const vaultAddr = "0xfEfBE6428e002a034f40C57E60fb2F915620BD04";
+const vaultAddr = "0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d";
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const associationsAddr = "0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA";
-//const associationsAddr = "0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752"; // old address
-//const yieldMaker = "0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189";
 
 export function ManageVault() {
    const [success, setSuccess] = useState();
@@ -56,19 +62,19 @@ export function ManageVault() {
          });
       }
    }, [])
-
    useEffect(() => {
       const interval = setInterval(() => {
          getTotalDonations();
-      },60*1000);
+      },30*1000);
       return () => clearInterval(interval);
+      // eslint-disable-next-line
    }, []);
    
    function refresh() {
       getBalance();
       getDonations();
-      getTotalDonations();
       getTotalDeposits();
+      getTotalDonations();
    }
    function ClearPopups() {
       setError('');
@@ -115,6 +121,7 @@ export function ManageVault() {
          setError('erreur de getBalance');
       }
    }
+
    async function getTotalDonations() {
       if (typeof window.ethereum == 'undefined') {
          return;
@@ -122,10 +129,12 @@ export function ManageVault() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
+      const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       try {
          let _donations = await associationsContract.getFullDonation();
-         _donations = bigNumToStr(_donations, 6, 6);
-         setFullDonations(_donations);
+         let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
+         let _assetDeposit = await vaultContract.totalAmount();
+         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, 6));
       } catch (err) {
          console.log(err);
          ClearPopups();
@@ -292,8 +301,6 @@ export function ManageVault() {
                   </datalist>
                </div>
             </div>
-
-            
             <div className="box-footer">
                <input className='input-default' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
                <div className="line">
@@ -332,6 +339,10 @@ export function ManageVault() {
                   <div>Total deposits :</div>
                   <div>{fullDeposits} USDC</div>
                </div>
+               {/*<div className="line">
+                  <div>Total donations :</div>
+                  <div>{fullDonations} USDC</div>
+         </div>*/}
                <div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>

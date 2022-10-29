@@ -5,6 +5,9 @@ import "./whitelist.sol";
 import "./yieldMaker-aave.sol";
 import { Associations } from "./associations.sol";
 
+// Goerli : 0xfEfBE6428e002a034f40C57E60fb2F915620BD04 // Old one
+// Goerli : 0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d // New one
+
 contract Vault is
     Ownable,
     Whitelist
@@ -14,11 +17,11 @@ contract Vault is
     // Balances[ sender ][ asset ][ asso ] = amount
     mapping(address => mapping(address => mapping(address => uint256))) Balances;
     //mapping(address => mapping(address => uint256)) Balances;
-    uint256 totalAmount;
+    uint256 public totalAmount;
     address public asso = 0x54C470f15f3f34043BB58d3FBB85685B39E33ed8;
-    address yieldMaker;
-    address associations;
-    address pool = 0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6;
+    address public yieldMaker;
+    address public associations;
+    address public pool = 0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6;
 
     uint256 public totalDonation;
 // set constructor
