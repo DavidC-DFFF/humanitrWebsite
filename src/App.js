@@ -6,10 +6,14 @@ import email from './img/email.png';
 import './css/animations.css';
 import './css/App.css';
 import './css/boxes.css';
+import './css/boxes-responsive.css';
 import './css/buttons-inputs.css';
+import './css/buttons-inputs-responsive.css';
 import './css/dot-elastic.css';
 import './css/footer.css';
+import './css/footer-responsive.css';
 import './css/header.css';
+import './css/header-responsive.css';
 import './css/popups.css';
 
 import { useState, useEffect } from 'react';
@@ -91,7 +95,7 @@ function App() {
          <header className="Header">
             <div className="Header-logo">
                <img src={logorond} alt="rotating humanitr logo" className="picfoot" />
-               <div>HumanitR</div>
+               <div className='header-logo-text'>HumanitR</div>
             </div>
             <div className="Header-menu">
                {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
@@ -105,7 +109,7 @@ function App() {
                {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
                {(state === undefined) && (
                   <button onClick={connect}>
-                     Connect wallet
+                     Connect
                   </button>)}
             </div>
          </header>

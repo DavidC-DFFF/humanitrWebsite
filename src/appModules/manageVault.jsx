@@ -16,10 +16,11 @@ import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
 // Vault          0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d
 // Vault          0xfEfBE6428e002a034f40C57E60fb2F915620BD04 *** Old
 // YieldMaker     0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189
-// Donators       0x954ffAe355a46975f95FfbC9d54Be0F384052eB4
+// Donators       0x954ffAe355a46975f95FfbC9d54Be0F384052eB4 *** Verified
 // Associations   0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA *** Verified
 // Associations   0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752 *** Old
 // Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf *** Verified
+// Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";

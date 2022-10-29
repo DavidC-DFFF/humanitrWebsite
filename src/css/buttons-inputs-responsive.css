@@ -1,0 +1,19 @@
+@media screen and (max-width: 1100px) {
+
+   
+   .button-default {
+      height: 2.6em;
+      width: 25vw;
+      justify-content: center;
+      font-size: calc(1.5vh);
+      padding: 0;
+   }
+
+   .input-default {
+      height: 2.6em;
+      width: 50vw;
+      justify-content: center;
+      font-size: calc(1.5vh);
+      padding: 0;
+   }
+}
