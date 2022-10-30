@@ -5,7 +5,7 @@ import twitter from './img/twitter.png';
 import email from './img/email.png';
 
 import './css/animations.css';
-import './css/App.css';
+import './css/app.css';
 import './css/boxes.css';
 import './css/buttons-inputs.css';
 import './css/dot-elastic.css';

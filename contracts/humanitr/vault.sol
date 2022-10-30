@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./whitelist.sol";
 import "./yieldMaker-aave.sol";
+import { Karma } from "./KarmaToken.sol";
 import { Associations } from "./associations.sol";
 
-// Goerli : 0xfEfBE6428e002a034f40C57E60fb2F915620BD04 // Old one
-// Goerli : 0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d // New one
+// Goerli : 0xfEfBE6428e002a034f40C57E60fb2F915620BD04
 
 contract Vault is
     Ownable,
@@ -22,12 +22,14 @@ contract Vault is
     address public yieldMaker;
     address public associations;
     address public pool = 0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6;
+    address public karma;
 
     uint256 public totalDonation;
 // set constructor
-    constructor (address _yieldMaker, address _associations) {
+    constructor (address _yieldMaker, address _associations, address _karma) {
         yieldMaker = _yieldMaker;
         associations = _associations;
+        karma = _karma;
     }
 // set yieldMaker address for evo
     function setYieldMaker(address _yieldMaker) public onlyOwner {
@@ -69,16 +71,13 @@ contract Vault is
             _asset,
             _withdrawAmount
         );
-        // transfer
         IERC20(_asset).transfer(msg.sender, _amount);
-
         Balances[msg.sender][_asset][_asso] -= _amount;
         totalAmount -= _amount;
         uint256 _rest = IERC20(_asset).balanceOf(address(this));
         Associations(associations).updateDonation(_rest, _asso, msg.sender);
-        //totalDonation += _rest; ▼ replaced by ▼
-        //getTotal from asso.sol
         giveToAsso(_asso, _asset, _rest);
+        Karma(karma).mint(msg.sender, _rest);
     }
 // withdraw all of asset for asso from msg.sender
     function O3_withdrall(address _asset, address _asso)

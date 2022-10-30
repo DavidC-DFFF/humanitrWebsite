@@ -12,21 +12,28 @@ import Associations from "../artifacts/contracts/humanitr/associations.sol/Assoc
 
 import AssetABI from '../artifacts/contracts/tools/usdc.sol/USDC.json';
 import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
+import KarmaABI from '../artifacts/contracts/humanitr/karmaToken.sol/Karma.json';
 
-// Vault          0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d
-// Vault          0xfEfBE6428e002a034f40C57E60fb2F915620BD04 *** Old
 // YieldMaker     0x33a5Ab044BC52f5f7693bdDA90FD681240d5F189
 // Donators       0x954ffAe355a46975f95FfbC9d54Be0F384052eB4 *** Verified
 // Associations   0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA *** Verified
 // Associations   0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752 *** Old
 // Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf *** Verified
-// Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
-const vaultAddr = "0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d";
+const vaultAddr = "0x7ec50DD594BF48D7a9C6771bEfF5B74Ec3811D8E";
+// Vault *        0x0252423A668503d2fd09b55B167C93f1b5E43193
+// Vault **       0x8c448D2F9936B1611f2170cCEBe6e8C3f6229D80  Old
+// Vault ***      0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d  Old
+// Vault ****     0xfEfBE6428e002a034f40C57E60fb2F915620BD04  Old
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const associationsAddr = "0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA";
+const karmaAddr = "0x9ceAB234622C6A8b61f62dC77A36Add979c1876b";
+// Karma          0x9ceAB234622C6A8b61f62dC77A36Add979c1876b
+// Karma          0x8675f9ac9699D6127c9b8FD2f01f521Ebbc5Dd0F Old
+// Karma          0x445B181d96DCeF88B459003E49480295155e0f5D *** Not Verified
+// Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified - old// Vault  
 
 export function ManageVault() {
    const [success, setSuccess] = useState();
@@ -44,6 +51,10 @@ export function ManageVault() {
    const [donations, setDonations] = useState();
    const [fullDonations, setFullDonations] = useState();
    const [fullDeposits, setFullDeposits] = useState();
+   const [karmaAmount, setKarmaAmount] = useState();
+   const [tempDonation, setTempDonation] = useState();
+
+   const decimals = 6;
 
    useEffect(() => {
       refresh();
@@ -66,16 +77,17 @@ export function ManageVault() {
    useEffect(() => {
       const interval = setInterval(() => {
          getTotalDonations();
-      },30*1000);
+      }, 30 * 1000);
       return () => clearInterval(interval);
       // eslint-disable-next-line
    }, []);
-   
+
    function refresh() {
       getBalance();
       getDonations();
       getTotalDeposits();
       getTotalDonations();
+      getKarmaBalance();
    }
    function ClearPopups() {
       setError('');
@@ -87,7 +99,6 @@ export function ManageVault() {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      //const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, provider);
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
@@ -96,8 +107,25 @@ export function ManageVault() {
          }
          let _balance = await vaultContract.getBalanceToken(USDCAddr, assoTest, _overrides);
          setBalanceBN(_balance);
-         _balance = bigNumToStr(_balance, 6, 6);
+         _balance = bigNumToStr(_balance, 6, decimals);
          setBalance(_balance);
+      } catch (err) {
+         console.log(err);
+         ClearPopups();
+         setError('erreur de getBalance');
+      }
+   }
+   async function getKarmaBalance() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const assetContract = new ethers.Contract(karmaAddr, KarmaABI.abi, provider);
+      //const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      try {
+         let _balance = await assetContract.balanceOf(accounts[0]);
+         setKarmaAmount(bigNumToStr(_balance, 6, decimals));
       } catch (err) {
          console.log(err);
          ClearPopups();
@@ -109,12 +137,11 @@ export function ManageVault() {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      //const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, provider);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
          let _donations = await associationsContract.getUserFullDonation(accounts[0]);
-         _donations = bigNumToStr(_donations, 6, 6);
+         _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
       } catch (err) {
          console.log(err);
@@ -135,7 +162,8 @@ export function ManageVault() {
          let _donations = await associationsContract.getFullDonation();
          let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
          let _assetDeposit = await vaultContract.totalAmount();
-         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, 6));
+         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
+         setTempDonation(bigNumToStr(parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
       } catch (err) {
          console.log(err);
          ClearPopups();
@@ -154,7 +182,7 @@ export function ManageVault() {
       }
       try {
          let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, assoTest, overrides);
-         _totalDeposit = bigNumToStr(_totalDeposit, 6, 6);
+         _totalDeposit = bigNumToStr(_totalDeposit, 6, decimals);
          setFullDeposits(_totalDeposit);
       } catch (err) {
          console.log(err);
@@ -282,7 +310,7 @@ export function ManageVault() {
                <div>Cleanse your Karma</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
-            <div style={{width: '100%'}}>
+            <div style={{ width: '100%' }}>
                <div className='restriction'>Not implemented for now</div>
                <div className="line">
                   <label htmlFor="asset-choice">Choose your asset :</label>
@@ -335,18 +363,23 @@ export function ManageVault() {
                <div>Your donations :</div>
                <div>{donations} USDC</div>
             </div>
+            <div className="line">
+               <div>Your Karma :</div>
+               <div>{karmaAmount} KRM</div>
+            </div>
             <div className="box-footer">
                <div className="line">
                   <div>Total deposits :</div>
                   <div>{fullDeposits} USDC</div>
                </div>
-               {/*<div className="line">
-                  <div>Total donations :</div>
-                  <div>{fullDonations} USDC</div>
-         </div>*/}
                <div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>
+               </div>
+               
+               <div className="line">
+                  <div>Temp donations :</div>
+                  <div>{tempDonation} USDC</div>
                </div>
             </div>
          </div>)}

@@ -128,7 +128,6 @@
    text-decoration: none;
 }
 
-
 .restriction {
    z-index: 1;
    position: absolute;
@@ -144,4 +143,14 @@
 .restriction:hover {
    backdrop-filter: blur(2px);
    color: white;
+}
+
+@media screen and (max-width: 800px) {
+   .popup-waiting,
+   .popup-error,
+   .popup-goerli,
+   .popup-success {
+      top: 40vw;
+      font-size: 4.5vw;
+   }
 }
