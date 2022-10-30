@@ -22,7 +22,7 @@ export function Faucets() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div className="line">
-               <a href="https://faucets.chain.link/" className="item1">Get gETH</a>
+               <a href="https://faucets.chain.link/">Get gETH</a>
                <div>from Chainlink</div>
             </div>
             <div className="line">

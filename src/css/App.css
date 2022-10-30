@@ -1,16 +1,11 @@
-.App {
+.app {
    text-align: center;
    display: flex;
    flex-flow: column nowrap;
    background-color: #282c34;
 }
 
-.App-logo {
-   height: 100%;
-   pointer-events: none;
-}
-
-.App-body {
+.app-body {
    box-sizing: border-box;
    height: 100vh;
    background-color: #282c34;
@@ -23,38 +18,10 @@
    color: white;
 }
 
-.App-link {
-   color: #61dafb;
-}
-
-.item a {
-   transition: color 0.5s;
-   color: #55fc77;
-   text-decoration: none;
-}
-
-.item a:hover {
-   color: #cdfed7;
-   transition: color 0.5s;
-}
-
 button:hover {
    border: solid white 1px;
    background-color: hsl(132, 97%, 15%);
    color: white;
-}
-
-.page5-button {
-   border: solid #54fc77 1px;
-   font-size: calc(9px + 1vmin);
-   background-color: #282c34;
-   padding: 5px 10px;
-   margin: 5px 10px;
-   border-bottom-left-radius: 12px;
-   border-top-right-radius: 12px;
-   color: #54fc77;
-   border-style: inset;
-   width: 8em;
 }
 
 .line {
@@ -63,23 +30,6 @@ button:hover {
    flex-flow: row nowrap;
    justify-content: space-between;
 }
-
-.line .item {
-   margin: 0px 20px;
-   padding: 5px 20px;
-}
-
-.line .item2 a {
-   transition: color 0.8s;
-   text-decoration: none;
-   color: #54fc77;
-}
-
-.line .item2 a:hover {
-   color: hsl(132, 97%, 90%);
-   transition: color 0.2s;
-}
-
 
 .line a {
    transition: color 0.8s;
@@ -104,24 +54,19 @@ input {
    padding: 5px
 }
 
-.column {
-   display: flex;
-   flex-flow: column nowrap;
-   width: 50%;
-   align-items: center;
-   margin: 1vmin 0;
-}
-
-.double-column {
-   display: flex;
-   flex-flow: row nowrap;
-   justify-content: space-around;
-   justify-items: center;
-}
-
-.lineBy2 {
-   width: 100%;
-   display: flex;
-   flex-flow: row nowrap;
-   justify-content: space-between;
+@media screen and (max-width: 1100px) {
+   .input-default {
+      height: 2.6em;
+      width: 50vw;
+      justify-content: center;
+      font-size: calc(1.5vh);
+      padding: 0;
+   }
+   .button-default {
+      height: 2.6em;
+      width: 25vw;
+      justify-content: center;
+      font-size: calc(1.5vh);
+      padding: 0;
+   }
 }

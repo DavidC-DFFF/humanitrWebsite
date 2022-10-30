@@ -1,35 +1,52 @@
-.App-footer {
-    background-color: #282c34;
-    border-top: #54fc77 solid 1px;
-    position: fixed;
-    bottom: 0;
-    left: 30px;
-    right: 30px;
-    margin: 0;
-    height: 8vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-.App-footer a {
-    padding: 1vmin;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    color: #54fc77;
-    text-decoration: none;
+.footer {
+   background-color: #282c34;
+   border-top: #54fc77 solid 1px;
+   position: fixed;
+   bottom: 0;
+   left: 30px;
+   right: 30px;
+   margin: 0;
+   height: 8vh;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   font-size: calc(10px + 2vmin);
+   color: white;
 }
 
-.App-footer a:hover {
-    filter: saturate(0%) brightness(10000%);
+.footer a {
+   padding: 1vmin;
+   display: flex;
+   flex-flow: row nowrap;
+   align-items: center;
+   justify-content: center;
+   color: #54fc77;
+   text-decoration: none;
 }
-.App-footer a img {
-    margin: 0 5px 0 0;
+
+.footer a:hover {
+   filter: saturate(0%) brightness(10000%);
 }
-.picfoot {
-    height: 4vh;
-    /*filter: invert(73%) sepia(95%) saturate(334%) hue-rotate(69deg) brightness(100%) contrast(98%);*/
+
+.footer a img {
+   margin: 0 5px 0 0;
+}
+
+.picfooter {
+   height: 4vh;
+}
+
+@media screen and (max-width: 1100px) {
+   .footer {
+      position: absolute;
+      left: 3vw;
+      right: 3vw;
+   }
+   .footer-link-text {
+      display: none;
+   }
+
+   .picfooter { 
+      height: 5vh;
+   }
 }

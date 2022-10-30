@@ -1,4 +1,4 @@
-.Header {
+.header {
    background-color: #282c34;
    border-bottom: #54fc77 solid 1px;
    position: fixed;
@@ -14,7 +14,7 @@
    justify-content: center;
 }
 
-.Header-wallet button {
+.header-wallet button {
    display: flex;
    flex-flow: row nowrap;
    align-items: center;
@@ -29,13 +29,13 @@
    color: lightcoral;
 }
 
-.Header-wallet button:hover {
+.header-wallet button:hover {
    border: solid white 1px;
    background-color: darkred;
    color: white;
 }
 
-.Header-wallet {
+.header-wallet {
    font-size: calc(10px + 1.2vmin);
    height: 100%;
    width: 20vw;
@@ -45,7 +45,7 @@
    justify-content: center;
 }
 
-.Header-menu {
+.header-menu {
    width: 60vw;
    height: 100%;
    display: flex;
@@ -54,7 +54,7 @@
    justify-content: space-around;
 }
 
-.Header-logo {
+.header-logo {
    height: 100%;
    width: 20vw;
    padding: 0 20px;
@@ -63,11 +63,11 @@
    align-items: center;
 }
 
-.Header-logo img {
+.header-logo img {
    padding: 0 10px 0;
 }
 
-.Header-menu-button-selected {
+.header-menu-button-selected {
    display: flex;
    flex-flow: row nowrap;
    border: solid white 1px;
@@ -82,13 +82,13 @@
    color: white;
 }
 
-.Header-menu-button-selected:hover,
-.Header-menu-button-not-selected:hover {
+.header-menu-button-selected:hover,
+.header-menu-button-not-selected:hover {
    border-style: inset;
    background-color: darkgreen;
 }
 
-.Header-menu-button-not-selected {
+.header-menu-button-not-selected {
    height: 2em;
    border: solid #54fc77 1px;
    border-style: inset;
@@ -103,4 +103,60 @@
    flex-flow: row nowrap;
    border: solid #54fc77 1px;
    align-items: center;
+}
+
+.picheader {
+   height: 4vh;
+}
+
+@media screen and (max-width: 1100px) {
+
+   .header {
+      font-size: calc(2vw + 1.5vmin);
+      position: absolute;
+      left: 3vw;
+      right: 3vw;
+      height: 15vh;
+   }
+
+   .header-logo-text {
+      display: none;
+   }
+
+   .header-menu {
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-around;
+      width: 40vw;
+   }
+
+   .header-wallet {
+      width: 30vw;
+   }
+
+   .header-logo {
+      width: 30vw;
+      padding: 0;
+      justify-items: center;
+      justify-content: center;
+   }
+
+   .header-menu-button-selected {
+      height: 2.6em;
+      width: 25vw;
+      justify-content: center;
+      font-size: calc(3.2vw);
+      padding: 0;
+   }
+
+   .header-menu-button-not-selected {
+      height: 2.6em;
+      width: 25vw;
+      justify-content: center;
+      font-size: calc(3.2vw);
+      padding: 0;
+   }
+   .picheader {
+      height: 16vw;
+   }
 }

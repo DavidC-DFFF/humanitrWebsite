@@ -3,17 +3,14 @@ import discord from './img/discord.png';
 import youtube from './img/youtube.png';
 import twitter from './img/twitter.png';
 import email from './img/email.png';
+
 import './css/animations.css';
 import './css/App.css';
 import './css/boxes.css';
-import './css/boxes-responsive.css';
 import './css/buttons-inputs.css';
-import './css/buttons-inputs-responsive.css';
 import './css/dot-elastic.css';
 import './css/footer.css';
-import './css/footer-responsive.css';
 import './css/header.css';
-import './css/header-responsive.css';
 import './css/popups.css';
 
 import { useState, useEffect } from 'react';
@@ -91,21 +88,21 @@ function App() {
       setWaiting('');
    }
    return (
-      <div className="App">
-         <header className="Header">
-            <div className="Header-logo">
-               <img src={logorond} alt="rotating humanitr logo" className="picfoot" />
+      <div className="app">
+         <header className='header'>
+            <div className="header-logo">
+               <img src={logorond} alt="rotating humanitr logo" className="picheader" />
                <div className='header-logo-text'>HumanitR</div>
             </div>
-            <div className="Header-menu">
-               {(page === "1") && <button className='Header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
-               {(page !== "1") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
-               {(page === "2") && <button className='Header-menu-button-selected' onClick={() => pageBody("2")}>Transcend</button>}
-               {(page !== "2") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("2")}>Transcend</button>}
-               {(page === "3") && <button className='Header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
-               {(page !== "3") && <button className='Header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
+            <div className="header-menu">
+               {(page === "1") && <button className='header-menu-button-selected' onClick={() => pageBody("1")}>Concept</button>}
+               {(page !== "1") && <button className='header-menu-button-not-selected' onClick={() => pageBody("1")}>Concept</button>}
+               {(page === "2") && <button className='header-menu-button-selected' onClick={() => pageBody("2")}>Transcend</button>}
+               {(page !== "2") && <button className='header-menu-button-not-selected' onClick={() => pageBody("2")}>Transcend</button>}
+               {(page === "3") && <button className='header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
+               {(page !== "3") && <button className='header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
             </div>
-            <div className="Header-wallet">
+            <div className="header-wallet">
                {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
                {(state === undefined) && (
                   <button onClick={connect}>
@@ -113,7 +110,7 @@ function App() {
                   </button>)}
             </div>
          </header>
-         <div className="App-body">
+         <div className="app-body">
             {rpc && (<div>
                <div className='fullBlur' />
                <button onClick={switchToGoerli} className='popup-goerli'>Click to switch to Goerli Testnet</button>
@@ -136,21 +133,21 @@ function App() {
             {(page === "2") && (<Page2 />)}
             {(page === "3") && (<Page3 />)}
          </div>
-         <footer className="App-footer">
+         <footer className="footer">
             <a href="https://discord.com/">
-               <img src={discord} alt="Discord logo" className='picfoot' />
+               <img src={discord} alt="Discord logo" className='picfooter' />
                <div className='footer-link-text'>Discord</div>
             </a>
             <a href="https://twitter.com/home">
-               <img src={twitter} alt="Twitter logo" className='picfoot' />
+               <img src={twitter} alt="Twitter logo" className='picfooter' />
                <div className='footer-link-text'>Twitter</div>
             </a>
             <a href="https://www.youtube.com/">
-               <img src={youtube} alt="Youtube logo" className='picfoot' />
+               <img src={youtube} alt="Youtube logo" className='picfooter' />
                <div className='footer-link-text'>Youtube</div>
             </a>
             <a href="https://mail.google.com/">
-               <img src={email} alt="Gmail logo" className='picfoot' />
+               <img src={email} alt="Gmail logo" className='picfooter' />
                <div className='footer-link-text'>Email</div>
             </a>
          </footer>
