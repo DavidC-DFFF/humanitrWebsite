@@ -5,8 +5,7 @@ import "./whitelist.sol";
 import "./yieldMaker-aave.sol";
 import { Karma } from "./KarmaToken.sol";
 import { Associations } from "./associations.sol";
-
-// Goerli : 0xfEfBE6428e002a034f40C57E60fb2F915620BD04
+import { Donators } from './donators.sol';
 
 contract Vault is
     Ownable,
@@ -23,14 +22,25 @@ contract Vault is
     address public associations;
     address public pool = 0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6;
     address public karma;
+    address public donators;
 
     uint256 public totalDonation;
 // set constructor
-    constructor (address _yieldMaker, address _associations, address _karma) {
+    constructor (
+      address _yieldMaker, 
+      address _associations, 
+      address _karma,
+      address _donators
+      ) {
         yieldMaker = _yieldMaker;
         associations = _associations;
         karma = _karma;
+        donators = _donators;
     }
+// set donators address for evo
+   function setDonators(address _donators) public onlyOwner {
+      donators = _donators;
+   }
 // set yieldMaker address for evo
     function setYieldMaker(address _yieldMaker) public onlyOwner {
         yieldMaker = _yieldMaker;
@@ -45,7 +55,6 @@ contract Vault is
         isWhitelisted(_asset)
     {
         IERC20(_asset).transferFrom(msg.sender, address(this), _amount);
-        //Associations(associations).updateDonation(_amount, _asso, msg.sender);
         Balances[msg.sender][_asset][_asso] += _amount;                         /////
         totalAmount += _amount;                                                 /////
         IERC20(_asset).transfer(yieldMaker, _amount);
@@ -76,6 +85,7 @@ contract Vault is
         totalAmount -= _amount;
         uint256 _rest = IERC20(_asset).balanceOf(address(this));
         Associations(associations).updateDonation(_rest, _asso, msg.sender);
+        Donators(donators).updateDonator(_rest, _asset, _asso, msg.sender);
         giveToAsso(_asso, _asset, _rest);
         Karma(karma).mint(msg.sender, _rest);
     }

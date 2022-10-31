@@ -24,7 +24,7 @@ import KarmaABI from '../artifacts/contracts/humanitr/karmaToken.sol/Karma.json'
 // Karma          0x445B181d96DCeF88B459003E49480295155e0f5D *** Not Verified
 // Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified - old// Vault
 
-const donatorsAddr = "0x954ffAe355a46975f95FfbC9d54Be0F384052eB4";      // Verified
+const donatorsAddr = "0x38718Dd5B6Df234467A4Df79404E310D4AbAE908";      // Verified
 // Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf            // Verified
 // YieldMaker     0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f            // Verified
 const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified

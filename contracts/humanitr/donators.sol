@@ -12,6 +12,7 @@ contract Donators is Ownable {
     address[] public donatorsList;
     address[] public assosList;
     address[] public assetsList;
+    mapping(address => uint256) totalDonation;
     struct profile {
         string name;
         mapping(address => mapping(address => uint256)) balancesByAssoByAsset;
@@ -28,7 +29,9 @@ contract Donators is Ownable {
     function setMigrator(address _migrator) public onlyOwner {
         migrator = _migrator;
     }
-    function setNewDonator(address _donator) public onlyMigratorOrVault {
+
+    /*
+    function _setNewDonator(address _donator) public onlyMigratorOrVault {
         for (uint256 i; i < donatorsList.length; i++) {
             if (donatorsList[i] == _donator) {
                 return;
@@ -37,7 +40,7 @@ contract Donators is Ownable {
         donatorsList.push(_donator);
         DonatorProfile[_donator].exists = true;
     }
-    function setNewAsso(address _asso) public onlyMigratorOrVault {
+    function _setNewAsso(address _asso) public onlyMigratorOrVault {
         for (uint256 i; i < assosList.length; i++) {
             if (assosList[i] == _asso) {
                 return;
@@ -45,7 +48,34 @@ contract Donators is Ownable {
         }
         assosList.push(_asso);
     }
-    function setNewAsset(address _asset) public onlyMigratorOrVault {
+    function _setNewAsset(address _asset) public onlyMigratorOrVault {
+        for (uint256 i; i < assetsList.length; i++) {
+            if (assetsList[i] == _asset) {
+                return;
+            }
+        }
+        assetsList.push(_asset);
+    }
+    */
+    
+    function _setNewDonator(address _donator) internal {
+        for (uint256 i; i < donatorsList.length; i++) {
+            if (donatorsList[i] == _donator) {
+                return;
+            }
+        }
+        donatorsList.push(_donator);
+        DonatorProfile[_donator].exists = true;
+    }
+    function _setNewAsso(address _asso) internal {
+        for (uint256 i; i < assosList.length; i++) {
+            if (assosList[i] == _asso) {
+                return;
+            }
+        }
+        assosList.push(_asso);
+    }
+    function _setNewAsset(address _asset) internal {
         for (uint256 i; i < assetsList.length; i++) {
             if (assetsList[i] == _asset) {
                 return;
@@ -81,7 +111,7 @@ contract Donators is Ownable {
             assetsList.push(_asset);
         }
 // update DonatorProfile
-    setNewDonator(_userWallet);
+    _setNewDonator(_userWallet);
     DonatorProfile[_userWallet].balancesByAssoByAsset[_assoWallet][_asset] += _amount;
     DonatorProfile[_userWallet].name = _name;
     }
@@ -92,10 +122,11 @@ contract Donators is Ownable {
         address _assoWallet,
         address _userWallet
     ) public onlyVault {
-        setNewDonator(_userWallet);
-        setNewAsset(_asset);
-        setNewAsso(_assoWallet);
+        _setNewDonator(_userWallet);
+        _setNewAsset(_asset);
+        _setNewAsso(_assoWallet);
         DonatorProfile[_userWallet].balancesByAssoByAsset[_assoWallet][_asset] += _amount;
+        totalDonation[_asset] += _amount;
     }
     function updateDonatorName(string memory _name) public {
         require(
@@ -112,35 +143,31 @@ contract Donators is Ownable {
         require(DonatorProfile[_wallet].exists, "Is not donator yet");
         return DonatorProfile[_wallet].balancesByAssoByAsset[_asso][_asset];
     }
-
+    function getDonation(address _asset) public view returns(uint256) {
+      return totalDonation[_asset];
+    }
     function getDonatorsList() public view returns (address[] memory) {
         return donatorsList;
     }
-    
     function getAssetsList() public view returns (address[] memory) {
         return assetsList;
     }
-    
     function getAssosList() public view returns (address[] memory) {
         return assosList;
     }
-
     function getDonatorName(address _donator) public view returns (string memory) {
         return DonatorProfile[_donator].name;
     }
-
     modifier onlyVault() {
         require(msg.sender == vault, "Only vault can do that");
         _;
     }
-    
     modifier onlyMigrator() {
         require(msg.sender == migrator, "Only migrator can do that");
         _;
     }
-
-    modifier onlyMigratorOrVault() {
+/*    modifier onlyMigratorOrVault() {
         require((msg.sender == migrator) || (msg.sender == vault), "Only migrator or vault can do that");
         _;
-    }
+    }*/
 }
