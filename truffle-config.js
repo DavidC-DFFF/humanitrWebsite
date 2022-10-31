@@ -2,6 +2,7 @@ require('dotenv').config()
 const PrivateKeyProvider = require("truffle-privatekey-provider");
 
 module.exports = {
+   contracts_build_directory: "./src/artifacts",
    networks: {
       goerli: {
          provider: () => new PrivateKeyProvider(process.env.PRIVATE_KEY, process.env.GOERLI_INFURA_URL),

@@ -56,6 +56,9 @@ contract Associations is Ownable {
             }
         }
     }
+    function getAssoListLength() public view returns(uint256) {
+      return Assos.length;
+    }
     /*function updateDonation(uint256 _amount, address _assoWallet, address _userWallet) public onlyVault assoActive(_assoWallet) {
         require ( vault == msg.sender );
         for (uint i = 0 ; i < Assos.length ; i++) {

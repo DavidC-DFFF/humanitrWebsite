@@ -282,6 +282,26 @@ export function ManageVault() {
          console.log(err);
       }
    }
+   /*async function getAssoList() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
+      //const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      try {
+         var i = 0;
+         var _asso = await associationsContract.Assos(i);
+         while(_asso !== undefined) {
+            setNumbers(map => new Map(map.set(_asso.name, displayAddress(_asso.wallet, decimals))));
+            _asso = await associationsContract.Assos(i);
+            i++;
+            console.log(_asso.wallet);
+      }
+      } catch (err) {
+         console.log(err);
+      }
+   }*/
    return (<div>
       <div id="popups">
          {error && (<div>
