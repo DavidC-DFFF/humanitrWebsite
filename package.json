@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "chai": "^4.3.6",
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.1",
     "hardhat": "^2.11.2",
     "react": "^18.2.0",
@@ -18,6 +19,7 @@
     "react-html-datalist": "^2.0.4",
     "react-scripts": "5.0.1",
     "three-dots": "^0.2.3",
+    "truffle-privatekey-provider": "^1.5.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -44,5 +46,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://mr.psyko.free.fr/web3"
+  "homepage": "http://mr.psyko.free.fr/web3",
+  "devDependencies": {
+    "truffle-plugin-verify": "^0.5.31"
+  }
 }

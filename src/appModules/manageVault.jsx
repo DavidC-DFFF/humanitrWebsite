@@ -31,7 +31,7 @@ const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const associationsAddr = "0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA";
 const karmaAddr = "0x9ceAB234622C6A8b61f62dC77A36Add979c1876b";
 // Karma          0x9ceAB234622C6A8b61f62dC77A36Add979c1876b
-// Karma          0x8675f9ac9699D6127c9b8FD2f01f521Ebbc5Dd0F Old
+// Karma          0x8675f9ac9699D6127c9b8FD2f01f521Ebbc5Dd0F Oldtruffle compile
 // Karma          0x445B181d96DCeF88B459003E49480295155e0f5D *** Not Verified
 // Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified - old// Vault  
 
