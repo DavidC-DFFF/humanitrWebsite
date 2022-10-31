@@ -146,7 +146,7 @@ function App() {
                <img src={youtube} alt="Youtube logo" className='picfooter' />
                <div className='footer-link-text'>Youtube</div>
             </a>
-            <a href="https://mail.google.com/">
+            <a href="mailto:humanitr@proton.me">
                <img src={email} alt="Gmail logo" className='picfooter' />
                <div className='footer-link-text'>Email</div>
             </a>
