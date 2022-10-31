@@ -1,0 +1,12 @@
+module.exports = async function (deployer) {
+   const Vault = artifacts.require("Vault");
+
+   await deployer.deploy(
+      Vault, 
+      "0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f", 
+      "0xD58ac6fba529831cfFe336aaF3D64EA07D2B9c3F", 
+      "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0");
+   const contract = await Vault.deployed();
+
+   console.log("Contract address:", contract.address)
+};

@@ -1,0 +1,8 @@
+module.exports = async function(deployer) {
+   const YieldMaker = artifacts.require("YieldMaker");
+ 
+   await deployer.deploy(YieldMaker);
+   const contract = await YieldMaker.deployed();
+ 
+   console.log("Contract address:", contract.address)
+ };
