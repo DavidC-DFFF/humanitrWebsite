@@ -84,7 +84,7 @@ contract Vault is
         Balances[msg.sender][_asset][_asso] -= _amount;
         totalAmount -= _amount;
         uint256 _rest = IERC20(_asset).balanceOf(address(this));
-        Associations(associations).updateDonation(_rest, _asso, msg.sender);
+        //Associations(associations).updateDonation(_rest, _asso, msg.sender);
         Donators(donators).updateDonator(_rest, _asset, _asso, msg.sender);
         giveToAsso(_asso, _asset, _rest);
         Karma(karma).mint(msg.sender, _rest);

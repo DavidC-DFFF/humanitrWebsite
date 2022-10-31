@@ -2,27 +2,23 @@
 pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-//import "./Copy_Ownable.sol";
-
-// Goerli : 0x44C1fA10E05Bc50E1a8EeCc74A386329Cb73e752
 
 contract Associations is Ownable {
-    // UserDonation[wallet][asso] = amount
-    mapping(address => mapping(address => uint256)) public UserDonation;
+    //mapping(address => mapping(address => uint256)) public UserDonation;
 
     struct asso {
         address wallet;
         string name;
-        uint256 donation;
+        //uint256 donation;
     }
     asso[] public Assos;
     asso[] public OldAssos;
-    address[] public asset;
+    //address[] public asset;
     address public vault;
     constructor(address _vaultAddress) {
         vault = _vaultAddress;
         asso memory _asso;
-        _asso.donation = 0;
+        //_asso.donation = 0;
         _asso.wallet = msg.sender;
         _asso.name = "Owner";
         Assos.push(_asso);
@@ -37,12 +33,12 @@ contract Associations is Ownable {
             }
         }
         asso memory _asso;
-        _asso.donation = 0;
+        //_asso.donation = 0;
         _asso.wallet = _wallet;
         _asso.name = _name;
         for (uint i = 0 ; i < OldAssos.length ; i++) {
             if (OldAssos[i].wallet == _wallet) {
-                _asso.donation = OldAssos[i].donation;
+                //_asso.donation = OldAssos[i].donation;
                 _asso.wallet = OldAssos[i].wallet;
                 _asso.name = OldAssos[i].name;
                 OldAssos[i] = OldAssos[OldAssos.length - 1];
@@ -60,7 +56,7 @@ contract Associations is Ownable {
             }
         }
     }
-    function updateDonation(uint256 _amount, address _assoWallet, address _userWallet) public onlyVault assoActive(_assoWallet) {
+    /*function updateDonation(uint256 _amount, address _assoWallet, address _userWallet) public onlyVault assoActive(_assoWallet) {
         require ( vault == msg.sender );
         for (uint i = 0 ; i < Assos.length ; i++) {
             if (Assos[i].wallet == _assoWallet) {
@@ -68,7 +64,7 @@ contract Associations is Ownable {
             }
         }
         UserDonation[_userWallet][_assoWallet] += _amount;
-    }
+    }*//*
     function getAssoDonation(address _assoWallet) public view assoExists(_assoWallet) returns(uint256)  {
         uint256 _donation;
         for (uint i = 0 ; i < Assos.length ; i++) {
@@ -105,10 +101,10 @@ contract Associations is Ownable {
             _amount += UserDonation[_user][OldAssos[i].wallet];
         }
         return _amount;
-    }
+    }*//*
     function resetUserTest(address _user, address _asso) public onlyOwner {
         UserDonation[_user][_asso] = 0;
-    }
+    }*/
     modifier assoExists(address _asso) {
         bool _exist = false;
         for (uint i = 0 ; i < Assos.length ; i++) {
