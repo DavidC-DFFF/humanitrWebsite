@@ -3,6 +3,7 @@ import discord from './img/discord.png';
 import youtube from './img/youtube.png';
 import twitter from './img/twitter.png';
 import email from './img/email.png';
+import turnDevice from './img/TurnDevice.jpg';
 
 import './css/animations.css';
 import './css/app.css';
@@ -19,6 +20,7 @@ import { Page1 } from './appPages/Page1';
 import { Page2 } from './appPages/Page2';
 import { Page3 } from './appPages/Page3';
 import { displayAddress } from './appModules/commonFunctions';
+//import { TurnDevice } from './appModules/turnDevice';
 
 let decimales = 3;
 
@@ -89,6 +91,11 @@ function App() {
    }
    return (
       <div className="app">
+         <div className="turnDevice">
+            <div className='spaceBlock'></div>
+            <img src={turnDevice} alt="Turn your device" />
+            <div>Turn your device, please</div>
+         </div>
          <header className='header'>
             <div className="header-logo">
                <img src={logorond} alt="rotating humanitr logo" className="picheader" />

@@ -54,10 +54,3 @@
       font-size: 4vw;
    }
 }
-
-@media screen and (max-height : 1100px) and (orientation: landscape) {
-   .button-default,
-   .input-default {
-      font-size: 2vw;
-   }
-}

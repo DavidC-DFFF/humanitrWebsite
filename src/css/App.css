@@ -54,6 +54,10 @@ input {
    padding: 5px
 }
 
+.turnDevice {
+   display: none;
+}
+
 @media screen and (max-width: 800px) {
    .input-default {
       height: 2.6em;
@@ -71,6 +75,22 @@ input {
    }
 }
 
-
-@media screen and (max-height : 1100px) and (orientation: landscape) {
+@media screen and (orientation: landscape) {
+   .turnDevice{
+      display: block;
+      background-color: #212121;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      color: white;
+   }
+   .turnDevice img {
+      height: 50vh;
+   }
+   .spaceBlock {
+      height: 15vh;
+   }
 }
