@@ -2,7 +2,7 @@
 
    .app-logo,
    .picfoot,
-   .picfooter, 
+   .picfooter,
    .picheader {
       animation: App-logo-spin infinite 10s linear;
    }
@@ -21,23 +21,6 @@
       transform: rotate(360deg);
    }
 }
-/*
-@keyframes goerli-blinking {
-   0.00% {
-      background-color: darkred;
-      color: white;
-   }
-
-   50.00% {
-      background-color: lightcoral;
-      color: black
-   }
-
-   100.00% {
-      background-color: darkred;
-      color: white;
-   }
-}*/
 
 .video-container {
    min-width: 90vw;

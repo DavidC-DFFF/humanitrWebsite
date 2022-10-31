@@ -75,7 +75,7 @@ input {
    }
 }
 
-@media screen and (max-height: 700px) and (orientation: landscape) {
+@media only screen and (hover: none) and (pointer: coarse) and (orientation: landscape) {
    .turnDevice{
       display: block;
       background-color: #212121;
