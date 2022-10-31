@@ -75,7 +75,7 @@ input {
    }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (max-height: 700px) and (orientation: landscape) {
    .turnDevice{
       display: block;
       background-color: #212121;
