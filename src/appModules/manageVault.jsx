@@ -311,7 +311,7 @@ export function ManageVault() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div style={{ width: '100%' }}>
-               <div className='restriction'>Not implemented for now</div>
+               {/*<div className='restriction'>Not implemented for now</div>*/}
                <div className="line">
                   <label htmlFor="asset-choice">Choose your asset :</label>
                   <input list="Asset" id="asset-choice" name="asset-choice" />
