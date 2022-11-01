@@ -39,13 +39,12 @@
 @media screen and (max-width: 700px) {
    .box {
       width: 90vw;
-      font-size: calc(2vw + 1.5vmin);
-      font-size: calc(2vh);
+      font-size: 4vw;
    }
 
    .box-header-arrow {
       border-bottom: 1px solid #54fc77;
-      font-size: calc(3vh);
+      font-size: 6vw;
       width: 100%;
       display: flex;
       flex-flow: row nowrap;

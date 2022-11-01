@@ -13,30 +13,16 @@ import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
-//const vaultAddr = "0x7ec50DD594BF48D7a9C6771bEfF5B74Ec3811D8E";
-// Vault *        0x0252423A668503d2fd09b55B167C93f1b5E43193
-// Vault **       0x8c448D2F9936B1611f2170cCEBe6e8C3f6229D80  Old
-// Vault ***      0xb66862A86CdD0bABD27c5D3A6Ca62dd8BEE3bC3d  Old
-// Vault ****     0xfEfBE6428e002a034f40C57E60fb2F915620BD04  Old
-//const associationsAddr = "0xbD34c0f5a1fB46ae0eC04Dd5Bc737a58470364cA";
-//const karmaAddr = "0x9ceAB234622C6A8b61f62dC77A36Add979c1876b";
-// Karma          0x9ceAB234622C6A8b61f62dC77A36Add979c1876b
-// Karma          0x8675f9ac9699D6127c9b8FD2f01f521Ebbc5Dd0F Oldtruffle compile
-// Karma          0x445B181d96DCeF88B459003E49480295155e0f5D *** Not Verified
-// Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified - old// Vault
-
 const donatorsAddr = "0x27101a591dCDbF0A83BF0f5ec5278A214ec198Cc";
-// donatorsAddr   0x38718Dd5B6Df234467A4Df79404E310D4AbAE908            // Verified
+const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified
+const associationsAddr = "0x1DFA8e5791113E5e2cC26b779791b7d75bBd0B0c";  // Verified
+const vaultAddr = "0x04Be176aA8781738FB9EdF4d6694aAa82097811f";         // Verified
 // Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf            // Verified
 // YieldMaker     0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f            // Verified
-const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified
-const associationsAddr = "0xD58ac6fba529831cfFe336aaF3D64EA07D2B9c3F";  // Verified
-const vaultAddr = "0x04Be176aA8781738FB9EdF4d6694aAa82097811f";         // Verified
 
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
-
 
 export function ManageVault() {
    const [success, setSuccess] = useState();
@@ -57,7 +43,7 @@ export function ManageVault() {
    const [karmaAmount, setKarmaAmount] = useState();
    const [tempDonation, setTempDonation] = useState();
 
-   const decimals = 6;
+   const decimals = 4;
 
    useEffect(() => {
       refresh();
@@ -144,7 +130,7 @@ export function ManageVault() {
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await donatorsContract.getDonatorAmounts(accounts[0],asso,asset);         
+         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], asso, asset);
          //let _donations = await associationsContract.getUserFullDonation(accounts[0]);
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
@@ -154,7 +140,6 @@ export function ManageVault() {
          setError('erreur de getBalance');
       }
    }
-
    async function getTotalDonations() {
       if (typeof window.ethereum == 'undefined') {
          return;
@@ -288,26 +273,6 @@ export function ManageVault() {
          console.log(err);
       }
    }
-   /*async function getAssoList() {
-      if (typeof window.ethereum == 'undefined') {
-         return;
-      }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
-      //const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      try {
-         var i = 0;
-         var _asso = await associationsContract.Assos(i);
-         while(_asso !== undefined) {
-            setNumbers(map => new Map(map.set(_asso.name, displayAddress(_asso.wallet, decimals))));
-            _asso = await associationsContract.Assos(i);
-            i++;
-            console.log(_asso.wallet);
-      }
-      } catch (err) {
-         console.log(err);
-      }
-   }*/
    return (<div>
       <div id="popups">
          {error && (<div>
@@ -338,9 +303,8 @@ export function ManageVault() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div style={{ width: '100%' }}>
-               {/*<div className='restriction'>Not implemented for now</div>*/}
                <div className="line">
-                  <label htmlFor="asset-choice">Choose your asset :</label>
+                  <label htmlFor="asset-choice">Asset :</label>
                   <input list="Asset" id="asset-choice" name="asset-choice" />
                   <datalist id="Asset">
                      {/*<option value="EURs" />*/}
@@ -349,7 +313,7 @@ export function ManageVault() {
                   </datalist>
                </div>
                <div className="line">
-                  <label htmlFor="asso-choice">Choose your asso :</label>
+                  <label htmlFor="asso-choice">Asso :</label>
                   <input list="Asso" id="asso-choice" name="asso-choice" />
                   <datalist id="Asso">
                      <option value="Creator" />
@@ -403,7 +367,6 @@ export function ManageVault() {
                   <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>
                </div>
-               
                <div className="line">
                   <div>Temp donations :</div>
                   <div>{tempDonation} USDC</div>

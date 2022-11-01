@@ -142,20 +142,26 @@
    }
 
    .header-menu-button-selected {
-      height: 2.6em;
       width: 25vw;
       justify-content: center;
-      font-size: calc(3.2vw);
+      font-size: 3.6vw;
       padding: 0;
    }
 
    .header-menu-button-not-selected {
-      height: 2.6em;
       width: 25vw;
       justify-content: center;
-      font-size: calc(3.2vw);
+      font-size: 3.6vw;
       padding: 0;
    }
+
+   .header-wallet button {
+      width: 25vw;
+      justify-content: center;
+      font-size: 3.6vw;
+      padding: 0;
+   }
+
    .picheader {
       height: 16vw;
    }
