@@ -12,9 +12,9 @@ const decimals = 4
 export function TestList() {
 
    const [testSwitch, setTestSwitch] = useState(true);
-   const [assoNames, setAssoNames] = useState(new Map());
-   const [assoWallets, setAssoWallets] = useState(new Map());
    const [asso, setAsso] = useState(new Map());
+   const [ assoName, setAssoName ] = useState([]);
+   const [ assoWallet, setAssoWallet ] = useState([]);
 
    useEffect(() => {
    }, [])
@@ -26,13 +26,14 @@ export function TestList() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       try {
+         setAsso(new Map());
          var _length = await associationsContract.getAssoListLength();
-         console.log(_length);
-         for (let i = 0 ; i < _length ; i++) {
-            console.log(i);
+         for (let i = 0; i < _length; i++) {
             var _asso = await associationsContract.Assos(i);
+            console.log(_asso.name + " et " + _asso.wallet);
             console.log(_asso);
-            setAsso(map => new Map(map.set(_asso)));
+            setAsso(map => new Map(map.set(_asso.wallet, _asso.name)));
+            console.log(asso);
          }
       } catch (err) {
          console.log(err);
@@ -51,6 +52,7 @@ export function TestList() {
                <div>Test assos</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
+            <li>{asso}</li>
             <div className="line"><button onClick={getAssoList}>Refresh</button></div>
 
          </div>)}
