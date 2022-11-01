@@ -5,12 +5,13 @@ import downArrow from '../img/downArrow.png';
 
 import { bigNumToStr } from "./commonFunctions";
 
-import VaultABI from '../artifacts/contracts/humanitr/vault.sol/Vault.json';
-import Associations from "../artifacts/contracts/humanitr/associations.sol/Associations.json";
+import VaultABI from '../artifacts/Vault.json';
+import Associations from "../artifacts/Associations.json";
+import DonatorsABI from "../artifacts/Donators.json";
 
-import AssetABI from '../artifacts/contracts/tools/usdc.sol/USDC.json';
-import ATokenABI from '../artifacts/contracts/aave/aToken.sol/AToken.json';
-import KarmaABI from '../artifacts/contracts/humanitr/karmaToken.sol/Karma.json';
+import AssetABI from '../artifacts/USDC.json';
+import ATokenABI from '../artifacts/AToken.json';
+import KarmaABI from '../artifacts/Karma.json';
 
 //const vaultAddr = "0x7ec50DD594BF48D7a9C6771bEfF5B74Ec3811D8E";
 // Vault *        0x0252423A668503d2fd09b55B167C93f1b5E43193
@@ -24,7 +25,8 @@ import KarmaABI from '../artifacts/contracts/humanitr/karmaToken.sol/Karma.json'
 // Karma          0x445B181d96DCeF88B459003E49480295155e0f5D *** Not Verified
 // Karma          0x487eB38ffb6E7D66f0c191EA6db16ad4802Ba656 *** Verified - old// Vault
 
-const donatorsAddr = "0x38718Dd5B6Df234467A4Df79404E310D4AbAE908";      // Verified
+const donatorsAddr = "0x27101a591dCDbF0A83BF0f5ec5278A214ec198Cc";
+// donatorsAddr   0x38718Dd5B6Df234467A4Df79404E310D4AbAE908            // Verified
 // Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf            // Verified
 // YieldMaker     0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f            // Verified
 const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified
@@ -139,9 +141,11 @@ export function ManageVault() {
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
+      const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await associationsContract.getUserFullDonation(accounts[0]);
+         let _donations = await donatorsContract.getDonatorAmounts(accounts[0],asso,asset);         
+         //let _donations = await associationsContract.getUserFullDonation(accounts[0]);
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
       } catch (err) {
@@ -157,10 +161,12 @@ export function ManageVault() {
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
-      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
+      //const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
+      const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       try {
-         let _donations = await associationsContract.getFullDonation();
+         let _donations = await donatorsContract.getDonation(asset);
+         //let _donations = await associationsContract.getFullDonation();
          let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
          let _assetDeposit = await vaultContract.totalAmount();
          setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));

@@ -5,6 +5,7 @@ module.exports = {
    contracts_build_directory: "./src/artifacts",
    networks: {
       goerli: {
+         networkCheckTimeout:60000,
          provider: () => new PrivateKeyProvider(process.env.PRIVATE_KEY, process.env.GOERLI_INFURA_URL),
          network_id: 5,          // Goerli's id
          confirmations: 2,       // # of confirmations to wait between deployments. (default: 0)

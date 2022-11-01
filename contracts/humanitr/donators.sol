@@ -140,8 +140,11 @@ contract Donators is Ownable {
         address _asso,
         address _asset
     ) public view returns (uint256) {
-        require(DonatorProfile[_wallet].exists, "Is not donator yet");
-        return DonatorProfile[_wallet].balancesByAssoByAsset[_asso][_asset];
+        if(!DonatorProfile[_wallet].exists) {
+            return 0;
+        } else {
+        //require(DonatorProfile[_wallet].exists, "Is not donator yet");
+        return DonatorProfile[_wallet].balancesByAssoByAsset[_asso][_asset];}
     }
     function getDonation(address _asset) public view returns(uint256) {
       return totalDonation[_asset];
