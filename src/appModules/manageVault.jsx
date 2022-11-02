@@ -8,11 +8,13 @@ import { bigNumToStr } from "./commonFunctions";
 import VaultABI from '../artifacts/Vault.json';
 import Associations from "../artifacts/Associations.json";
 import DonatorsABI from "../artifacts/Donators.json";
+import WhitelistABI from "../artifacts/Whitelist.json";
 
 import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
+const whitelistAddr = "0x056aEdc16b2DD3E2A43f8809983870b9bfFFA358";
 const donatorsAddr = "0x27101a591dCDbF0A83BF0f5ec5278A214ec198Cc";
 const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified
 const associationsAddr = "0x1DFA8e5791113E5e2cC26b779791b7d75bBd0B0c";  // Verified

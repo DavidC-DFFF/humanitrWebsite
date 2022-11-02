@@ -141,7 +141,7 @@ function App() {
             {(page === "3") && (<Page3 />)}
          </div>
          <footer className="footer">
-            <a href="https://discord.com/" target="_blank">
+            <a href="https://discord.gg/psgWAmTR" target="_blank">
                <img src={discord} alt="Discord logo" className='picfooter' />
                <div className='footer-link-text'>Discord</div>
             </a>

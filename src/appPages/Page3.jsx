@@ -1,10 +1,10 @@
 import { Faucets } from '../appModules/faucets';
-import { TestChooseAsso } from '../appModules/testChooseAsso';
+import { TestChooseAsset } from '../appModules/testChooseAsset';
 
 export function Page3() {
 
    return (<div>
       <Faucets />
-      <TestChooseAsso />
+      <TestChooseAsset />
    </div>)
 }
