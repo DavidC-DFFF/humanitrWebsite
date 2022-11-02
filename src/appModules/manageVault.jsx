@@ -42,10 +42,13 @@ export function ManageVault() {
    const [fullDeposits, setFullDeposits] = useState();
    const [karmaAmount, setKarmaAmount] = useState();
    const [tempDonation, setTempDonation] = useState();
+   const [ assoName, setAssoName ] = useState([]);
+   const [ assoWallet, setAssoWallet ] = useState([]);
 
    const decimals = 4;
 
    useEffect(() => {
+      getAssos();
       refresh();
       // eslint-disable-next-line
    }, [])
@@ -273,6 +276,27 @@ export function ManageVault() {
          console.log(err);
       }
    }
+   async function getAssos() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      console.log("getAssos");
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
+      try {
+         setAssoWallet(assoWallet => []);
+         setAssoName(assoName => []);
+         var _length = await associationsContract.getAssoListLength();
+         for (let i = 0; i < _length; i++) {
+            var _asso = await associationsContract.getAssoWallet(i);
+            var _name = await associationsContract.getAssoName(i);
+            setAssoWallet(prevWallet => [...prevWallet, _asso]);
+            setAssoName(prevName => [...prevName, _name]);
+         }
+      } catch (err) {
+         console.log(err);
+      }
+   }
    return (<div>
       <div id="popups">
          {error && (<div>
@@ -316,8 +340,8 @@ export function ManageVault() {
                   <label htmlFor="asso-choice">Asso :</label>
                   <input list="Asso" id="asso-choice" name="asso-choice" />
                   <datalist id="Asso">
-                     <option value="Creator" />
-                     <option value="Asso1" />
+                  {assoName.map((val, i) => 
+                     <option key={i} id={i}>{val}</option>)}
                   </datalist>
                </div>
             </div>
