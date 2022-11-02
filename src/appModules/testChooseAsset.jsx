@@ -64,9 +64,9 @@ export function TestChooseAsset() {
             {assetName.map((val, i) => 
             <li key={i} id={i}>{val}</li>)}
             {assetAddress.map((val, i) => 
-            <li key={i} id={i}>{val}</li>)}
+            <li key={i} id={i}>{displayAddress(val,5)}</li>)}
             {aaveAssetAddress.map((val, i) => 
-            <li key={i} id={i}>{val}</li>)}
+            <li key={i} id={i}>{displayAddress(val,5)}</li>)}
             <div className="line"><button onClick={getAssets}>Refresh</button></div>
 
          </div>)}

@@ -3,6 +3,7 @@ import discord from './img/discord.png';
 import youtube from './img/youtube.png';
 import twitter from './img/twitter.png';
 import email from './img/email.png';
+import odysee from './img/odysee.png';
 import turnDevice from './img/TurnDevice.jpg';
 
 import './css/animations.css';
@@ -150,7 +151,7 @@ function App() {
                <div className='footer-link-text'>Twitter</div>
             </a>
             <a href="https://odysee.com/@HumanitR:e" target="_blank">
-               <img src={youtube} alt="Youtube logo" className='picfooter' />
+               <img src={odysee} alt="Youtube logo" className='picfooter' />
                <div className='footer-link-text'>Youtube</div>
             </a>
             <a href="mailto:humanitr@proton.me" target="_blank">
