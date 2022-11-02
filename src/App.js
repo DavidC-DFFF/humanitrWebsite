@@ -29,7 +29,7 @@ function App() {
    const [error, setError] = useState('');
    const [success, setSuccess] = useState('');
    const [waiting, setWaiting] = useState('');
-   const [page, setPage] = useState("3");
+   const [page, setPage] = useState("2");
    const [state, setState] = useState();
    const [rpc, setRpc] = useState();
    const [connectedWallet, setConnectedWallet] = useState();
@@ -151,8 +151,8 @@ function App() {
                <div className='footer-link-text'>Twitter</div>
             </a>
             <a href="https://odysee.com/@HumanitR:e" target="_blank">
-               <img src={odysee} alt="Youtube logo" className='picfooter' />
-               <div className='footer-link-text'>Youtube</div>
+               <img src={odysee} alt="Odysee logo" className='picfooter' />
+               <div className='footer-link-text'>Odysee</div>
             </a>
             <a href="mailto:humanitr@proton.me" target="_blank">
                <img src={email} alt="Gmail logo" className='picfooter' />

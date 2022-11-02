@@ -46,11 +46,20 @@ export function ManageVault() {
    const [tempDonation, setTempDonation] = useState();
    const [ assoName, setAssoName ] = useState([]);
    const [ assoWallet, setAssoWallet ] = useState([]);
+   const [ assetName, setAssetName ] = useState([]);
+   const [ assetAddress, setAssetAddress ] = useState([]);
+   const [ aaveAssetAddress, setAaveAssetAddress ] = useState([]);
+
+   const [ currentAsset, setCurrentAsset ] = useState("None");
+   const [ currentAssetAddress, setCurrentAssetAddress] = useState();
+   const [ currentAsso, setCurrentAsso ] = useState("None");
+   const [ currentAssoAddress, setCurrentAssoAddress ] = useState();
 
    const decimals = 4;
 
    useEffect(() => {
       getAssos();
+      getAssets();
       refresh();
       // eslint-disable-next-line
    }, [])
@@ -75,7 +84,14 @@ export function ManageVault() {
       return () => clearInterval(interval);
       // eslint-disable-next-line
    }, []);
+   useEffect(() => {
+      for (var i = 0 ; i < assetAddress.length ; i++ ) {
+         if (assetName[i] == currentAsset) {
 
+         }
+      }
+
+   }, [currentAsset])
    function refresh() {
       getBalance();
       getDonations();
@@ -115,7 +131,6 @@ export function ManageVault() {
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const assetContract = new ethers.Contract(karmaAddr, KarmaABI.abi, provider);
-      //const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
          let _balance = await assetContract.balanceOf(accounts[0]);
@@ -282,7 +297,6 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      console.log("getAssos");
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       try {
@@ -298,6 +312,32 @@ export function ManageVault() {
       } catch (err) {
          console.log(err);
       }
+   }
+   async function getAssets() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const whitelistContract = new ethers.Contract(whitelistAddr, WhitelistABI.abi, provider);
+      try {
+         setAssetName([]);
+         setAssetAddress([]);
+         setAaveAssetAddress([]);
+         var _length = await whitelistContract.getAssetListLength();
+         for (let i = 0; i < _length; i++) {
+            var _name = await whitelistContract.getAssetName(i);
+            var _token = await whitelistContract.getAssetAddress(i);
+            var _aToken = await whitelistContract.getAaveAssetAddress(i);
+            setAssetName(prev => [...prev, _name]);
+            setAssetAddress(prev => [...prev, _token]);
+            setAaveAssetAddress(prev => [...prev, _aToken]);
+         }
+      } catch (err) {
+         console.log(err);
+      }
+   }
+   function setFullAssetParams() {
+
    }
    return (<div>
       <div id="popups">
@@ -331,19 +371,19 @@ export function ManageVault() {
             <div style={{ width: '100%' }}>
                <div className="line">
                   <label htmlFor="asset-choice">Asset :</label>
-                  <input list="Asset" id="asset-choice" name="asset-choice" />
+                  <input list="Asset" id="asset-choice" name="asset-choice" onChange={e => setCurrentAsset(e.target.value)}/>
                   <datalist id="Asset">
-                     {/*<option value="EURs" />*/}
-                     <option value="USDC" />
-                     {/*<option value="USDT" />*/}
+                  {assetName.map((val, i) => 
+                     <option key={i} id={i}>{val}</option>)}
                   </datalist>
                </div>
+               {currentAsset}
                <div className="line">
                   <label htmlFor="asso-choice">Asso :</label>
-                  <input list="Asso" id="asso-choice" name="asso-choice" />
+                  <input list="Asso" id="asso-choice" name="asso-choice" onChange={e => setCurrentAsso(e.target.value)}/>
                   <datalist id="Asso">
                   {assoName.map((val, i) => 
-                     <option key={i} id={i}>{val}</option>)}
+                     <option key={i} value={i}>{val}</option>)}
                   </datalist>
                </div>
             </div>
@@ -374,11 +414,11 @@ export function ManageVault() {
             </div>
             <div className="line">
                <div>Your deposits :</div>
-               <div>{balance} USDC</div>
+               <div>{balance} {currentAsset}</div>
             </div>
             <div className="line">
                <div>Your donations :</div>
-               <div>{donations} USDC</div>
+               <div>{donations} {currentAsset}</div>
             </div>
             <div className="line">
                <div>Your Karma :</div>
@@ -387,15 +427,15 @@ export function ManageVault() {
             <div className="box-footer">
                <div className="line">
                   <div>Total deposits :</div>
-                  <div>{fullDeposits} USDC</div>
+                  <div>{fullDeposits} {currentAsset}</div>
                </div>
                <div className="line">
                   <div>Total donations :</div>
-                  <div>{fullDonations} USDC</div>
+                  <div>{fullDonations} {currentAsset}</div>
                </div>
                <div className="line">
                   <div>Temp donations :</div>
-                  <div>{tempDonation} USDC</div>
+                  <div>{tempDonation} {currentAsset}</div>
                </div>
             </div>
          </div>)}
