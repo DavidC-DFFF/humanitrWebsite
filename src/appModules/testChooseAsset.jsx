@@ -79,17 +79,15 @@ export function TestChooseAsset() {
                </datalist>
             </div>
             <div className="line"><button onClick={getAssets}>Refresh</button></div>
-            <div>
-               {asset.map((_asset, index) => {
-                  return (
-                     <div key={index}>
-                        <li>Name : {_asset._name}</li>
-                        <li>Token : {displayAddress(_asset._token, 4)}</li>
-                        <li>aToken : {displayAddress(_asset._aToken, 4)}</li>
-                     </div>
-                  )
-               })}
-            </div>
+            {asset.map((_asset, index) => {
+               return (
+                  <div className='line' key={index}>
+                     <div>{_asset._name}</div>
+                     <div>{displayAddress(_asset._token, 4)}</div>
+                     <div>{displayAddress(_asset._aToken, 4)}</div>
+                  </div>
+               )
+            })}
          </div>)}
       </div>)
 }
