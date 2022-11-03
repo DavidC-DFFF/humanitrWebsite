@@ -36,11 +36,10 @@ export function ManageVault() {
    const [waiting, setWaiting] = useState();
    const [manageSwitch, setManageSwitch] = useState(true);
    const [amount, setAmount] = useState();
-   //const [asset, setAsset] = useState(USDCAddr);
-   //const [asso, setAsso] = useState(assoTest);
    const [transactionHash, setTransactionHash] = useState();
    const [soulSwitch, setSoulSwitch] = useState(true);
    const [balance, setBalance] = useState();
+   const [totalBalance, setTotalBalance] = useState();
    // eslint-disable-next-line
    const [balanceBN, setBalanceBN] = useState();
    const [donations, setDonations] = useState();
@@ -73,7 +72,7 @@ export function ManageVault() {
       refresh();
       // eslint-disable-next-line
    }, [success, error])
-   useEffect(() => {
+   useEffect(() => {       //Update for wallet change
       if (window.ethereum) {
          window.ethereum.on("chainChanged", () => {
             window.location.reload();
@@ -83,21 +82,13 @@ export function ManageVault() {
          });
       }
    }, [])
-   useEffect(() => {
+   useEffect(() => {       //Update total donation interval
       const interval = setInterval(() => {
          getTotalDonations();
       }, 30 * 1000);
       return () => clearInterval(interval);
       // eslint-disable-next-line
    }, []);
-   useEffect(() => {
-      for (var i = 0 ; i < assetAddress.length ; i++ ) {
-         if (assetName[i] == currentAsset) {
-
-         }
-      }
-
-   }, [currentAsset])
    function refresh() {
       getBalance();
       getDonations();
@@ -123,6 +114,8 @@ export function ManageVault() {
             from: accounts[0]
          }
          let _balance = await vaultContract.getBalanceToken(USDCAddr, currentAssoAddress, _overrides);
+         let _totalBalance = await vaultContract.totalAmount();
+         setTotalBalance(bigNumToStr(_totalBalance, 6, decimals));
          setBalanceBN(_balance);
          _balance = bigNumToStr(_balance, 6, decimals);
          setBalance(_balance);
@@ -449,16 +442,12 @@ export function ManageVault() {
             <div className="box-footer">
                <div className="line">
                   <div>Total deposits :</div>
-                  <div>{fullDeposits} {currentAsset}</div>
+                  <div>{totalBalance} {currentAsset}</div>
                </div>
                <div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} {currentAsset}</div>
                </div>
-               {/*<div className="line">
-                  <div>Temp donations :</div>
-                  <div>{tempDonation} {currentAsset}</div>
-               </div>*/}
             </div>
          </div>)}
       </div>
