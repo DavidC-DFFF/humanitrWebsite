@@ -1,3 +1,9 @@
-module.exports = function(_deployer) {
-  // Use deployer to state migration tasks.
+module.exports = async function (deployer) {
+  const Migrator = artifacts.require("Migrator");
+
+  await deployer.deploy(
+     Migrator);
+  const contract = await Migrator.deployed();
+
+  console.log("Contract address:", contract.address)
 };

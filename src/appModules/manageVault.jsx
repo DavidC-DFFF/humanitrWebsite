@@ -14,13 +14,14 @@ import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
-const whitelistAddr = "0x056aEdc16b2DD3E2A43f8809983870b9bfFFA358";
-const donatorsAddr = "0x27101a591dCDbF0A83BF0f5ec5278A214ec198Cc";
-const karmaAddr = "0xF75a6A8e710831d69E732920b0aE7D92c2918DC0";         // Verified
-const associationsAddr = "0x1DFA8e5791113E5e2cC26b779791b7d75bBd0B0c";  // Verified
-const vaultAddr = "0x04Be176aA8781738FB9EdF4d6694aAa82097811f";         // Verified
-// Migrator       0x989cD1Fe6cC17cf51cAE97389A884b88b46F8eaf            // Verified
-// YieldMaker     0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f            // Verified
+// New contracts :
+const associationsAddr = "0x3c75f343228d0637C1ee9c71664535001Dd03DFA";
+const whitelistAddr = "0x1726B80EFf863A4464eeae4da16d35916218B841";
+const donatorsAddr = "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";
+const karmaAddr = "0x7D88900f025397a2E396A8887315c42b21020D62";
+const vaultAddr = "0x84FEA30892E1e2a5512C4C082d04b7a325d02f53";
+// const migratorAddr = "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
+// const yieldMakerAddr = "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
 
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
@@ -440,11 +441,11 @@ export function ManageVault() {
                <div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} {currentAsset.name}</div>
-               </div>
+               </div>{/*
                <div className="line">
                   <button className='button-default' onClick={getAssos}>getAssos</button>
                   <button className='button-default' onClick={getAssets}>getAssets</button>
-               </div>
+               </div>*/}
             </div>
          </div>)}
       </div>
