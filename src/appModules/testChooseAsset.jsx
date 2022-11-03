@@ -10,24 +10,12 @@ const whitelistAddr = "0x056aEdc16b2DD3E2A43f8809983870b9bfFFA358";
 export function TestChooseAsset() {
 
    const [testSwitch, setTestSwitch] = useState(true);
-   const [asset, setAsset] = useState([]);/*
-      {
-         _index: '',
-         _name: '',
-         _tokenAddress: '',
-         _aTokenAddress: ''
-      }
-   ]);*/
-   const [assetName, setAssetName] = useState([]);
-   /*const [assetAddress, setAssetAddress] = useState([]);
-   const [aaveAssetAddress, setAaveAssetAddress] = useState([]);*/
-   const [currentAsset, setCurrentAsset] = useState();/*
-      {
-         _index: '',
-         _name: '',
-         _tokenAddress: '',
-         _aTokenAddress: ''
-      });*/
+   const [asset, setAsset] = useState([]);
+   const [currentAsset, setCurrentAsset] = useState([]);
+
+   useEffect (() => {
+      getAssets();
+   }, [])
 
    async function getAssets() {
       if (typeof window.ethereum == 'undefined') {
@@ -37,19 +25,12 @@ export function TestChooseAsset() {
       const whitelistContract = new ethers.Contract(whitelistAddr, WhitelistABI.abi, provider);
       try {
          setAsset([]);
-         setAssetName([]);/*
-         setAssetAddress([]);
-         setAaveAssetAddress([]);*/
          var _length = await whitelistContract.getAssetListLength();
          console.log("_length = " + _length);
          for (let i = 0; i < _length; i++) {
             var _name = await whitelistContract.getAssetName(i);
             var _token = await whitelistContract.getAssetAddress(i);
             var _aToken = await whitelistContract.getAaveAssetAddress(i);
-            setAssetName(prev => [...prev, _name]);
-/*            setAssetAddress(prev => [...prev, _token]);
-            setAaveAssetAddress(prev => [...prev, _aToken]);
-            console.log("index : " + i + ", name : " + _name + ", token : " + _token + " and aToken : " + _aToken);*/
             setAsset(prev => [...prev, { _name, _token, _aToken }]);
             console.log({ asset });
          }
@@ -59,12 +40,13 @@ export function TestChooseAsset() {
    }
 
    return (
-      <div>  {!testSwitch && (<div className='box'>
-         <div className="box-header-arrow" onClick={() => setTestSwitch(!testSwitch)}>
-            <div>Test assos</div>
-            <img src={downArrow} style={{ height: '4vh' }} alt="down Arrow" />
-         </div>
-      </div>)}
+      <div>
+         {!testSwitch && (<div className='box'>
+            <div className="box-header-arrow" onClick={() => setTestSwitch(!testSwitch)}>
+               <div>Test assos</div>
+               <img src={downArrow} style={{ height: '4vh' }} alt="down Arrow" />
+            </div>
+         </div>)}
          {testSwitch && (<div className='box'>
             <div className="box-header-arrow" onClick={() => setTestSwitch(!testSwitch)}>
                <div>Test assos</div>
@@ -72,22 +54,16 @@ export function TestChooseAsset() {
             </div>
             <div className="line">
                <label htmlFor="asset-choice">Asset :</label>
-               <input list="Asset" id="asset-choice" name="asset-choice" onChange={e => setCurrentAsset(e.target.value)} />
+               <input list="Asset" id="asset-choice" name="asset-choice" /*onChange={e => setCurrentAsset(e.target.value)}*/ />
                <datalist id="Asset">
-                  {assetName.map((val, i) =>
-                     <option key={i} id={i}>{val}</option>)}
+                  {asset.map(function (asset) {
+                     <option key={asset._token} id={asset._token} value={asset._name}></option>
+                  })}
                </datalist>
             </div>
+            
             <div className="line"><button onClick={getAssets}>Refresh</button></div>
-            {asset.map((_asset, index) => {
-               return (
-                  <div className='line' key={index}>
-                     <div>{_asset._name}</div>
-                     <div>{displayAddress(_asset._token, 4)}</div>
-                     <div>{displayAddress(_asset._aToken, 4)}</div>
-                  </div>
-               )
-            })}
+
          </div>)}
       </div>)
 }

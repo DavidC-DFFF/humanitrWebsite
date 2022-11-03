@@ -25,6 +25,10 @@ const vaultAddr = "0x04Be176aA8781738FB9EdF4d6694aAa82097811f";         // Verif
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
+/*const DAIAddr = "";
+const aDAIAddr = "";
+const USDTAddr = "";
+const aUSDTAddr = "";*/
 
 export function ManageVault() {
    const [success, setSuccess] = useState();

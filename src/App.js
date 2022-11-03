@@ -7,7 +7,7 @@ import odysee from './img/odysee.png';
 import turnDevice from './img/TurnDevice.jpg';
 
 import './css/animations.css';
-import './css/app.css';
+import './css/App.css';
 import './css/boxes.css';
 import './css/buttons-inputs.css';
 import './css/dot-elastic.css';
