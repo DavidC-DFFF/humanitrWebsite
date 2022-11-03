@@ -36,8 +36,8 @@ export function ManageVault() {
    const [waiting, setWaiting] = useState();
    const [manageSwitch, setManageSwitch] = useState(true);
    const [amount, setAmount] = useState();
-   const [asset, setAsset] = useState(USDCAddr);
-   const [asso, setAsso] = useState(assoTest);
+   //const [asset, setAsset] = useState(USDCAddr);
+   //const [asso, setAsso] = useState(assoTest);
    const [transactionHash, setTransactionHash] = useState();
    const [soulSwitch, setSoulSwitch] = useState(true);
    const [balance, setBalance] = useState();
@@ -54,16 +54,18 @@ export function ManageVault() {
    const [ assetAddress, setAssetAddress ] = useState([]);
    const [ aaveAssetAddress, setAaveAssetAddress ] = useState([]);
 
-   const [ currentAsset, setCurrentAsset ] = useState("None");
-   const [ currentAssetAddress, setCurrentAssetAddress] = useState();
-   const [ currentAsso, setCurrentAsso ] = useState("None");
-   const [ currentAssoAddress, setCurrentAssoAddress ] = useState();
+   const [ currentAsset, setCurrentAsset ] = useState("USDC");
+   const [ currentAssetAddress, setCurrentAssetAddress] = useState(USDCAddr);
+   const [ currentAsso, setCurrentAsso ] = useState("Asso Test");
+   const [ currentAssoAddress, setCurrentAssoAddress ] = useState(assoTest);
+
+   const [ available, setAvailable ] = useState();
 
    const decimals = 4;
 
    useEffect(() => {
-      getAssos();
-      getAssets();
+      //getAssos();
+      //getAssets();
       refresh();
       // eslint-disable-next-line
    }, [])
@@ -102,6 +104,7 @@ export function ManageVault() {
       getTotalDeposits();
       getTotalDonations();
       getKarmaBalance();
+      getAvailable();
    }
    function ClearPopups() {
       setError('');
@@ -119,7 +122,7 @@ export function ManageVault() {
          let _overrides = {
             from: accounts[0]
          }
-         let _balance = await vaultContract.getBalanceToken(USDCAddr, assoTest, _overrides);
+         let _balance = await vaultContract.getBalanceToken(USDCAddr, currentAssoAddress, _overrides);
          setBalanceBN(_balance);
          _balance = bigNumToStr(_balance, 6, decimals);
          setBalance(_balance);
@@ -154,7 +157,7 @@ export function ManageVault() {
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], asso, asset);
+         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], currentAssoAddress, currentAssetAddress);
          //let _donations = await associationsContract.getUserFullDonation(accounts[0]);
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
@@ -174,7 +177,7 @@ export function ManageVault() {
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       try {
-         let _donations = await donatorsContract.getDonation(asset);
+         let _donations = await donatorsContract.getDonation(currentAssetAddress);
          //let _donations = await associationsContract.getFullDonation();
          let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
          let _assetDeposit = await vaultContract.totalAmount();
@@ -197,7 +200,7 @@ export function ManageVault() {
          from: accounts[0]
       }
       try {
-         let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, assoTest, overrides);
+         let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, currentAssoAddress, overrides);
          _totalDeposit = bigNumToStr(_totalDeposit, 6, decimals);
          setFullDeposits(_totalDeposit);
       } catch (err) {
@@ -210,7 +213,7 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      setAsso(assoTest);
+      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
@@ -220,7 +223,7 @@ export function ManageVault() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(asset, ethers.utils.parseUnits(amount, 6), asso);
+         const _deposit = await vaultContract.O1_deposit(currentAssetAddress, ethers.utils.parseUnits(amount, 6), currentAssoAddress);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
@@ -235,7 +238,7 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      setAsso(assoTest);
+      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
@@ -247,7 +250,7 @@ export function ManageVault() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(asset, _onWallet, asso);
+         const _deposit = await vaultContract.O1_deposit(currentAssetAddress, _onWallet, currentAssoAddress);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
@@ -262,13 +265,13 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      setAsset(USDCAddr);
-      setAsso(assoTest);
+      //setAsset(USDCAddr);
+      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
       try {
-         const _withdraw = await vaultContract.O2_withdraw(asset, ethers.utils.parseUnits(amount, 6), asso);
+         const _withdraw = await vaultContract.O2_withdraw(currentAssetAddress, ethers.utils.parseUnits(amount, 6), currentAssoAddress);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
@@ -282,12 +285,12 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      setAsset(USDCAddr);
+      //setAsset(USDCAddr);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
       try {
-         const _withdraw = await vaultContract.O3_withdrall(asset, asso);
+         const _withdraw = await vaultContract.O3_withdrall(currentAssetAddress, currentAssoAddress);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
@@ -297,7 +300,7 @@ export function ManageVault() {
          console.log(err);
       }
    }
-   async function getAssos() {
+   /*async function getAssos() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -339,9 +342,20 @@ export function ManageVault() {
       } catch (err) {
          console.log(err);
       }
-   }
-   function setFullAssetParams() {
-
+   }*/
+   async function getAvailable() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const assetContract = new ethers.Contract(currentAssetAddress, AssetABI.abi, provider);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      try {
+         const _onWallet = await assetContract.balanceOf(accounts[0]);
+         setAvailable(bigNumToStr(_onWallet, 6, decimals));
+      } catch (err) {
+         console.log(err);
+      }
    }
    return (<div>
       <div id="popups">
@@ -372,7 +386,7 @@ export function ManageVault() {
                <div>Cleanse your Karma</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
-            <div style={{ width: '100%' }}>
+            {/*<div style={{ width: '100%' }}>
                <div className="line">
                   <label htmlFor="asset-choice">Asset :</label>
                   <input list="Asset" id="asset-choice" name="asset-choice" onChange={e => setCurrentAsset(e.target.value)}/>
@@ -390,7 +404,7 @@ export function ManageVault() {
                      <option key={i} value={i}>{val}</option>)}
                   </datalist>
                </div>
-            </div>
+            </div>*/}
             <div className="box-footer">
                <input className='input-default' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
                <div className="line">
@@ -417,6 +431,10 @@ export function ManageVault() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div className="line">
+               <div>Available :</div>
+               <div>{available} {currentAsset}</div>
+            </div>
+            <div className="line">
                <div>Your deposits :</div>
                <div>{balance} {currentAsset}</div>
             </div>
@@ -437,10 +455,10 @@ export function ManageVault() {
                   <div>Total donations :</div>
                   <div>{fullDonations} {currentAsset}</div>
                </div>
-               <div className="line">
+               {/*<div className="line">
                   <div>Temp donations :</div>
                   <div>{tempDonation} {currentAsset}</div>
-               </div>
+               </div>*/}
             </div>
          </div>)}
       </div>

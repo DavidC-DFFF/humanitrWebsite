@@ -142,19 +142,19 @@ function App() {
             {(page === "3") && (<Page3 />)}
          </div>
          <footer className="footer">
-            <a href="https://discord.gg/psgWAmTR" target="_blank">
+            <a href="https://discord.gg/psgWAmTR" target="_blank" rel="noopener">
                <img src={discord} alt="Discord logo" className='picfooter' />
                <div className='footer-link-text'>Discord</div>
             </a>
-            <a href="https://twitter.com/DvdChETH" target="_blank">
+            <a href="https://twitter.com/DvdChETH" target="_blank" rel="noopener">
                <img src={twitter} alt="Twitter logo" className='picfooter' />
                <div className='footer-link-text'>Twitter</div>
             </a>
-            <a href="https://odysee.com/@HumanitR:e" target="_blank">
+            <a href="https://odysee.com/@HumanitR:e" target="_blank" rel="noopener">
                <img src={odysee} alt="Odysee logo" className='picfooter' />
                <div className='footer-link-text'>Odysee</div>
             </a>
-            <a href="mailto:humanitr@proton.me" target="_blank">
+            <a href="mailto:humanitr@proton.me" target="_blank" rel="noopener">
                <img src={email} alt="Gmail logo" className='picfooter' />
                <div className='footer-link-text'>Email</div>
             </a>
