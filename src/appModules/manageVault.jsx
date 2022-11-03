@@ -25,10 +25,6 @@ const vaultAddr = "0x04Be176aA8781738FB9EdF4d6694aAa82097811f";         // Verif
 const assoTest = "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8";
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
-/*const DAIAddr = "";
-const aDAIAddr = "";
-const USDTAddr = "";
-const aUSDTAddr = "";*/
 
 export function ManageVault() {
    const [success, setSuccess] = useState();
@@ -53,18 +49,27 @@ export function ManageVault() {
    const [ assetAddress, setAssetAddress ] = useState([]);
    const [ aaveAssetAddress, setAaveAssetAddress ] = useState([]);
 
-   const [ currentAsset, setCurrentAsset ] = useState("USDC");
-   const [ currentAssetAddress, setCurrentAssetAddress] = useState(USDCAddr);
-   const [ currentAsso, setCurrentAsso ] = useState("Asso Test");
-   const [ currentAssoAddress, setCurrentAssoAddress ] = useState(assoTest);
-
    const [ available, setAvailable ] = useState();
+
+   let assoArray = [];
+   let assetArray = [];
+
+   let currentAsset = {
+      name: "USDC",
+      token: USDCAddr,
+      aToken: aUSDCAddr
+   };
+   let currentAsso = {
+      name: "Owner",
+      address: "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8"
+      //address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13"
+   };
 
    const decimals = 4;
 
    useEffect(() => {
-      //getAssos();
-      //getAssets();
+      getAssos();
+      getAssets();
       refresh();
       // eslint-disable-next-line
    }, [])
@@ -113,7 +118,7 @@ export function ManageVault() {
          let _overrides = {
             from: accounts[0]
          }
-         let _balance = await vaultContract.getBalanceToken(USDCAddr, currentAssoAddress, _overrides);
+         let _balance = await vaultContract.getBalanceToken(USDCAddr, currentAsso.address, _overrides);
          let _totalBalance = await vaultContract.totalAmount();
          setTotalBalance(bigNumToStr(_totalBalance, 6, decimals));
          setBalanceBN(_balance);
@@ -146,12 +151,10 @@ export function ManageVault() {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], currentAssoAddress, currentAssetAddress);
-         //let _donations = await associationsContract.getUserFullDonation(accounts[0]);
+         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], currentAsso.address, currentAsset.token);
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
       } catch (err) {
@@ -166,12 +169,10 @@ export function ManageVault() {
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
-      //const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       try {
-         let _donations = await donatorsContract.getDonation(currentAssetAddress);
-         //let _donations = await associationsContract.getFullDonation();
+         let _donations = await donatorsContract.getDonation(currentAsset.token);
          let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
          let _assetDeposit = await vaultContract.totalAmount();
          setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
@@ -193,7 +194,7 @@ export function ManageVault() {
          from: accounts[0]
       }
       try {
-         let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, currentAssoAddress, overrides);
+         let _totalDeposit = await vaultContract.getBalanceToken(USDCAddr, currentAsso.address, overrides);
          _totalDeposit = bigNumToStr(_totalDeposit, 6, decimals);
          setFullDeposits(_totalDeposit);
       } catch (err) {
@@ -206,7 +207,6 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
@@ -216,13 +216,12 @@ export function ManageVault() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(currentAssetAddress, ethers.utils.parseUnits(amount, 6), currentAssoAddress);
+         const _deposit = await vaultContract.O1_deposit(currentAsset.token, ethers.utils.parseUnits(amount, 6), currentAsso.address);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
          ClearPopups();
          setSuccess('Deposit done !');
-         //refresh();
       } catch (err) {
          console.log(err);
       }
@@ -231,7 +230,6 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const assetContract = new ethers.Contract(USDCAddr, AssetABI.abi, signer);
@@ -243,13 +241,12 @@ export function ManageVault() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(currentAssetAddress, _onWallet, currentAssoAddress);
+         const _deposit = await vaultContract.O1_deposit(currentAsset.token, _onWallet, currentAsso.address);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
          ClearPopups();
          setSuccess('Deposit done !');
-         //refresh();
       } catch (err) {
          console.log(err);
       }
@@ -258,13 +255,11 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      //setAsset(USDCAddr);
-      //setAsso(assoTest);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
       try {
-         const _withdraw = await vaultContract.O2_withdraw(currentAssetAddress, ethers.utils.parseUnits(amount, 6), currentAssoAddress);
+         const _withdraw = await vaultContract.O2_withdraw(currentAsset.token, ethers.utils.parseUnits(amount, 6), currentAsso.address);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
@@ -278,70 +273,61 @@ export function ManageVault() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      //setAsset(USDCAddr);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         const _withdraw = await vaultContract.O3_withdrall(currentAssetAddress, currentAssoAddress);
+         let _overrides = {
+            from: accounts[0]
+         }
+         const _withdraw = await vaultContract.O3_withdrall(currentAsset.token, currentAsso.address, _overrides);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
          ClearPopups();
          setSuccess('Withdraw done !');
-      } catch (err) {
-         console.log(err);
-      }
+      } catch (err) { console.log(err); }
    }
-   /*async function getAssos() {
+   async function getAssos() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
       try {
-         setAssoWallet(assoWallet => []);
-         setAssoName(assoName => []);
+         assoArray = [];
          var _length = await associationsContract.getAssoListLength();
          for (let i = 0; i < _length; i++) {
-            var _asso = await associationsContract.getAssoWallet(i);
+            var _wallet = await associationsContract.getAssoWallet(i);
             var _name = await associationsContract.getAssoName(i);
-            setAssoWallet(prevWallet => [...prevWallet, _asso]);
-            setAssoName(prevName => [...prevName, _name]);
+            assoArray.push({wallet: _wallet, name: _name});
          }
-      } catch (err) {
-         console.log(err);
-      }
+      } catch (err) { console.log(err); }
    }
    async function getAssets() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
+      assetArray = [];
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const whitelistContract = new ethers.Contract(whitelistAddr, WhitelistABI.abi, provider);
       try {
-         setAssetName([]);
-         setAssetAddress([]);
-         setAaveAssetAddress([]);
          var _length = await whitelistContract.getAssetListLength();
          for (let i = 0; i < _length; i++) {
             var _name = await whitelistContract.getAssetName(i);
             var _token = await whitelistContract.getAssetAddress(i);
             var _aToken = await whitelistContract.getAaveAssetAddress(i);
-            setAssetName(prev => [...prev, _name]);
-            setAssetAddress(prev => [...prev, _token]);
-            setAaveAssetAddress(prev => [...prev, _aToken]);
+            assetArray.push({name: _name, token: _token, aToken: _aToken});
          }
-      } catch (err) {
-         console.log(err);
-      }
-   }*/
+      } catch (err) { console.log(err); }
+   }   
    async function getAvailable() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const assetContract = new ethers.Contract(currentAssetAddress, AssetABI.abi, provider);
+      const assetContract = new ethers.Contract(currentAsset.token, AssetABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
          const _onWallet = await assetContract.balanceOf(accounts[0]);
@@ -378,7 +364,14 @@ export function ManageVault() {
             <div className="box-header-arrow" onClick={() => setManageSwitch(!manageSwitch)}>
                <div>Cleanse your Karma</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
-            </div>
+            </div>{/*}
+               <label htmlFor="asset-choice">Asset :</label>
+               <input list="Asset" id="asset-choice" name="asset-choice" />
+               <datalist id="Asset">
+                  {assetArray.map((asset) => {
+                     <option value={asset.name}></option>
+                  })}
+               </datalist>*/}
             {/*<div style={{ width: '100%' }}>
                <div className="line">
                   <label htmlFor="asset-choice">Asset :</label>
@@ -425,15 +418,15 @@ export function ManageVault() {
             </div>
             <div className="line">
                <div>Available :</div>
-               <div>{available} {currentAsset}</div>
+               <div>{available} {currentAsset.name}</div>
             </div>
             <div className="line">
                <div>Your deposits :</div>
-               <div>{balance} {currentAsset}</div>
+               <div>{balance} {currentAsset.name}</div>
             </div>
             <div className="line">
                <div>Your donations :</div>
-               <div>{donations} {currentAsset}</div>
+               <div>{donations} {currentAsset.name}</div>
             </div>
             <div className="line">
                <div>Your Karma :</div>
@@ -442,11 +435,15 @@ export function ManageVault() {
             <div className="box-footer">
                <div className="line">
                   <div>Total deposits :</div>
-                  <div>{totalBalance} {currentAsset}</div>
+                  <div>{totalBalance} {currentAsset.name}</div>
                </div>
                <div className="line">
                   <div>Total donations :</div>
-                  <div>{fullDonations} {currentAsset}</div>
+                  <div>{fullDonations} {currentAsset.name}</div>
+               </div>
+               <div className="line">
+                  <button className='button-default' onClick={getAssos}>getAssos</button>
+                  <button className='button-default' onClick={getAssets}>getAssets</button>
                </div>
             </div>
          </div>)}

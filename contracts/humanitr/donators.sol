@@ -28,36 +28,7 @@ contract Donators is Ownable {
     }
     function setMigrator(address _migrator) public onlyOwner {
         migrator = _migrator;
-    }
-
-    /*
-    function _setNewDonator(address _donator) public onlyMigratorOrVault {
-        for (uint256 i; i < donatorsList.length; i++) {
-            if (donatorsList[i] == _donator) {
-                return;
-            }
-        }
-        donatorsList.push(_donator);
-        DonatorProfile[_donator].exists = true;
-    }
-    function _setNewAsso(address _asso) public onlyMigratorOrVault {
-        for (uint256 i; i < assosList.length; i++) {
-            if (assosList[i] == _asso) {
-                return;
-            }
-        }
-        assosList.push(_asso);
-    }
-    function _setNewAsset(address _asset) public onlyMigratorOrVault {
-        for (uint256 i; i < assetsList.length; i++) {
-            if (assetsList[i] == _asset) {
-                return;
-            }
-        }
-        assetsList.push(_asset);
-    }
-    */
-    
+    }    
     function _setNewDonator(address _donator) internal {
         for (uint256 i; i < donatorsList.length; i++) {
             if (donatorsList[i] == _donator) {
@@ -143,7 +114,6 @@ contract Donators is Ownable {
         if(!DonatorProfile[_wallet].exists) {
             return 0;
         } else {
-        //require(DonatorProfile[_wallet].exists, "Is not donator yet");
         return DonatorProfile[_wallet].balancesByAssoByAsset[_asso][_asset];}
     }
     function getDonation(address _asset) public view returns(uint256) {
@@ -162,15 +132,11 @@ contract Donators is Ownable {
         return DonatorProfile[_donator].name;
     }
     modifier onlyVault() {
-        require(msg.sender == vault, "Only vault can do that");
+        require(msg.sender == vault, "Only vault can do that - Donators");
         _;
     }
     modifier onlyMigrator() {
-        require(msg.sender == migrator, "Only migrator can do that");
+        require(msg.sender == migrator, "Only migrator can do that - Donators");
         _;
     }
-/*    modifier onlyMigratorOrVault() {
-        require((msg.sender == migrator) || (msg.sender == vault), "Only migrator or vault can do that");
-        _;
-    }*/
 }
