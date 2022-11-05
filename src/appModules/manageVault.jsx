@@ -335,7 +335,7 @@ export function ManageVault() {
    }
    function setCurrentAsset() {
       for (let i = 0; i < assetArray.length; i++) {
-         if (assetArray[i].name == currentAssetName) {
+         if (assetArray[i].name === currentAssetName) {
             console.log("SetCurrentAsset : ");
             console.log(assetArray[i].name);
             currentAsset = {
@@ -351,7 +351,7 @@ export function ManageVault() {
    }
    function setCurrentAsso() {
       for (let i = 0; i < assoArray.length; i++) {
-         if (assoArray[i].name == currentAssoName) {
+         if (assoArray[i].name === currentAssoName) {
             currentAsso = {
                name: assoArray[i].name,
                address: assoArray[i].address

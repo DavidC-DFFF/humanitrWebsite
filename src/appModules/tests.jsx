@@ -1,50 +1,43 @@
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 export function Tests() {
-   const [currentAssetName, setCurrentAssetName] = useState();
-   const [currentAssetNameConfirmed, setCurrentAssetNameConfirmed] = useState();
+   const [currentAssetNameConfirmed, setCurrentAssetNameConfirmed] = useState("USDC");
+
+   const [currentAsset, setCurrentAsset] = useState( /* Default asset */ { name: "USDC", token: "USDCAddr" });
 
    const assetArray = [
-      { name: "USDC", token: "USDCAddr"},
-      { name: "USDT", token: "USDTAddr"},
-      { name: "DAI", token: "DAIAddr"}
+      { name: "USDC", token: "USDCAddr" },
+      { name: "USDT", token: "USDTAddr" },
+      { name: "DAI", token: "DAIAddr" }
    ];
-   var currentAsset = {
-      name: "USDC",
-      token: "USDCAddr"
-   };
-
-   useEffect(() => {       // Chargement page
-      setCurrentAssetNameConfirmed(currentAsset.name);
-      // eslint-disable-next-line
-   }, [])
-
-   function setCurrentAsset() {
+   function setAsset() {
       for (let i = 0; i < assetArray.length; i++) {
-         if (assetArray[i].name == currentAssetName) {
-            currentAsset = {
+         if (assetArray[i].name === currentAsset.name) {
+            setCurrentAsset({
                name: assetArray[i].name,
                token: assetArray[i].token
-            };
+            })
          }
       }
       setCurrentAssetNameConfirmed(currentAsset.name);
-      console.log(currentAsset)
+      getCurrentAsset();
    }
    function getCurrentAsset() {
       console.log(currentAsset);
    }
    return (<div>
-      <div id="cleanse">
-         <form>
-            <input type="input" list="assetsList" placeholder={currentAssetNameConfirmed} onChange={e => setCurrentAssetName(e.target.value)} />
-            <datalist id="assetsList">
-               {assetArray.map(
-                  (asset) => <option key={asset.token}>{asset.name}</option>)}
-            </datalist>
-         </form>
-         <button onClick={setCurrentAsset}>Confirm</button>
-         <button onClick={getCurrentAsset}>currentAsset</button>
-      </div>
+      <form>
+         <input
+            type="input"
+            list="assetsList"
+            placeholder={currentAssetNameConfirmed}
+            onChange={e => setCurrentAsset({name: e.target.value, token: ""})}
+         />
+         <datalist id="assetsList">
+            {assetArray.map(
+               (asset) => <option key={asset.token}>{asset.name}</option>)}
+         </datalist>
+      </form>
+      <button onClick={setAsset}>Confirm</button>
+      <button onClick={getCurrentAsset}>currentAsset</button>
    </div>)
 }

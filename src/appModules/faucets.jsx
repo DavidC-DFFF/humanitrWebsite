@@ -22,11 +22,11 @@ export function Faucets() {
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
             <div className="line">
-               <a href="https://faucets.chain.link/" target="_blank">Get gETH</a>
+               <a href="https://faucets.chain.link/" target="_blank" rel="noreferrer" >Get gETH</a>
                <div>from Chainlink</div>
             </div>
             <div className="line">
-               <a href="https://app.aave.com/faucet/" target="_blank">Get some USDC</a>
+               <a href="https://app.aave.com/faucet/" target="_blank" rel="noreferrer" >Get some USDC</a>
                <div>from AAVE</div>
             </div>
          </div>)}
