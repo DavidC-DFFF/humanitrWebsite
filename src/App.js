@@ -1,13 +1,12 @@
 import logorond from './img/karma.png';
 import discord from './img/discord.png';
-import youtube from './img/youtube.png';
 import twitter from './img/twitter.png';
 import email from './img/email.png';
 import odysee from './img/odysee.png';
 import turnDevice from './img/TurnDevice.jpg';
 
 import './css/animations.css';
-import './css/App.css';
+import './css/appli.css';
 import './css/boxes.css';
 import './css/buttons-inputs.css';
 import './css/dot-elastic.css';
@@ -142,19 +141,19 @@ function App() {
             {(page === "3") && (<Page3 />)}
          </div>
          <footer className="footer">
-            <a href="https://discord.gg/psgWAmTR" target="_blank" rel="noopener">
+            <a href="https://discord.gg/psgWAmTR" target="_blank" rel="noreferrer">
                <img src={discord} alt="Discord logo" className='picfooter' />
                <div className='footer-link-text'>Discord</div>
             </a>
-            <a href="https://twitter.com/DvdChETH" target="_blank" rel="noopener">
+            <a href="https://twitter.com/DvdChETH" target="_blank" rel="noreferrer">
                <img src={twitter} alt="Twitter logo" className='picfooter' />
                <div className='footer-link-text'>Twitter</div>
             </a>
-            <a href="https://odysee.com/@HumanitR:e" target="_blank" rel="noopener">
+            <a href="https://odysee.com/@HumanitR:e" target="_blank" rel="noreferrer">
                <img src={odysee} alt="Odysee logo" className='picfooter' />
                <div className='footer-link-text'>Odysee</div>
             </a>
-            <a href="mailto:humanitr@proton.me" target="_blank" rel="noopener">
+            <a href="mailto:humanitr@proton.me" target="_blank" rel="noreferrer">
                <img src={email} alt="Gmail logo" className='picfooter' />
                <div className='footer-link-text'>Email</div>
             </a>

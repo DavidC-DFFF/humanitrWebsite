@@ -104,7 +104,7 @@ contract Vault is
         IERC20(_asset).transfer(_asso, _amount);
     }
 // get the sender balance on the contract
-    function getBalanceToken(address _asset, address _asso) public view returns (uint256) {
-        return Balances[msg.sender][_asset][_asso];
+    function getBalanceToken(address _user, address _asset, address _asso) public view returns (uint256) {
+        return Balances[_user][_asset][_asso];
     }
 }
