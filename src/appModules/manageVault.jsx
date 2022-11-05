@@ -42,10 +42,12 @@ export function ManageVault() {
    const [donations, setDonations] = useState();
    const [fullDonations, setFullDonations] = useState();
    const [karmaAmount, setKarmaAmount] = useState();
-   const [currentAssetName, setCurrentAssetName] = useState();
-   const [currentAssoName, setCurrentAssoName] = useState();
-   const [currentAssetNameConfirmed, setCurrentAssetNameConfirmed] = useState();
-   const [currentAssoNameConfirmed, setCurrentAssoNameConfirmed] = useState();
+
+   const [currentAsset, setCurrentAsset] = useState({ name: "USDC", token: USDCAddr, aToken: aUSDCAddr, decimals: 6 });
+   const [currentAssetNameConfirmed, setCurrentAssetNameConfirmed] = useState("USDC");
+
+   const [currentAsso, setCurrentAsso] = useState({ name: "Dev", address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" });
+   const [currentAssoNameConfirmed, setCurrentAssoNameConfirmed] = useState("USDC");
 
    const [available, setAvailable] = useState();
 
@@ -55,19 +57,10 @@ export function ManageVault() {
       { name: "Asso test", address: "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8" }
    ];
    const assetArray = [
-      { name: "USDC", token: USDCAddr, aToken: aUSDCAddr },
-      { name: "USDT", token: USDTAddr, aToken: aUSDTAddr },
-      { name: "DAI", token: DAIAddr, aToken: aDAIAddr }
+      { name: "USDC", token: USDCAddr, aToken: aUSDCAddr, decimals: 6 },
+      { name: "USDT", token: USDTAddr, aToken: aUSDTAddr, decimals: 6 },
+      { name: "DAI", token: DAIAddr, aToken: aDAIAddr, decimals: 18 }
    ];
-   var currentAsset = {
-      name: "USDC",
-      token: USDCAddr,
-      aToken: aUSDCAddr
-   };
-   var currentAsso = {
-      name: "dev",
-      address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13"
-   };
    const decimals = 4;
 
    useEffect(() => {       // Chargement page
@@ -79,7 +72,7 @@ export function ManageVault() {
    useEffect(() => {       // Popups
       refresh();
       // eslint-disable-next-line
-   }, [success, error])
+   }, [success, error, currentAssoNameConfirmed, currentAssetNameConfirmed])
    useEffect(() => {       // Update for wallet change
       if (window.ethereum) {
          window.ethereum.on("chainChanged", () => {
@@ -100,7 +93,6 @@ export function ManageVault() {
    function refresh() {
       getBalance();
       getDonations();
-      //getTotalDeposits();
       getTotalDonations();
       getKarmaBalance();
       getAvailable();
@@ -110,7 +102,7 @@ export function ManageVault() {
       setSuccess('');
       setWaiting('');
    }
-   async function getBalance() {
+   async function getBalance() {/*
       for (let i = 0; i < assetArray.length; i++) {
          if (assetArray[i].name === currentAssetNameConfirmed) {
             currentAsset = {
@@ -127,7 +119,7 @@ export function ManageVault() {
                address: assoArray[i].address
             };
          }
-      }
+      }*/
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -137,8 +129,8 @@ export function ManageVault() {
       try {
          let _balance = await vaultContract.getBalanceToken(accounts[0], currentAsset.token, currentAsso.address);
          let _totalBalance = await vaultContract.totalAmount();
-         setTotalBalance(bigNumToStr(_totalBalance, 6, decimals));
-         _balance = bigNumToStr(_balance, 6, decimals);
+         setTotalBalance(bigNumToStr(_totalBalance, currentAsset.decimals, decimals));
+         _balance = bigNumToStr(_balance, currentAsset.decimals, decimals);
          setBalance(_balance);
       } catch (err) {
          console.log(err);
@@ -171,7 +163,7 @@ export function ManageVault() {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
          let _donations = await donatorsContract.getDonatorAmounts(accounts[0], currentAsso.address, currentAsset.token);
-         _donations = bigNumToStr(_donations, 6, decimals);
+         _donations = bigNumToStr(_donations, currentAsset.decimals, decimals);
          setDonations(_donations);
       } catch (err) {
          console.log(err);
@@ -191,7 +183,7 @@ export function ManageVault() {
          let _donations = await donatorsContract.getDonation(currentAsset.token);
          let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
          let _assetDeposit = await vaultContract.totalAmount();
-         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
+         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), currentAsset.decimals, decimals));
       } catch (err) {
          console.log(err);
          ClearPopups();
@@ -328,41 +320,43 @@ export function ManageVault() {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
          const _onWallet = await assetContract.balanceOf(accounts[0]);
-         setAvailable(bigNumToStr(_onWallet, 6, decimals));
+         setAvailable(bigNumToStr(_onWallet, currentAsset.decimals, decimals));
       } catch (err) {
          console.log(err);
       }
    }
-   function setCurrentAsset() {
+   function setAsset() {
       for (let i = 0; i < assetArray.length; i++) {
-         if (assetArray[i].name === currentAssetName) {
+         if (assetArray[i].name === currentAsset.name) {
             console.log("SetCurrentAsset : ");
             console.log(assetArray[i].name);
-            currentAsset = {
+            setCurrentAsset({
                name: assetArray[i].name,
                token: assetArray[i].token,
-               aToken: assetArray[i].aToken
-            };
+               aToken: assetArray[i].aToken,
+               decimals: assetArray[i].decimals
+            });
          }
       }
       setCurrentAssetNameConfirmed(currentAsset.name);
       console.log(currentAsset)
-      getBalance();
    }
-   function setCurrentAsso() {
+   function setAsso() {
       for (let i = 0; i < assoArray.length; i++) {
-         if (assoArray[i].name === currentAssoName) {
-            currentAsso = {
+         if (assoArray[i].name === currentAsso.name) {
+            setCurrentAsso({
                name: assoArray[i].name,
                address: assoArray[i].address
-            };
+            });
          }
       }
       setCurrentAssoNameConfirmed(currentAsso.name);
-      getBalance();
    }
-   function getCurrentAsset() {
+   function getAsset() {
       console.log(currentAsset);
+   }
+   function getAsso() {
+      console.log(currentAsso);
    }
    return (<div>
       <div id="popups">
@@ -396,34 +390,42 @@ export function ManageVault() {
             <div className="box-footer">
                <div className="line">
                   <form>
-                     <input type="input" list="assetsList" placeholder={currentAssetNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAssetName(e.target.value)} />
+                     <input type="input" list="assetsList" placeholder={currentAssetNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAsset({name: e.target.value, token: "", aToken: ""})} />
                      <datalist id="assetsList">
                         {assetArray.map(
-                           (asset) => <option key={asset.token}>{asset.name}</option>)}
+                           (asset) => <option key={asset.id}>{asset.name}</option>)}
                      </datalist>
                   </form>
-                  <button className='button-default' onClick={ setCurrentAsset }>Confirm</button>
+                  <button className='button-default' onClick={ setAsset }>Confirm</button>
                </div>
                <div className="line">
                   <form>
-                     <input type="input" list="assosList" placeholder={currentAssoNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAssoName(e.target.value)} />
+                     <input type="input" list="assosList" placeholder={currentAssoNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAsso({name: e.target.value, wallet: ""})} />
                      <datalist id="assosList">
                         {assoArray.map(
-                           (asso) => <option key={asso.wallet}>{asso.name}</option>)}
+                           (asso) => <option key={asso.id}>{asso.name}</option>)}
                      </datalist>
                   </form>
-                  <button className='button-default' onClick={ setCurrentAsso }>Confirm</button>
+                  <button className='button-default' onClick={ setAsso }>Confirm</button>
                </div>
             </div>
             <div className="box-footer">
                <input className='input-default' placeholder='enter amount' onChange={e => setAmount(e.target.value)} />
                <div className="line">
-                  <button className='button-default' onClick={e => { deposit() }}>Deposit</button>
-                  <button className='button-default' onClick={e => { depositAll() }}>DepositAll</button>
+                  <button className='button-default' onClick={deposit}>
+                     Deposit
+                  </button>
+                  <button className='button-default' onClick={depositAll}>
+                     DepositAll
+                  </button>
                </div>
                <div className="line">
-                  <button className='button-default' onClick={e => { withdraw() }}>Withdraw</button>
-                  <button className='button-default' onClick={e => { withdrawAll() }}>Withdraw All</button>
+                  <button className='button-default' onClick={withdraw}>
+                     Withdraw
+                  </button>
+                  <button className='button-default' onClick={withdrawAll}>
+                     Withdraw All
+                  </button>
                </div>
             </div>
          </div>)}
@@ -468,7 +470,8 @@ export function ManageVault() {
             </div>
          </div>)}
       </div>
-      <button className='button-default' onClick={ getCurrentAsset }>get currentAsset</button>
+      <button className='button-default' onClick={ getAsset }>currentAsset</button>
+      <button className='button-default' onClick={ getAsso }>currentAsso</button>
 
    </div>)
 }
