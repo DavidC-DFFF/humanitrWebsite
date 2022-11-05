@@ -7,8 +7,6 @@ import { bigNumToStr } from "./commonFunctions";
 
 import VaultABI from '../artifacts/Vault.json';
 import DonatorsABI from "../artifacts/Donators.json";
-//import Associations from "../artifacts/Associations.json";
-//import WhitelistABI from "../artifacts/Whitelist.json";
 
 import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
@@ -61,12 +59,12 @@ export function ManageVault() {
       { name: "USDT", token: USDTAddr, aToken: aUSDTAddr },
       { name: "DAI", token: DAIAddr, aToken: aDAIAddr }
    ];
-   let currentAsset = {
+   var currentAsset = {
       name: "USDC",
       token: USDCAddr,
       aToken: aUSDCAddr
    };
-   let currentAsso = {
+   var currentAsso = {
       name: "dev",
       address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13"
    };
@@ -130,7 +128,6 @@ export function ManageVault() {
             };
          }
       }
-      console.log(currentAsset.name);
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -138,11 +135,8 @@ export function ManageVault() {
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         console.log("GetBalance");
-         console.log(accounts[0] + " " + currentAsset.token + " " + currentAsso.address);
          let _balance = await vaultContract.getBalanceToken(accounts[0], currentAsset.token, currentAsso.address);
          let _totalBalance = await vaultContract.totalAmount();
-         console.log("balance = " + _balance);
          setTotalBalance(bigNumToStr(_totalBalance, 6, decimals));
          _balance = bigNumToStr(_balance, 6, decimals);
          setBalance(_balance);
@@ -204,22 +198,6 @@ export function ManageVault() {
          setError('erreur de getTotalDonations');
       }
    }
-/*   async function getTotalDeposits() {
-      if (typeof window.ethereum == 'undefined') {
-         return;
-      }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      try {
-         let _totalDeposit = await vaultContract.getBalanceToken(accounts[0], currentAsset.token, currentAsso.address);
-         _totalDeposit = bigNumToStr(_totalDeposit, 6, decimals);
-      } catch (err) {
-         console.log(err);
-         ClearPopups();
-         setError('erreur de getTotalDeposits');
-      }
-   }*/
    async function deposit() {
       if (typeof window.ethereum == 'undefined') {
          return;
@@ -358,7 +336,7 @@ export function ManageVault() {
    function setCurrentAsset() {
       for (let i = 0; i < assetArray.length; i++) {
          if (assetArray[i].name == currentAssetName) {
-            console.log("SetCurentAsset : ");
+            console.log("SetCurrentAsset : ");
             console.log(assetArray[i].name);
             currentAsset = {
                name: assetArray[i].name,
@@ -368,6 +346,7 @@ export function ManageVault() {
          }
       }
       setCurrentAssetNameConfirmed(currentAsset.name);
+      console.log(currentAsset)
       getBalance();
    }
    function setCurrentAsso() {
@@ -381,6 +360,9 @@ export function ManageVault() {
       }
       setCurrentAssoNameConfirmed(currentAsso.name);
       getBalance();
+   }
+   function getCurrentAsset() {
+      console.log(currentAsset);
    }
    return (<div>
       <div id="popups">
@@ -420,7 +402,7 @@ export function ManageVault() {
                            (asset) => <option key={asset.token}>{asset.name}</option>)}
                      </datalist>
                   </form>
-                  <button className='button-default' onClick={e => { setCurrentAsset() }}>Confirm</button>
+                  <button className='button-default' onClick={ setCurrentAsset }>Confirm</button>
                </div>
                <div className="line">
                   <form>
@@ -430,7 +412,7 @@ export function ManageVault() {
                            (asso) => <option key={asso.wallet}>{asso.name}</option>)}
                      </datalist>
                   </form>
-                  <button className='button-default' onClick={e => { setCurrentAsso() }}>Confirm</button>
+                  <button className='button-default' onClick={ setCurrentAsso }>Confirm</button>
                </div>
             </div>
             <div className="box-footer">
@@ -486,5 +468,7 @@ export function ManageVault() {
             </div>
          </div>)}
       </div>
+      <button className='button-default' onClick={ getCurrentAsset }>get currentAsset</button>
+
    </div>)
 }
