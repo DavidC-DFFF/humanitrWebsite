@@ -15,9 +15,9 @@ import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
 // New contracts :
-const donatorsAddr =    "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";
-const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";
-const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";
+const donatorsAddr =    "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";   // need vault + migrator
+const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";   // need vault
+const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
 // vaultAddr =          "0x84FEA30892E1e2a5512C4C082d04b7a325d02f53";
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
 // yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
@@ -477,11 +477,11 @@ export function ManageVault() {
             <div className="box-footer">
                <div className="line">
                   <div>Total deposits :</div>
-                  <div>{totalBalance} {currentAssetNameConfirmed}</div>
+                  <div>{totalBalance} $</div>
                </div>
                <div className="line">
                   <div>Total donations :</div>
-                  <div>{fullDonations} {currentAssetNameConfirmed}</div>
+                  <div>{fullDonations} $</div>
                </div>
             </div>
          </div>)}
