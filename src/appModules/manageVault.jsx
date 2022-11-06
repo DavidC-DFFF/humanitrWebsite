@@ -102,7 +102,8 @@ export function ManageVault() {
       setSuccess('');
       setWaiting('');
    }
-   async function getBalance() {/*
+   async function getBalance() {
+      /*
       for (let i = 0; i < assetArray.length; i++) {
          if (assetArray[i].name === currentAssetNameConfirmed) {
             currentAsset = {
@@ -119,7 +120,8 @@ export function ManageVault() {
                address: assoArray[i].address
             };
          }
-      }*/
+      }
+      */
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -292,8 +294,8 @@ export function ManageVault() {
          }
          console.log(assoArray);
       } catch (err) { console.log(err); }
-   }
-   async function getAssets() {
+   }*/
+/*   async function getAssets() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -393,7 +395,7 @@ export function ManageVault() {
                      <input type="input" list="assetsList" placeholder={currentAssetNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAsset({name: e.target.value, token: "", aToken: ""})} />
                      <datalist id="assetsList">
                         {assetArray.map(
-                           (asset) => <option key={asset.id}>{asset.name}</option>)}
+                           (asset) => <option key={asset.name}>{asset.name}</option>)}
                      </datalist>
                   </form>
                   <button className='button-default' onClick={ setAsset }>Confirm</button>
@@ -403,7 +405,7 @@ export function ManageVault() {
                      <input type="input" list="assosList" placeholder={currentAssoNameConfirmed} style={{ width: "25vw", margin: "0.5vw" }} onChange={e => setCurrentAsso({name: e.target.value, wallet: ""})} />
                      <datalist id="assosList">
                         {assoArray.map(
-                           (asso) => <option key={asso.id}>{asso.name}</option>)}
+                           (asso) => <option key={asso.name}>{asso.name}</option>)}
                      </datalist>
                   </form>
                   <button className='button-default' onClick={ setAsso }>Confirm</button>
