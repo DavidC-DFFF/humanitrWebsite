@@ -1,97 +1,74 @@
 import { useState } from "react";
+import { ethers } from 'ethers';
 
-const USDCAddr =        "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
-const aUSDCAddr =       "0x1Ee669290939f8a8864497Af3BC83728715265FF";
-const USDTAddr =        "0xC2C527C0CACF457746Bd31B2a698Fe89de2b6d49";
-const aUSDTAddr =       "0x73258E6fb96ecAc8a979826d503B45803a382d68";
-const DAIAddr =         "0xDF1742fE5b0bFc12331D8EAec6b478DfDbD31464";
-const aDAIAddr =        "0x310839bE20Fc6a8A89f33A59C7D5fC651365068f";
+import DonatorsABI from "../artifacts/Donators.json";
+import WhitelistABI from '../artifacts/Whitelist.json';
+import AssociationsABI from '../artifacts/Associations.json';
 
-export function Tests() {
-   const [currentAsset, setCurrentAsset] = useState({ 
-      name: "USDC", 
-      token: USDCAddr,
-      aToken: aUSDCAddr });
-   const [currentAssetNameConfirmed, setCurrentAssetNameConfirmed] = useState("USDC");
-   
-   const [currentAsso, setCurrentAsso] = useState({
-      name: "Dev",
-      wallet: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" });
-   const [currentAssoNameConfirmed, setCurrentAssoNameConfirmed] = useState("Dev");
+// New contracts :
+const donatorsAddr =       "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";
+const associationsAddr =   "0x3c75f343228d0637C1ee9c71664535001Dd03DFA";
+const whitelistAddr =      "0x1726B80EFf863A4464eeae4da16d35916218B841";
 
-   const assetArray = [
-      { name: "USDC", token: USDCAddr, aToken: aUSDCAddr},
-      { name: "USDT", token: USDTAddr, aToken: aUSDTAddr },
-      { name: "DAI", token: DAIAddr, aToken: aDAIAddr }
-   ];
-   const assoArray = [
-      { name: "dev", wallet: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" },
-      { name: "Autism Reasearch Institute", wallet: "0xCbBB5002A10aAE351E6B77AA81757CC492A18E3F" },
-      { name: "Asso test", wallet: "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8" }
-   ];
-   function setAsset() {
-      for (let i = 0; i < assetArray.length; i++) {
-         if (assetArray[i].name === currentAsset.name) {
-            setCurrentAsset({
-               name: assetArray[i].name,
-               token: assetArray[i].token,
-               aToken: assetArray[i].aToken
-            })
-         }
+export function TestArrayForDev() {
+   const [donatorsList, setDonatorsList] = useState([]);
+   const [assoList, setAssoList] = useState([]);
+   const [assetList, setAssetList] = useState([]);
+   /*async function getDonatorsList() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
       }
-      setCurrentAssetNameConfirmed(currentAsset.name);
-      getCurrentAsset();
-   }
-   function setAsso() {
-      for (let i = 0; i < assetArray.length; i++) {
-         if (assoArray[i].name === currentAsso.name) {
-            setCurrentAsso({
-               name: assoArray[i].name,
-               token: assoArray[i].wallet
-            })
-         }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
+      try {
+         let _list = await donatorsContract.getDonatorsList();
+         setDonatorsList(_list);
+         console.log(donatorsList);
+      } catch (err) {
+         console.log(err);
       }
-      setCurrentAssoNameConfirmed(currentAsset.name);
-      getCurrentAsso();
+   }*/
+   async function getAssoList() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const AssociationsContract = new ethers.Contract(associationsAddr, AssociationsABI.abi, provider);
+      try {
+         setAssoList([]);
+         let _length = await AssociationsContract.getAssoListLength();
+         console.log("List length = " + _length);
+         for (let i = 0 ; i < _length ; i++ ) {
+            let _asso = await AssociationsContract.getAsso(i);
+            setAssoList(oldasso => [...oldasso, _asso]);
+         }
+         console.log(assoList);
+      } catch (err) {
+         console.log(err);
+      }
    }
-   function getCurrentAsset() {
-      console.log(currentAsset);
-   }
-   function getCurrentAsso() {
-      console.log(currentAsso);
-   }
+   /*async function getAssetsList() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const WhitelistContract = new ethers.Contract(whitelistAddr, WhitelistABI.abi, provider);
+      try {
+         setAssoList([]);
+         let _length = await WhitelistContract.getAssetListLength();
+         console.log("List length = " + _length);
+         for (let i = 0 ; i < _length ; i++ ) {
+            let _asset = await WhitelistContract.getAsset(i);
+            setAssetList(oldasset => [...oldasset, _asset]);
+         }
+         console.log(assetList);
+      } catch (err) {
+         console.log(err);
+      }
+   }*/
    return (<div>
-      <div>
-         <form>
-            <input
-               type="input"
-               list="assetsList"
-               placeholder={currentAssetNameConfirmed}
-               onChange={e => setCurrentAsset({name: e.target.value, token: "", aToken: ""})}
-            />
-            <datalist id="assetsList">
-               {assetArray.map(
-                  (asset) => <option key={asset.id}>{asset.name}</option>)}
-            </datalist>
-         </form>
-         <button onClick={setAsset}>Confirm</button>
-         <button onClick={getCurrentAsset}>currentAsset</button>
-      </div>
-      <div>
-         <form>
-            <input
-               type="input"
-               list="assosList"
-               placeholder={currentAssoNameConfirmed}
-               onChange={e => setCurrentAsso({name: e.target.value, wallet: ""})}
-            />
-            <datalist id="assosList">
-               {assoArray.map(
-                  (asso) => <option key={asso.id}>{asso.name}</option>)}
-            </datalist>
-         </form>
-         <button onClick={setAsso}>Confirm</button>
-         <button onClick={getCurrentAsso}>currentAsso</button>
-      </div>
+      <button onClick={getAssoList}>GetDonList</button>
+      <button onClick={() => { console.log({assoList})}}>assos</button>
+      <button onClick={() => { console.log(assoList)}}>Assos</button>
    </div>)
 }
