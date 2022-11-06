@@ -1,0 +1,8 @@
+module.exports = async function(deployer) {
+   const Associations = artifacts.require("Associations");
+ 
+   await deployer.deploy(Associations);
+   const contract = await Associations.deployed();
+ 
+   console.log("Associations contract address:", contract.address)
+ };

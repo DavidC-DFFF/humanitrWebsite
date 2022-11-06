@@ -3,26 +3,31 @@ import { ethers } from 'ethers';
 
 import downArrow from '../img/downArrow.png';
 
-import { bigNumToStr } from "./commonFunctions";
+import { bigNumToStr, displayAddress } from "./commonFunctions";
 
 import VaultABI from '../artifacts/Vault.json';
-import DonatorsABI from "../artifacts/Donators.json";
+import DonatorsABI from "../artifacts/DonatorsV2.json";
 
 import AssetABI from '../artifacts/USDC.json';
-import ATokenABI from '../artifacts/AToken.json';
+//import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
 // New contracts :
-const donatorsAddr = "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";   // need vault + migrator
-const karmaAddr = "0x7D88900f025397a2E396A8887315c42b21020D62";   // need vault
-const vaultAddr = "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
+const donatorsAddr =    "0x109EF0b8127Bb1AedbeFe681c37Da900C3D78dce";   // need vault + migrator
+const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";   // need vault
+const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
 // yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
+// associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071";
+// donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
+
+// whitelistAddr =      "0x39835f6d5BaBe061c8B5fA4aDd47447E7A01d94c";
+// donatorsAddr =       "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";   // need vault + migrator
 // associationsAddr =   "0x3c75f343228d0637C1ee9c71664535001Dd03DFA";
-// whitelistAddr =      "0x1726B80EFf863A4464eeae4da16d35916218B841";
+
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
-const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
+//const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 
 export function VAULT_USDC_AAVE() {
    const [success, setSuccess] = useState();
@@ -31,26 +36,24 @@ export function VAULT_USDC_AAVE() {
 
    const [manageSwitch, setManageSwitch] = useState(true);
    const [soulSwitch, setSoulSwitch] = useState(true);
-   
+
    const [amount, setAmount] = useState();
    const [transactionHash, setTransactionHash] = useState();
    const [balance, setBalance] = useState();
    const [totalBalance, setTotalBalance] = useState();
    const [donations, setDonations] = useState();
-   const [fullDonations, setFullDonations] = useState();
    const [karmaAmount, setKarmaAmount] = useState();
 
-   const [currentAsso, setCurrentAsso] = useState({ name: "Dev", address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" });
-   //const [currentAssoNameConfirmed, setCurrentAssoNameConfirmed] = useState("Dev");
+   const [currentAsso, setCurrentAsso] = useState({ name: "Dev", wallet: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" });
 
    const [available, setAvailable] = useState();
 
    const assoArray = [
-      { name: "dev", address: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" },
-      { name: "Autism Reasearch Institute", address: "0xCbBB5002A10aAE351E6B77AA81757CC492A18E3F" },
-      { name: "Asso test", address: "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8" }
+      { name: "dev", wallet: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" },
+      { name: "Autism Research Institute", wallet: "0xCbBB5002A10aAE351E6B77AA81757CC492A18E3F" },
+      { name: "Associations 4DEV", wallet: "0x54C470f15f3f34043BB58d3FBB85685B39E33ed8" }
    ];
-   const decimals = 4;
+   const decimals = 6;
 
    useEffect(() => {       // Chargement page
       refresh();
@@ -59,7 +62,7 @@ export function VAULT_USDC_AAVE() {
    useEffect(() => {       // Popups
       refresh();
       // eslint-disable-next-line
-   }, [success, error])
+   }, [success, error, currentAsso])
    useEffect(() => {       // Update for wallet change
       if (window.ethereum) {
          window.ethereum.on("chainChanged", () => {
@@ -72,15 +75,16 @@ export function VAULT_USDC_AAVE() {
    }, [])
    useEffect(() => {       // Update total donation interval
       const interval = setInterval(() => {
-         getTotalDonations();
+         //getTotalDonations();
       }, 30 * 1000);
       return () => clearInterval(interval);
       // eslint-disable-next-line
    }, []);
    function refresh() {
+      if (currentAsso.wallet !== "") {
       getBalance();
       getDonations();
-      getTotalDonations();
+      }
       getKarmaBalance();
       getAvailable();
    }
@@ -97,7 +101,7 @@ export function VAULT_USDC_AAVE() {
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _balance = await vaultContract.getBalanceToken(accounts[0], USDCAddr, currentAsso.address);
+         let _balance = await vaultContract.getBalanceToken(accounts[0], USDCAddr, currentAsso.wallet);
          let _totalBalance = await vaultContract.totalAmount();
          setTotalBalance(bigNumToStr(_totalBalance, 6, decimals));
          _balance = bigNumToStr(_balance, 6, decimals);
@@ -132,7 +136,11 @@ export function VAULT_USDC_AAVE() {
       const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       try {
-         let _donations = await donatorsContract.getDonatorAmounts(accounts[0], currentAsso.address, USDCAddr);
+         let _assoLength = assoArray.length;
+         let _donations = 0;
+         for (let i = 0 ; i < _assoLength ; i++) {
+            _donations += await donatorsContract.getDonatorAmounts(accounts[0], assoArray[i].wallet, USDCAddr);
+         }
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
       } catch (err) {
@@ -141,27 +149,13 @@ export function VAULT_USDC_AAVE() {
          setError('erreur de getDonations');
       }
    }
-   async function getTotalDonations() {
+   async function deposit() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
-      const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
-      const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
-      try {
-         let _donations = await donatorsContract.getDonation(USDCAddr);
-         let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
-         let _assetDeposit = await vaultContract.totalAmount();
-         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
-      } catch (err) {
-         console.log(err);
-         ClearPopups();
-         setError('erreur de getTotalDonations');
-      }
-   }
-   async function deposit() {
-      if (typeof window.ethereum == 'undefined') {
+      console.log(amount);
+      if (typeof amount == 'undefined') {
+         setError("You need to enter an amount");
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -173,13 +167,14 @@ export function VAULT_USDC_AAVE() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(USDCAddr, ethers.utils.parseUnits(amount, 6), currentAsso.address);
+         const _deposit = await vaultContract.O1_deposit(USDCAddr, ethers.utils.parseUnits(amount, 6), currentAsso.wallet);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
          ClearPopups();
          setSuccess('Deposit done !');
       } catch (err) {
+         setError('Error while deposit');
          console.log(err);
       }
    }
@@ -198,17 +193,22 @@ export function VAULT_USDC_AAVE() {
          setWaiting('waiting for signature');
          setTransactionHash(_signature.hash);
          await _signature.wait();
-         const _deposit = await vaultContract.O1_deposit(USDCAddr, _onWallet, currentAsso.address);
+         const _deposit = await vaultContract.O1_deposit(USDCAddr, _onWallet, currentAsso.wallet);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
          ClearPopups();
          setSuccess('Deposit done !');
       } catch (err) {
+         setError('error while depositAll');
          console.log(err);
       }
    }
    async function withdraw() {
+      if (typeof amount == 'undefined') {
+         setError("You need to enter an amount");
+         return;
+      }
       if (typeof window.ethereum == 'undefined') {
          return;
       }
@@ -216,13 +216,14 @@ export function VAULT_USDC_AAVE() {
       const signer = provider.getSigner();
       const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, signer);
       try {
-         const _withdraw = await vaultContract.O2_withdraw(USDCAddr, ethers.utils.parseUnits(amount, 6), currentAsso.address);
+         const _withdraw = await vaultContract.O2_withdraw(USDCAddr, ethers.utils.parseUnits(amount, 6), currentAsso.wallet);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
          ClearPopups();
          setSuccess('Withdraw done !');
       } catch (err) {
+         setError('Error while withdraw');
          console.log(err);
       }
    }
@@ -238,31 +239,17 @@ export function VAULT_USDC_AAVE() {
          let _overrides = {
             from: accounts[0]
          }
-         const _withdraw = await vaultContract.O3_withdrall(USDCAddr, currentAsso.address, _overrides);
+         const _withdraw = await vaultContract.O3_withdrall(USDCAddr, currentAsso.wallet, _overrides);
          setWaiting('waiting for withdraw');
          setTransactionHash(_withdraw.hash);
          await _withdraw.wait();
          ClearPopups();
          setSuccess('Withdraw done !');
-      } catch (err) { console.log(err); }
-   }
-   /*async function getAssos() {
-      if (typeof window.ethereum == 'undefined') {
-         return;
+      } catch (err) {
+         setError('Error while withdrawAll');
+         console.log(err);
       }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const associationsContract = new ethers.Contract(associationsAddr, Associations.abi, provider);
-      try {
-         assoArray = [];
-         var _length = await associationsContract.getAssoListLength();
-         for (let i = 0; i < _length; i++) {
-            var _wallet = await associationsContract.getAssoWallet(i);
-            var _name = await associationsContract.getAssoName(i);
-            assoArray.push({ wallet: _wallet, name: _name });
-         }
-         console.log(assoArray);
-      } catch (err) { console.log(err); }
-   }*/
+   }
    async function getAvailable() {
       if (typeof window.ethereum == 'undefined') {
          return;
@@ -282,13 +269,10 @@ export function VAULT_USDC_AAVE() {
          if (assoArray[i].name === currentAsso.name) {
             setCurrentAsso({
                name: assoArray[i].name,
-               address: assoArray[i].address
+               wallet: assoArray[i].wallet
             });
          }
       }
-      console.log("Asso name : " + currentAsso.name);
-      console.log("Asso wallet : " + currentAsso.wallet);
-      //setCurrentAssoNameConfirmed(currentAsso.name);
    }
    return (<div>
       <div id="popups">
@@ -328,6 +312,22 @@ export function VAULT_USDC_AAVE() {
                   </datalist>
                </form>
                <button className='button-default' onClick={setAsso}>Confirm</button>
+            </div>
+            <div className="line">
+               <div>
+                  Current association
+               </div>
+               <div>
+               {currentAsso.name}
+               </div>
+            </div>
+            <div className="line">
+               <div>
+                  Wallet
+               </div>
+               <div>
+                  {displayAddress(currentAsso.wallet, 6)}
+               </div>
             </div>
             <div className="line">
                <input className='input-default' placeholder='enter amount' style={{ width: "100%" }} onChange={e => setAmount(e.target.value)} />
@@ -383,10 +383,10 @@ export function VAULT_USDC_AAVE() {
                   <div>Total deposits :</div>
                   <div>{totalBalance} USDC</div>
                </div>
-               <div className="line">
+               {/*<div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>
-               </div>
+                     </div>*/}
             </div>
          </div>)}
       </div>

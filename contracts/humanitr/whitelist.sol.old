@@ -11,6 +11,14 @@ contract Whitelist is Ownable {
     }
     asset[] public Assets;
 
+    constructor() {
+        asset memory _asset;
+        _asset.name = "USDC";
+        _asset.token = 0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43;
+        _asset.aToken = 0x1Ee669290939f8a8864497Af3BC83728715265FF;
+        Assets.push(_asset);
+    }
+
     function declareAsset(
         string memory _name,
         address _token,
@@ -43,6 +51,18 @@ contract Whitelist is Ownable {
 
     function getAsset(uint256 _nb) public view returns (asset memory) {
         return Assets[_nb];
+    }
+
+    function getAssetAddress(uint256 _nb) public view returns (address) {
+        return Assets[_nb].token;
+    }
+
+    function getAssetName(uint256 _nb) public view returns (string memory) {
+        return Assets[_nb].name;
+    }
+
+    function getAaveAssetAddress(uint256 _nb) public view returns (address) {
+        return Assets[_nb].aToken;
     }
 
     modifier isWhitelisted(address _token) {

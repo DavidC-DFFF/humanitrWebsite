@@ -1,0 +1,11 @@
+module.exports = async function(deployer) {
+   const Donators = artifacts.require("Donators");
+ 
+   await deployer.deploy(
+      Donators, 
+      "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9",      //vault
+      "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433");     //migrator
+   const contract = await Donators.deployed();
+ 
+   console.log("Donators contract address:", contract.address)
+ };

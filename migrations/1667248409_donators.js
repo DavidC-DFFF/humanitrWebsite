@@ -3,7 +3,7 @@ module.exports = async function(deployer) {
  
    await deployer.deploy(
       Donators, 
-      "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433", 
+      "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9", 
       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433");
    const contract = await Donators.deployed();
  
