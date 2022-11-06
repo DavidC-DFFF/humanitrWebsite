@@ -28,10 +28,12 @@ export function VAULT_USDC_AAVE() {
    const [success, setSuccess] = useState();
    const [error, setError] = useState();
    const [waiting, setWaiting] = useState();
+
    const [manageSwitch, setManageSwitch] = useState(true);
+   const [soulSwitch, setSoulSwitch] = useState(true);
+   
    const [amount, setAmount] = useState();
    const [transactionHash, setTransactionHash] = useState();
-   const [soulSwitch, setSoulSwitch] = useState(true);
    const [balance, setBalance] = useState();
    const [totalBalance, setTotalBalance] = useState();
    const [donations, setDonations] = useState();

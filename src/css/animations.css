@@ -45,6 +45,6 @@
    }
 
    .iframe#odysee-iframe {
-      width: 100%;
+      height: calc(90vw * 0.57);
    }
 }
