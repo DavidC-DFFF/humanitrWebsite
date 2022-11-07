@@ -7,22 +7,20 @@ import downArrow from '../img/downArrow.png';
 import VaultABI from '../artifacts/Vault.json';
 import DonatorsABI from "../artifacts/Donators.json";
 import AssetABI from '../artifacts/USDC.json';
-//import ATokenABI from '../artifacts/AToken.json';
+import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
-// New contracts :
-const donatorsAddr =    "0xABDc8f641CD563104b5FD9028D9C223a123081ec";   // need vault + migrator
-//const donatorsAddr =    "0x109EF0b8127Bb1AedbeFe681c37Da900C3D78dce";   // need vault + migrator
+const donatorsAddr =    "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220";   // need vault + migrator
 const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";   // need vault
 const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
-// 
+
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
 // yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
 // associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071";
 // donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
-//const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
+const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 
 export function VAULT_USDC_AAVE() {
    const [success, setSuccess] = useState();
@@ -38,6 +36,7 @@ export function VAULT_USDC_AAVE() {
    const [totalBalance, setTotalBalance] = useState();
    const [donations, setDonations] = useState();
    const [karmaAmount, setKarmaAmount] = useState();
+   const [fullDonations, setFullDonations] = useState();
 
    const [currentAsso, setCurrentAsso] = useState({ name: "Dev", wallet: "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13" });
 
@@ -70,7 +69,7 @@ export function VAULT_USDC_AAVE() {
    }, [])
    useEffect(() => {       // Update total donation interval
       const interval = setInterval(() => {
-         //getTotalDonations();
+         getTotalDonationsRealtime();
       }, 30 * 1000);
       return () => clearInterval(interval);
       // eslint-disable-next-line
@@ -82,6 +81,7 @@ export function VAULT_USDC_AAVE() {
       }
       getKarmaBalance();
       getAvailable();
+      getTotalDonationsRealtime();
    }
    function ClearPopups() {
       setError('');
@@ -134,7 +134,8 @@ export function VAULT_USDC_AAVE() {
          let _assoLength = assoArray.length;
          let _donations = 0;
          for (let i = 0 ; i < _assoLength ; i++) {
-            _donations += await donatorsContract.getDonatorAmounts(accounts[0], assoArray[i].wallet, USDCAddr);
+            let _amount = await donatorsContract.getDonatorAmounts(accounts[0], assoArray[i].wallet, USDCAddr);
+            _donations += Number(_amount);
          }
          _donations = bigNumToStr(_donations, 6, decimals);
          setDonations(_donations);
@@ -142,6 +143,26 @@ export function VAULT_USDC_AAVE() {
          console.log(err);
          ClearPopups();
          setError('erreur de getDonations');
+      }
+   }
+   async function getTotalDonationsRealtime() {
+      if (typeof window.ethereum == 'undefined') {
+         return;
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const aTokenContract = new ethers.Contract(aUSDCAddr, ATokenABI.abi, provider);
+      const vaultContract = new ethers.Contract(vaultAddr, VaultABI.abi, provider);
+      const donatorsContract = new ethers.Contract(donatorsAddr, DonatorsABI.abi, provider);
+      try {
+         let  _donations = await donatorsContract.getDonation(USDCAddr);
+         
+         let _assetStaked = await aTokenContract.balanceOf(vaultAddr);
+         let _assetDeposit = await vaultContract.totalAmount();
+         setFullDonations(bigNumToStr(parseInt(_donations) + parseInt(_assetStaked) - parseInt(_assetDeposit), 6, decimals));
+      } catch (err) {
+         console.log(err);
+         ClearPopups();
+         setError('erreur de getTotalDonations');
       }
    }
    async function deposit() {
@@ -378,10 +399,10 @@ export function VAULT_USDC_AAVE() {
                   <div>Total deposits :</div>
                   <div>{totalBalance} USDC</div>
                </div>
-               {/*<div className="line">
+               <div className="line">
                   <div>Total donations :</div>
                   <div>{fullDonations} USDC</div>
-                     </div>*/}
+               </div>
             </div>
          </div>)}
       </div>
