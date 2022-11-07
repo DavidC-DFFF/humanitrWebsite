@@ -9,7 +9,7 @@ contract Donators is Ownable {
     struct profile {
         string name;
         mapping(address => mapping(address => uint256)) balance;
-        bool exists;
+        //bool exists;
     }
     mapping(address => profile) public Donator;
 
@@ -47,7 +47,7 @@ contract Donators is Ownable {
     }
 
     function updateDonatorName(string memory _name) public {
-        require(Donator[msg.sender].exists == true, "donator doesn't exist");
+        //require(Donator[msg.sender].exists == true, "donator doesn't exist");
         Donator[msg.sender].name = _name;
     }
 
@@ -56,11 +56,11 @@ contract Donators is Ownable {
         address _asso,
         address _asset
     ) public view returns (uint256) {
-        if (!Donator[_wallet].exists) {
+        /*if (!Donator[_wallet].exists) {
             return 0;
-        } else {
+        } else {*/
             return Donator[_wallet].balance[_asso][_asset];
-        }
+        //}
     }
 
     function getDonatorName(address _donator)

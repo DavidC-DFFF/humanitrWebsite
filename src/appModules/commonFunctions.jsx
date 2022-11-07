@@ -1,4 +1,7 @@
 import { ethers } from 'ethers';
+import { useState, useEffect } from "react";
+import DonatorsABI from "../artifacts/Donators.json";
+const donatorsAddr =    "0xABDc8f641CD563104b5FD9028D9C223a123081ec";   // need vault + migrator
 
 let decimales = 6;
 

@@ -1,30 +1,25 @@
 import { useState, useEffect } from "react";
 import { ethers } from 'ethers';
+import { bigNumToStr, displayAddress } from "./commonFunctions";
 
 import downArrow from '../img/downArrow.png';
 
-import { bigNumToStr, displayAddress } from "./commonFunctions";
-
 import VaultABI from '../artifacts/Vault.json';
-import DonatorsABI from "../artifacts/DonatorsV2.json";
-
+import DonatorsABI from "../artifacts/Donators.json";
 import AssetABI from '../artifacts/USDC.json';
 //import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
 // New contracts :
-const donatorsAddr =    "0x109EF0b8127Bb1AedbeFe681c37Da900C3D78dce";   // need vault + migrator
+const donatorsAddr =    "0xABDc8f641CD563104b5FD9028D9C223a123081ec";   // need vault + migrator
+//const donatorsAddr =    "0x109EF0b8127Bb1AedbeFe681c37Da900C3D78dce";   // need vault + migrator
 const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";   // need vault
 const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
+// 
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
 // yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
 // associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071";
 // donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
-
-// whitelistAddr =      "0x39835f6d5BaBe061c8B5fA4aDd47447E7A01d94c";
-// donatorsAddr =       "0x89223Cbdf55CD439d660c5620d38E70292E0b26E";   // need vault + migrator
-// associationsAddr =   "0x3c75f343228d0637C1ee9c71664535001Dd03DFA";
-
 
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 //const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
@@ -82,8 +77,8 @@ export function VAULT_USDC_AAVE() {
    }, []);
    function refresh() {
       if (currentAsso.wallet !== "") {
-      getBalance();
-      getDonations();
+         getBalance();
+         getDonations();
       }
       getKarmaBalance();
       getAvailable();
