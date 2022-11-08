@@ -70,4 +70,9 @@ contract Karma is ERC20, ERC20Burnable, ERC20Snapshot, Ownable, ERC20Permit, ERC
         require(msg.sender == vault);
         _;
     }
+
+    modifier onlyNftOwner() {
+        require(msg.sender == vault);
+        _;
+    }
 }

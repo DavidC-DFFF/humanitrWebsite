@@ -19,6 +19,8 @@ const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need 
 // associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071";
 // donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
 
+// partnerAddr =        "0x717EDbFE6F8D2Dab842F5edF95Df183195bf11e5";
+
 const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
 const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
 
