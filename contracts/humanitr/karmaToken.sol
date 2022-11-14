@@ -8,16 +8,24 @@ pragma solidity ^0.8.4;
     import "@openzeppelin/contracts/access/Ownable.sol";
     import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
     import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
+    import { KRMPartner } from './NFT.sol';
+
 //Contract
 contract Karma is ERC20, ERC20Burnable, ERC20Snapshot, Ownable, ERC20Permit, ERC20Votes {
     address public vault;
+    address public NFT;
+
+    function setNFT(address _NFT) public onlyOwner {
+        NFT = _NFT;
+    }
 
     function setVault(address _vault) public onlyOwner {
         vault = _vault;
     }
-    constructor(address _vault) ERC20("Karma", "KRM") ERC20Permit("Karma") {
+    constructor(address _vault, address _NFT) ERC20("Karma", "KRM") ERC20Permit("Karma") {
         _mint(msg.sender, 100000 * 10 ** decimals());
         vault = _vault;
+        NFT = _NFT;
     }
 
     function decimals() public view override returns (uint8) {
@@ -32,7 +40,7 @@ contract Karma is ERC20, ERC20Burnable, ERC20Snapshot, Ownable, ERC20Permit, ERC
         _mint(_to, _amount);
     }
 
-    function burn(address _spender, uint256 _amount) public onlyVault {
+    function burn(address _spender, uint256 _amount) public onlyNftOwner {
         _burn(_spender, _amount);
     }
 
@@ -72,7 +80,7 @@ contract Karma is ERC20, ERC20Burnable, ERC20Snapshot, Ownable, ERC20Permit, ERC
     }
 
     modifier onlyNftOwner() {
-        require(msg.sender == vault);
+        require(KRMPartner(NFT).balanceOf(msg.sender) != 0);
         _;
     }
 }
