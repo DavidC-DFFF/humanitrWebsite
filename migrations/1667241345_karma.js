@@ -3,7 +3,8 @@ module.exports = async function(deployer) {
  
    await deployer.deploy(
     Karma, 
-    "0x14B059c26a99a4dB9d1240B97D7bCEb7C5a7eE13"
+    "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9",
+    "0xCd0E92f6f9Db77B19910a70aaCE7270D8061Ed38"
     );
    const contract = await Karma.deployed();
  

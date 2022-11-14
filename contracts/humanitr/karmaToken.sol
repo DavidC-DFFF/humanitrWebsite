@@ -40,7 +40,7 @@ contract Karma is ERC20, ERC20Burnable, ERC20Snapshot, Ownable, ERC20Permit, ERC
         _mint(_to, _amount);
     }
 
-    function burn(address _spender, uint256 _amount) public onlyNftOwner {
+    function burnFromNftOwner(address _spender, uint256 _amount) public onlyNftOwner {
         _burn(_spender, _amount);
     }
 

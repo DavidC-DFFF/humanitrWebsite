@@ -5,7 +5,9 @@ import KarmaABI from '../artifacts/Karma.json';
 
 import downArrow from '../img/downArrow.png';
 
-const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";
+const karmaAddr =         "0x5D7F5b550374eeb6897cF0Bdb1FDFe0327Af96eF"; // need vault + nft
+//const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62";
+//const NFT =             "0xCd0E92f6f9Db77B19910a70aaCE7270D8061Ed38";
 
 export function BurnKRM() {
    const [success, setSuccess] = useState();
@@ -59,9 +61,14 @@ export function BurnKRM() {
          return;
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const karmaContract = new ethers.Contract(karmaAddr, KarmaABI.abi, provider);
+      const signer = provider.getSigner();
+      const karmaContract = new ethers.Contract(karmaAddr, KarmaABI.abi, signer);
       try {
-
+         const _burn = await karmaContract.burnFromNftOwner(target, burnAmount);
+         setWaiting('Burning...');
+         setTransactionHash(_burn.hash);
+         await _burn.wait();
+         ClearPopups();
       } catch (err) {
          console.log(err);
       }

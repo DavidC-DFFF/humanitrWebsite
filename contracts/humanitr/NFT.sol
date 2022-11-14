@@ -11,5 +11,3 @@ contract KRMPartner is ERC721, Ownable {
         _safeMint(to, tokenId);
     }
 }
-
-_validRecipient(address to, address from) private view returns (bool) {         // e.g. return myNftContract.ownerOf(tokenId) == to;     }
