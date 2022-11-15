@@ -19,6 +19,7 @@ import { ethers } from 'ethers';
 import { Page1 } from './appPages/Page1';
 import { Page2 } from './appPages/Page2';
 import { Page3 } from './appPages/Page3';
+import { Page4 } from './appPages/Page4';
 import { displayAddress } from './appModules/commonFunctions';
 //import { TurnDevice } from './appModules/turnDevice';
 
@@ -28,7 +29,7 @@ function App() {
    const [error, setError] = useState('');
    const [success, setSuccess] = useState('');
    const [waiting, setWaiting] = useState('');
-   const [page, setPage] = useState("3");
+   const [page, setPage] = useState("4");
    const [state, setState] = useState();
    const [rpc, setRpc] = useState();
    const [connectedWallet, setConnectedWallet] = useState();
@@ -108,6 +109,8 @@ function App() {
                {(page !== "2") && <button className='header-menu-button-not-selected' onClick={() => pageBody("2")}>Transcend</button>}
                {(page === "3") && <button className='header-menu-button-selected' onClick={() => pageBody("3")}>Faucets</button>}
                {(page !== "3") && <button className='header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
+               {(page === "4") && <button className='header-menu-button-selected' onClick={() => pageBody("4")}>QR Code</button>}
+               {(page !== "4") && <button className='header-menu-button-not-selected' onClick={() => pageBody("4")}>QR Code</button>}
             </div>
             <div className="header-wallet">
                {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
@@ -139,6 +142,7 @@ function App() {
             {(page === "1") && (<Page1 />)}
             {(page === "2") && (<Page2 />)}
             {(page === "3") && (<Page3 />)}
+            {(page === "4") && (<Page4 />)}
          </div>
          <footer className="footer">
             <a href="https://discord.gg/psgWAmTR" target="_blank" rel="noreferrer">
