@@ -20,6 +20,7 @@ import { Page1 } from './appPages/Page1';
 import { Page2 } from './appPages/Page2';
 import { Page3 } from './appPages/Page3';
 import { Page4 } from './appPages/Page4';
+import { Page5 } from './appPages/Page5';
 import { displayAddress } from './appModules/commonFunctions';
 //import { TurnDevice } from './appModules/turnDevice';
 
@@ -111,6 +112,8 @@ function App() {
                {(page !== "3") && <button className='header-menu-button-not-selected' onClick={() => pageBody("3")}>Faucets</button>}
                {(page === "4") && <button className='header-menu-button-selected' onClick={() => pageBody("4")}>QR Code</button>}
                {(page !== "4") && <button className='header-menu-button-not-selected' onClick={() => pageBody("4")}>QR Code</button>}
+               {(page === "5") && <button className='header-menu-button-selected' onClick={() => pageBody("5")}>Burner</button>}
+               {(page !== "5") && <button className='header-menu-button-not-selected' onClick={() => pageBody("5")}>Burner</button>}
             </div>
             <div className="header-wallet">
                {(state !== undefined) && <div>{displayAddress(connectedWallet, decimales)}</div>}
@@ -143,6 +146,7 @@ function App() {
             {(page === "2") && (<Page2 />)}
             {(page === "3") && (<Page3 />)}
             {(page === "4") && (<Page4 />)}
+            {(page === "5") && (<Page5 />)}
          </div>
          <footer className="footer">
             <a href="https://discord.gg/psgWAmTR" target="_blank" rel="noreferrer">

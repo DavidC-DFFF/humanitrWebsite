@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { ethers } from 'ethers';
 import QRCode from "qrcode";
 
 import downArrow from '../img/downArrow.png';
@@ -6,7 +7,6 @@ import downArrow from '../img/downArrow.png';
 export function QrCode() {
 
    const [wallet, setWallet] = useState('');
-   const [toQr, setToQr] = useState('');
 
    const [qrSwitch, setQrSwitch] = useState(true);
    const canvasRef = useRef();
@@ -24,30 +24,42 @@ export function QrCode() {
         (error) => error && console.error(error)
       );
     }, [wallet]);
+    useEffect(() => {
+       if (window.ethereum) {
+          window.ethereum.on("chainChanged", () => {
+             window.location.reload();
+          });
+          window.ethereum.on("accountsChanged", () => {
+             window.location.reload();
+          });
+       }
+       getConnectStatus();
+    }, [])
 
-   function valid() {
-      setToQr({wallet});
+   async function getConnectStatus() {
+      let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      accounts = ethers.utils.getAddress(accounts[0]);
+      if (accounts[0] && accounts[0].length > 0) {
+         setWallet(accounts);
+      } else {
+         setWallet('');
+      }
    }
 
    return (<div>
       <div id="qrCode">
          {!qrSwitch && (<div className='box'>
             <div className="box-header-arrow" onClick={() => setQrSwitch(!qrSwitch)}>
-               <div>QR code generator</div>
+               <div>Wallet</div>
                <img src={downArrow} style={{ height: '4vh' }} alt="down Arrow" />
             </div>
          </div>)}
          {qrSwitch && (<div className='box'>
             <div className="box-header-arrow" onClick={() => setQrSwitch(!qrSwitch)}>
-               <div>QR code generator</div>
+               <div>Wallet</div>
                <img src={downArrow} style={{ height: '4vh', transform: 'rotate(180deg)' }} alt="down Arrow" />
             </div>
-
-            <div className="line">
-               <input className='input-default' placeholder='enter text' style={{ width: "100%" }} onChange={e => setWallet(e.target.value)} />
-               <button className='button-default' onClick={valid}>Valid</button>
-            </div>
-            <canvas ref={canvasRef} />
+               <canvas ref={canvasRef} />
          </div>)}
       </div>
    </div>)
