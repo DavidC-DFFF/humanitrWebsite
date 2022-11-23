@@ -13,7 +13,8 @@ import KarmaABI from '../artifacts/Karma.json';
 const karmaAddr =         "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
 const donatorsAddr =    "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220";   // need vault + migrator
 //const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62"; // need vault
-const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
+//const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
+const vaultAddr = "0xaBC98aa3A20039b5540b4cEC913eF8B7D50f8E74"; // Mumbai 
 
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
 // yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
