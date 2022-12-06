@@ -22,7 +22,6 @@ import { Page3 } from './appPages/Page3';
 import { Page4 } from './appPages/Page4';
 import { Page5 } from './appPages/Page5';
 import { displayAddress } from './appModules/commonFunctions';
-//import { TurnDevice } from './appModules/turnDevice';
 
 let decimales = 3;
 
