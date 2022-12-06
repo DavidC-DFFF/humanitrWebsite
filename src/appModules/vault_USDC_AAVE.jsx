@@ -10,15 +10,19 @@ import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
-const karmaAddr =         "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
-const donatorsAddr =    "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220";   // need vault + migrator
-//const karmaAddr =       "0x7D88900f025397a2E396A8887315c42b21020D62"; // need vault
-//const vaultAddr =       "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";   // need associations + donators + karma + yieldmaker
-const vaultAddr = "0xaBC98aa3A20039b5540b4cEC913eF8B7D50f8E74"; // Mumbai 
+const karmaAddr =       "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
+//const donatorsAddr =  "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220"; // Goerli deprecated
+const donatorsAddr =    "0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f"; // Mumbai. need vault + migrator
+//const karmaAddr =     "0x7D88900f025397a2E396A8887315c42b21020D62"; // need vault
+//const vaultAddr =     "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";`// Goerli deprecated
+const vaultAddr =       "0xaBC98aa3A20039b5540b4cEC913eF8B7D50f8E74"; // Mumbai. need associations + donators + karma + yieldmaker
 
 // migratorAddr =       "0x70B63edA4E72D9a33fea01A4480ED495CFAf0433";
-// yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F";
-// associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071";
+// Not deployed yet
+// yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F"; // Goerli
+// YieldMakerAddr =     "0x3B4CC21371f54dDa6C9b8cac8e4dfFFA72B10399"; // Mumbai
+// associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071"; // Goerli
+// associationsAddr =   "0x64E9b461187B452EAb76ff7F5474e118DfC09133"; // Mumbai
 // donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
 
 // partnerAddr =        "0x717EDbFE6F8D2Dab842F5edF95Df183195bf11e5";

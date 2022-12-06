@@ -73,17 +73,17 @@ function App() {
    }
    async function getRPC() {
       const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      if (chainId !== '0x5') {
+      if (chainId !== /*'0x5'*/'0x13881') {
          setRpc(1);
       }
    }
-   async function switchToGoerli() {
+   async function switchToMumbai() {
       if (typeof window.ethereum == 'undefined') {
          return;
       }
       await window.ethereum.request({
          method: 'wallet_switchEthereumChain',
-         params: [{ chainId: '0x5' }],
+         params: [{ chainId: '0x13881' }],
       });
    }
    function clearpopups() {
@@ -126,7 +126,7 @@ function App() {
          <div className="app-body">
             {rpc && (<div>
                <div className='fullBlur' />
-               <button onClick={switchToGoerli} className='popup-goerli'>Click to switch to Goerli Testnet</button>
+               <button onClick={switchToMumbai} className='popup-goerli'>Click to switch to Mumbai Testnet</button>
             </div>)}
             {error && (<div>
                <div className='fullBlur' />
