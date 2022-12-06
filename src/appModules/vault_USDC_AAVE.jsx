@@ -10,7 +10,9 @@ import AssetABI from '../artifacts/USDC.json';
 import ATokenABI from '../artifacts/AToken.json';
 import KarmaABI from '../artifacts/Karma.json';
 
-const karmaAddr =       "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
+//const karmaAddr =       "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
+const karmaAddr =       "0x04Be176aA8781738FB9EdF4d6694aAa82097811f"; // Mumbai
+
 //const donatorsAddr =  "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220"; // Goerli deprecated
 const donatorsAddr =    "0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f"; // Mumbai. need vault + migrator
 //const karmaAddr =     "0x7D88900f025397a2E396A8887315c42b21020D62"; // need vault
