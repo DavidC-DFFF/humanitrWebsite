@@ -29,8 +29,12 @@ const vaultAddr =       "0xaBC98aa3A20039b5540b4cEC913eF8B7D50f8E74"; // Mumbai.
 
 // partnerAddr =        "0x717EDbFE6F8D2Dab842F5edF95Df183195bf11e5";
 
-const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43";
-const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF";
+// NFT address Mmbai = 0x9f75cBd7cD94a9A844962B41d4B00b2E7160b2F8
+
+const USDCAddr = "0x9aa7fEc87CA69695Dd1f879567CcF49F3ba417E2"; // Mumbai
+//const USDCAddr = "0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43"; // Goerli
+const aUSDCAddr = "0xCdc2854e97798AfDC74BC420BD5060e022D14607"; // Mumbai
+//const aUSDCAddr = "0x1Ee669290939f8a8864497Af3BC83728715265FF"; // Goerli
 
 export function VAULT_USDC_AAVE() {
    const [success, setSuccess] = useState();
