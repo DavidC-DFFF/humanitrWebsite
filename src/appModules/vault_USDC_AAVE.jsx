@@ -13,7 +13,7 @@ import KarmaABI from '../artifacts/Karma.json';
 const karmaAddr =       "0x5bC9e8cC4135df9c339fB5f6c382859019D9a05a"; // need vault + nft
 //const karmaAddrMumbai =       "0x04Be176aA8781738FB9EdF4d6694aAa82097811f"; // Mumbai
 
-//const donatorsAddr =  "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220"; // Goerli deprecated
+const donatorsAddr =  "0xede0B4C4D379Ee09104C8b2798a47bbeaf08d220"; // Goerli deprecated
 //const donatorsAddrMumbai =    "0xBfB4d733215204414cf86cAcd4cE65aCc5cBbB0f"; // Mumbai. need vault + migrator
 //const karmaAddr =     "0x7D88900f025397a2E396A8887315c42b21020D62"; // need vault
 const vaultAddr =     "0x71b7baAf02a51EC4eE253c0aF62721A81C17C1b9";// Goerli deprecated
@@ -25,7 +25,7 @@ const yieldMakerAddr =     "0xd7673d9e4f97FbBFE6B04a3b9eEE3e8520A6842F"; // Goer
 //YieldMakerAddrMumbai =     "0x3B4CC21371f54dDa6C9b8cac8e4dfFFA72B10399"; // Mumbai
 const associationsAddr =   "0x02dd14e2abB9bd3F71Ea12eF258E575766077071"; // Goerli
 //associationsAddrMumbai =   "0x64E9b461187B452EAb76ff7F5474e118DfC09133"; // Mumbai
-const donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
+//const donatorsAddr =       "0xde2736d5eB0548542eaDF9Cf2f0eb2dBe99fF70d";
 
 const partnerAddr =        "0x717EDbFE6F8D2Dab842F5edF95Df183195bf11e5";
 
@@ -195,12 +195,15 @@ export function VAULT_USDC_AAVE() {
       try {
          const _signature = await assetContract.approve(vaultAddr, ethers.utils.parseUnits(amount, 6));
          setWaiting('waiting for signature');
-         setTransactionHash(_signature.hash);
+         setTransactionHash("rien");
+         //setTransactionHash(_signature.hash);
          await _signature.wait();
+         console.log("Signature OK");
          const _deposit = await vaultContract.O1_deposit(USDCAddr, ethers.utils.parseUnits(amount, 6), currentAsso.wallet);
          setWaiting('waiting for deposit');
          setTransactionHash(_deposit.hash);
          await _deposit.wait();
+         console.log("deposit OK");
          ClearPopups();
          setSuccess('Deposit done !');
       } catch (err) {
