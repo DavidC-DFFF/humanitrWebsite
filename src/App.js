@@ -29,7 +29,7 @@ function App() {
    const [error, setError] = useState('');
    const [success, setSuccess] = useState('');
    const [waiting, setWaiting] = useState('');
-   const [page, setPage] = useState("4");
+   const [page, setPage] = useState("1");
    const [state, setState] = useState();
    const [rpc, setRpc] = useState();
    const [connectedWallet, setConnectedWallet] = useState();
